@@ -10,8 +10,27 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = SearchViewModel()
 
+    // ✅ MainView에서 전달받을 값들
+    @Binding var isPresented: Bool
+    var namespace: Namespace.ID
+
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(spacing: 0) {
+            // 🔙 닫기 버튼
+            HStack {
+                Button(action: {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                        isPresented = false
+                    }
+                }) {
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.blue)
+                        .padding()
+                }
+                Spacer()
+            }
+
+            // 🔍 애니메이션 연결된 검색창
             SearchBarView(
                 searchText: $viewModel.searchText,
                 recentSearches: $viewModel.recentSearches,
@@ -20,8 +39,11 @@ struct ContentView: View {
                     viewModel.isFocused = false
                 }
             )
+            .matchedGeometryEffect(id: "searchBar", in: namespace)
+            .padding(.horizontal)
 
-            // 🔍 검색 결과 리스트
+
+            // 🔍 검색 결과
             if !viewModel.searchText.isEmpty {
                 if !viewModel.filteredItems.isEmpty {
                     List(viewModel.filteredItems) { item in
@@ -37,12 +59,11 @@ struct ContentView: View {
 
             Spacer()
         }
+        .background(Color.white.ignoresSafeArea())
         .onTapGesture {
             viewModel.isFocused = false
         }
     }
 }
 
-#Preview {
-    ContentView()
-}
+

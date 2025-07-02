@@ -12,6 +12,7 @@ struct editInfoApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+            SlideModalContainer()
         }
     }
 }
