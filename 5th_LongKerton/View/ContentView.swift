@@ -1,24 +1,33 @@
-//
-//  ContentView.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 6/22/25.
-//
 
 import SwiftUI
 
+enum AppState {
+    case splash
+    case onboarding
+    case main
+}
+
 struct ContentView: View {
+    @State private var currentState: AppState = .splash
+    @StateObject private var session = UserSessionManager.shared
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        switch currentState {
+        case .splash:
+            SplashView(currentState: $currentState)
+                .environmentObject(session)
+        case .onboarding:
+            OnboardingFlowView(currentState: $currentState)
+                .environmentObject(session)
+        case .main:
+            EditInfoView()
+                .environmentObject(session)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
 }
+
+
