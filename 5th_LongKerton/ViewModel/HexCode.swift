@@ -22,7 +22,11 @@ extension Color {
     static let nickBox = Color(hex: 0x4A4A4A)
     static let BgColor = Color(hex: 0x1B191A)
     static let EditBox = Color(hex: 0x6D6D6D)
-
+    static let myGray = Color(hex: 0x2D2D2D)
+    static let pageDarkBlue = Color(hex: 0x001B66)
+    static let pageBlue = Color(hex: 0x496FFF)
+    static let myHomeGray = Color(hex: 0xC6C6C6)
+    
     
 }
 

@@ -3,6 +3,8 @@ import SwiftUI
 struct OnBoardChooseFashionView: View {
     let goToNext: () -> Void
     @Binding var selectedGenre: String
+    var currentStep: Int = 1 // 0, 1, 2 중 현재 단계
+
     
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
@@ -13,26 +15,22 @@ struct OnBoardChooseFashionView: View {
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
+            
             VStack(spacing: 0) {
                 Spacer().frame(height: 30)
-                GeometryReader { geometry in
-                    let totalWidth = geometry.size.width
-                    let progressWidth = totalWidth * 2/3
-                    VStack(spacing: 8) {
-                        ZStack(alignment: .leading) {
-                            Capsule()
-                                .fill(Color.barBlack)
-                                .frame(height: 10)
-                            Capsule()
-                                .fill(Color.barBlue)
-                                .frame(width: progressWidth, height: 10)
-                        }
+                
+                // 동그라미 인디케이터
+                HStack(spacing: 8) {
+                    ForEach(0..<3) { idx in
+                        Circle()
+                            .fill(idx == currentStep ? Color.barBlue : Color.barBlack)
+                            .frame(width: 10, height: 10)
                     }
-                    .frame(width: totalWidth)
                 }
                 .frame(height: 56)
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 .padding(.bottom, 25)
+
                 
                 HStack {
                     Text("관심있는 패션 장르를\n선택해주세요")
@@ -41,7 +39,7 @@ struct OnBoardChooseFashionView: View {
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }
-                .padding(.leading, 18)
+                .padding(.leading, 16)
                 .padding(.bottom, 36)
                 
                 //버튼 선택하기
@@ -77,7 +75,7 @@ struct OnBoardChooseFashionView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 
                 Spacer()
                 
