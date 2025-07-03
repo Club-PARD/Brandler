@@ -5,51 +5,43 @@ struct OnBoardLastView: View {
     let finish: () -> Void
     let nickname: String
     let selectedGenre: String
+    var currentStep: Int = 2 // 0, 1, 2 중 현재 단계
+
 
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
             VStack(spacing: 0) {
                 Spacer().frame(height: 30)
-                GeometryReader { geometry in
-                    let totalWidth = geometry.size.width
-                    let progressWidth = totalWidth
-                    VStack(spacing: 8) {
-                        ZStack(alignment: .leading) {
-                            Capsule()
-                                .fill(Color.barBlack)
-                                .frame(height: 10)
-                            Capsule()
-                                .fill(Color.barBlue)
-                                .frame(width: progressWidth, height: 10)
-                            
-                        }
+
+                HStack(spacing: 8) {
+                    ForEach(0..<3) { idx in
+                        Circle()
+                            .fill(idx == currentStep ? Color.barBlue : Color.barBlack)
+                            .frame(width: 10, height: 10)
                     }
-                    .frame(width: totalWidth)
                 }
-                .frame(height: 40)
-                .padding(.horizontal, 18)
+                .frame(height: 56)
+                .padding(.horizontal, 16)
                 .padding(.bottom, 25)
                 
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("다 끝났어요!\n이제 고래를 발견하러 가볼까요? ")
+
+                        Text("패션을 찾아 떠나는 잠수부,\n디깅러가 되신 걸 환영해요!")
                             .font(.system(size: 22, weight: .medium))
                             .foregroundColor(.LogBlue)
                     }
                     Spacer()
                 }
-                .padding(.leading, 18)
-                .padding(.bottom, 40)
+                .padding(.leading, 16)
+                .padding(.bottom, 120)
                 
-                Text("고래 만나러 가는 일러")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, minHeight: 120)
-                    .background(Color(white: 0.85))
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 40)
+                Image("whale_char")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 160, height: 240)
                 Spacer()
                 
                 Button(action: {
