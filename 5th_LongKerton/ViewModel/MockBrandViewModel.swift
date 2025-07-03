@@ -9,7 +9,17 @@ import Foundation
 
 class BrandScrapeViewModel: ObservableObject {
     @Published var brands: [MockBrand] = MockBrand.sampleData
-
+    @Published var filteredBrands: [MockBrand] = []
+    @Published var selectedGenre: String = "전체"
+    
+    func filterBrands() {
+        if selectedGenre == "전체" {
+            filteredBrands = brands
+        } else {
+            filteredBrands = brands.filter { $0.genre == selectedGenre }
+        }
+    }
+    
     var diggingCount: Int {
         brands.count
     }
