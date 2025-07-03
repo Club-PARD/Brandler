@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum Tab {
-    case main
-    case scrap
-    case my
-}
 
 struct TabBar: View {
         @Binding var selectedTab: String
