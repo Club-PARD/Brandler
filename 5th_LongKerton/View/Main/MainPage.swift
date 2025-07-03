@@ -110,9 +110,7 @@ struct MainPage: View {
                             .foregroundColor(.white)
                             .font(.caption)
                     }
-                    .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(.blue))
                     .cornerRadius(9)
                     
                     GenreFilterView(selectedFilter:$selectedGenre)
