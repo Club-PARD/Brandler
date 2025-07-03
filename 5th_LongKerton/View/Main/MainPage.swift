@@ -10,7 +10,7 @@ import SwiftUI
 struct MainPage: View {
     @StateObject private var viewModel = BrandScrapeViewModel()
 ////    @StateObject private var brandModel = BrandViewModel()
-//    @Published var selectedGenre: String = "전체"
+    @State public var selectedGenre: String = "페미닌"
     private var toggleGenre: Bool = false
     
     
@@ -115,28 +115,32 @@ struct MainPage: View {
                     .background(Color(.blue))
                     .cornerRadius(9)
                     
-//                    GenreFilterView(selectedGenre: $brandModel.selectedGenre, genres: brandModel.genres)
+                    GenreFilterView(selectedFilter:$selectedGenre)
                     // MARK: - Filter + 전체 버튼
                     HStack {
-                        HStack {
-//                            Button {
-//                                toggleGenre.toggle()
-//                            } label: {
-//                                Text("HOME")
-//                                    .font(.system(size: 8,weight:.semibold))
-//                            }
-                            Text("전체")
-                        }
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color("Blue"))
-                        .clipShape(Capsule())
                         
                         Spacer()
                         
                         Image(systemName: "questionmark.circle")
                             .foregroundColor(.white)
+                    }
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
+                        ForEach(viewModel.filteredBrands) { brand in
+                            NavigationLink(destination: BrandDetailView(brand: brand)) {
+                                VStack {
+                                    Image(brand.logoImageName)
+                                        .resizable()
+                                        .foregroundColor(.clear)
+                                        .frame(width: 173, height: 252)
+                                        .cornerRadius(11.59348)
+                                    
+                                    Text(brand.name)
+                                        .font(.caption)
+                                        .lineLimit(1)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                        }
                     }
                 }
                 .padding(.bottom, 80)

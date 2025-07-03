@@ -27,7 +27,7 @@ struct GenreToggleView: View {
                         .rotationEffect(.degrees(isExpanded ? 90 : 0))
                         .foregroundColor(.white)
                         .padding(8)
-                        .background(Color("Blue"))
+                        .background(Color(.blue))
                         .clipShape(Circle())
                 }
                 
