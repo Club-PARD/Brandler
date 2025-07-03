@@ -19,6 +19,7 @@ struct BrandBannerView: View {
                     .scaledToFill()
                     .frame(height: viewModel.bannerHeight)
                     .clipped()
+                
 
                 // 2️⃣ 블러 이미지에 '구멍 마스크' 적용
                 Image("brandBanner")
@@ -41,6 +42,16 @@ struct BrandBannerView: View {
                             )
                             .compositingGroup() // 필수!
                     )
+                // 🔹 선명한 이미지 위에 덮이는 그라디언트 오버레이
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(hex: "#1B191A").opacity(0.0),
+                        Color(hex: "#1B191A").opacity(1.0)
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: viewModel.bannerHeight)
 
                 // 3️⃣ 회전 사각형 stroke (외곽선)
                 RotatingRectHole(
@@ -50,8 +61,8 @@ struct BrandBannerView: View {
                     holeWidth: holeWidth,
                     holeHeight: holeHeight
                 )
-                .stroke(Color.blue.opacity(0.6), lineWidth: 2)
-                .animation(.easeInOut(duration: 0.3), value: viewModel.angleForScroll)
+                .stroke(Color.white.opacity(0.5), lineWidth: 2)
+              //  .animation(.easeInOut(duration: 0.3), value: viewModel.angleForScroll)
 
 //                // 4️⃣ 로고 위치 (구멍 안에 배치)
 //                let logoX = geo.size.width / 2 + offsetX - holeWidth / 2 + 65
