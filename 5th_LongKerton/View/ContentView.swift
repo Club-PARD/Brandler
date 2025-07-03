@@ -20,7 +20,7 @@ struct ContentView: View {
             OnboardingFlowView(currentState: $currentState)
                 .environmentObject(session)
         case .main:
-            EditInfoView()
+            UserMainView()
                 .environmentObject(session)
         }
     }
