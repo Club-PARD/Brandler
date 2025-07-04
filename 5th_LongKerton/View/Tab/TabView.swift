@@ -13,7 +13,7 @@ enum Tab {
     case my
 }
 
-struct TabView:View{
+struct KDView:View{
     @State var selectedTab: String = "main"
     var body:some View{
         ZStack(alignment: .bottom){
@@ -34,5 +34,5 @@ struct TabView:View{
 }
 
 #Preview{
-    TabView()
+    KDView()
 }
