@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct BrandCardFront: View {
+struct ScrapBrandCardFront: View {
     let brand: MockBrand
     
     var body: some View {

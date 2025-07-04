@@ -2,7 +2,7 @@ import SwiftUI  // ✅ 이 줄이 꼭 필요함!
 
 import SwiftUI
 
-struct BrandCardBack: View {
+struct ScrapBrandCardBack: View {
     let brand: MockBrand
     let onDelete: () -> Void
 

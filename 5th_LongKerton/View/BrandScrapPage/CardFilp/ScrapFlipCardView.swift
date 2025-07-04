@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FlipCardView: View {
+struct ScrapFlipCardView: View {
     let brand: MockBrand
     @Binding var flippedID: UUID?
     var onDelete: () -> Void
@@ -13,11 +13,11 @@ struct FlipCardView: View {
 
     var body: some View {
         ZStack {
-            BrandCardFront(brand: brand)
+            ScrapBrandCardFront(brand: brand)
                 .opacity(isFlipped ? 0 : 1)
                 .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
 
-            BrandCardBack(brand: brand, onDelete: onDelete)
+            ScrapBrandCardBack(brand: brand, onDelete: onDelete)
                 .opacity(isFlipped ? 1 : 0)
                 .rotation3DEffect(.degrees(rotation + 180), axis: (x: 0, y: 1, z: 0))
         }
@@ -37,7 +37,7 @@ struct FlipCardView: View {
 
 //#Preview {
 //    StatefulPreviewWrapper(nil) { flippedID in
-//        FlipCardView(
+//        ScrapFlipCardView(
 //            brand: MockBrand(
 //                id: UUID(),
 //                name: "테스트 브랜드",

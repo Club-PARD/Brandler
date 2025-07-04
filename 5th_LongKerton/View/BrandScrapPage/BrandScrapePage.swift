@@ -70,7 +70,7 @@ struct BrandScrapePage: View {
                 }
                 .padding(.bottom, 10)
                 .padding(.leading, 230)
-                // MARK: - 카드 + 페이지뷰 + 인디케이터
+                
                 // MARK: - 카드 + 페이지뷰 + 인디케이터
                 VStack {
                     if viewModel.hasNoScrapedBrands {
@@ -97,7 +97,7 @@ struct BrandScrapePage: View {
                                                 let brandIndex = rowIndex * rowSize + colIndex
                                                 let brand = brands[brandIndex]
                                                 
-                                                FlipCardView(
+                                                ScrapFlipCardView(
                                                     brand: brand,
                                                     flippedID: $flippedID,
                                                     onDelete: {

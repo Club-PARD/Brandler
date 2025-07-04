@@ -20,8 +20,8 @@ struct TabView:View{
             switch selectedTab{
             case "main":
                 MainPage()
-//            case "scrap":
-//                
+//            case "scrap": 
+//                BrandScrapePage()
             case "my":
                 UserMainView()
                 

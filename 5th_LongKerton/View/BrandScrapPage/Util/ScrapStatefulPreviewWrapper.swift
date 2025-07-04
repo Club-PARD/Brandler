@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StatefulPreviewWrapper<Value, Content: View>: View {
+struct ScrapStatefulPreviewWrapper<Value, Content: View>: View {
     @State var value: Value
     var content: (Binding<Value>) -> Content
 
