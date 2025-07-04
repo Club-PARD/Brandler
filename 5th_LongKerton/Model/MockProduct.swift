@@ -1,9 +1,4 @@
-//
-//  MockProduct.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 7/2/25.
-//
+
 import SwiftUI
 
 struct Product: Identifiable {

@@ -2,14 +2,13 @@ import SwiftUI
 
 struct BrandPage: View {
     @StateObject private var viewModel = BrandPageViewModel()
-
+    
     var body: some View {
         ZStack(alignment: .top) {
-            Color.black.ignoresSafeArea()
-
+            Color.BgColor.ignoresSafeArea()
+            
             ScrollView {
                 VStack(spacing: 0) {
-                    // 🔹 배너 뷰 + 스크롤 위치 추적
                     GeometryReader { geo in
                         BrandBannerView()
                             .frame(height: viewModel.bannerHeight)
@@ -21,38 +20,90 @@ struct BrandPage: View {
                             }
                     }
                     .frame(height: viewModel.bannerHeight)
-
-                    // 🔹 탭바 + 아이템 그리드 전체를 하나의 블록으로 offset 적용
+                    
+                    BrandInfoOverlayView(
+                        scrollOffset: viewModel.scrollOffset,
+                        bannerHeight: viewModel.bannerHeight
+                    )
+                    .offset(x: +15)
+                    .offset(y: overlayOffset + 250)
+                    .animation(.easeInOut(duration: 0.25), value: overlayOffset)
+                    .padding(.top, -viewModel.bannerHeight + 40)
+                    
                     VStack(spacing: 0) {
-                        // 🔸 탭바
-                        CategoryTabBarView(selected: $viewModel.selectedCategory)
-                            .padding(.horizontal)
-                            .padding(.top, 12)
-                            .frame(height: 60)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.black)
-
-                        // 🔸 아이템 그리드
+                        Rectangle()
+                            .fill(Color.BgColor)
+                            .frame(height: 30)
+                        
+                        CategoryTabBarView(
+                            selected: $viewModel.selectedCategory
+                        )
+                        .padding(.top, 12)
+                        .padding(.bottom, 12)
+                        .frame(height: 60)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.BgColor)
+                        
                         ItemGridView()
-                            .padding(.bottom, 100)
+                            .padding(.bottom, 50)
+                        
+                        Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.TabPurple)
+                            .multilineTextAlignment(.center)
+                        
+                        Spacer(minLength: 200)
                     }
-                    .offset(y: tabGroupOffset) // ✅ 탭바 + 그리드 전체에 적용
+                    .offset(y: tabGroupOffset) // 🔧 여기에 적용
                     .animation(.easeInOut(duration: 0.25), value: tabGroupOffset)
                 }
             }
             .coordinateSpace(name: "scroll")
-
-            // 🔹 배너 위에 표시될 브랜드 정보 (로고 + 이름 + 설명)
-            BrandOverlayInfoView()
-                .padding(.top, 40) // SafeArea 고려
+            
+            TopTabBarView(
+                tabBarScrollOffset: viewModel.tabBarScrollOffset,
+                brandName: "브랜드이름",
+                backAction: {
+                    print("뒤로가기 탭됨")
+                }
+            )
+            .offset(y: -85)
+            .zIndex(1000)
+            
+//            VStack(alignment: .leading, spacing: 4) {
+//                Text("🟦 scrollOffset: \(Int(viewModel.scrollOffset))")
+//                Text("🟥 categoryTabBarScrollOffset: \(Int(viewModel.categoryTabBarScrollOffset))")
+//                Text("📦 categoryTabBarScrollOffset: \(Int(viewModel.categoryTabBarScrollOffset))")
+//            }
+//            .font(.system(size: 13, weight: .semibold))
+//            .foregroundColor(.white)
+//            .padding(10)
+//            .background(Color.blue.opacity(0.85))
+//            .cornerRadius(12)
+//            .padding(.top, 60)
+//            .padding(.horizontal)
+//            .zIndex(999)
         }
         .environmentObject(viewModel)
     }
-
-    // ✅ 스크롤 offset에 따라 탭바와 아이템 블럭 전체를 아래로 이동
+    
+    // ✅ 여기에 필요한 computed properties 추가
+    var overlayOffset: CGFloat {
+        min(viewModel.scrollOffset, 170)
+    }
+    
     var tabGroupOffset: CGFloat {
-        let offset = viewModel.scrollOffset
-        return offset > 0 ? min(offset, 100) : 0
+        min(viewModel.scrollOffset, 170)
+    }
+
+    var tabBarOffset: CGFloat {
+        if viewModel.categoryTabBarScrollOffset <= 300 {
+            return viewModel.categoryTabBarScrollOffset
+        } else if viewModel.categoryTabBarScrollOffset <= 665 {
+            return 600 - (665 - viewModel.categoryTabBarScrollOffset)
+        } else {
+            return 600
+        }
     }
 }
 

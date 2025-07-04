@@ -49,7 +49,7 @@ final class BrandPageViewModel: ObservableObject {
     }
 
     var interpolatedColor: Color {
-        Color.interpolateHex(from: "#0038FF", to: "#C4D1FF", fraction: scrollProgress)
+        Color.interpolateHex(from: Color.Inter, to: Color.LogBlue, fraction: scrollProgress)
     }
 
     var filteredItems: [BrandItem] {
