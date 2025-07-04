@@ -5,7 +5,7 @@ struct BrandPage: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color(hex: "#1B191A").ignoresSafeArea()
+            Color.BgColor.ignoresSafeArea()
             
             ScrollView {
                 VStack(spacing: 0) {
@@ -32,7 +32,7 @@ struct BrandPage: View {
                     
                     VStack(spacing: 0) {
                         Rectangle()
-                            .fill(Color(hex: "#1B191A"))
+                            .fill(Color.BgColor)
                             .frame(height: 30)
                         
                         CategoryTabBarView(
@@ -42,14 +42,14 @@ struct BrandPage: View {
                         .padding(.bottom, 12)
                         .frame(height: 60)
                         .frame(maxWidth: .infinity)
-                        .background(Color(hex: "#1B191A"))
+                        .background(Color.BgColor)
                         
                         ItemGridView()
                             .padding(.bottom, 50)
                         
                         Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
                             .font(.system(size: 12))
-                            .foregroundColor(Color(hex: "#D0D4E4"))
+                            .foregroundColor(Color.TabPurple)
                             .multilineTextAlignment(.center)
                         
                         Spacer(minLength: 200)
