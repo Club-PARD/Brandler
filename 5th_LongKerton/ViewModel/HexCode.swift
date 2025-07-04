@@ -32,7 +32,6 @@ extension Color {
     static let myDarkGray = Color(hex: 0x3E3E3E)
     static let myUnderline = Color(hex: 0x294DEF)
 
-    
     static let pageDarkBlue = Color(hex: 0x001B66)
     static let pageBlue = Color(hex: 0x496FFF)
     static let myHomeGray = Color(hex: 0x2D2D2D)
@@ -41,6 +40,39 @@ extension Color {
     static let myGradStart = Color(hex: 0xBEBEC0)
     static let myGradEnd = Color(hex: 0x858486)
     static let myGradEnd2 = Color(hex: 0x496FFF)
+    
+    //tab
+    static let TabPurple = Color(hex: 0xD0D4E4)
+    static let TabGray = Color(hex: 0x959595)
+    
+    //modal
+    static let ModalBackground = Color(hex: 0x636160)
+    
+    //BrandScape
+    static let BackgroundBlue = Color(hex: 0x3B55BB)
+    static let Gradient1 = Color(hex: 0xF8F8F8)
+    static let Gradient2 = Color(hex: 0xBEBEC0)
+    static let Gradient3 = Color(hex: 0xDBDBDC)
+    static let Gradient4 = Color(hex: 0x7E7E7F)
+    static let Gradient5 = Color(hex: 0x3E3E3E)
+    
+    //BrandPage
+    static let Inter = Color(hex: 0x0038FF)
+    
+
+
+
+
+
+
+
+    
+    
+    
+    
+
+
+
     
     
 }
