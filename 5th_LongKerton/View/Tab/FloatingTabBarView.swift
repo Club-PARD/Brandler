@@ -9,27 +9,40 @@ import Foundation
 import SwiftUI
 
 struct FloatingTabBarView: View {
+    @Binding var selectedTab: String
     var body: some View {
         HStack(spacing: 16) {
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.myHomeGray)
-                .frame(width: 100, height: 36)
-                .overlay(
-                    Text("HOME")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.white)
-                )
-            Circle()
-                .fill(Color.myHomeGray)
-                .frame(width: 36, height: 36)
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.pageDarkBlue)
-                .frame(width: 100, height: 36)
-                .overlay(
-                    Text("MY PAGE")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.pageBlue)
-                )
+            Button {
+                selectedTab = "main"
+            } label: {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(selectedTab == "main" ? Color.pageDarkBlue:Color.myHomeGray)
+                    .frame(width: 100, height: 36)
+                    .overlay(
+                        Text("HOME")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(selectedTab == "main" ? Color.white:Color.pageBlue)
+                    )
+            }
+            Button {
+                selectedTab = "scrap"
+            } label: {
+                Circle()
+                    .fill(selectedTab == "scrap" ? Color.pageDarkBlue:Color.myHomeGray)
+                    .frame(width: 36, height: 36)
+            }
+            Button{
+                selectedTab = "my"
+            } label: {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(selectedTab == "my" ? Color.pageDarkBlue:Color.myHomeGray)
+                    .frame(width: 100, height: 36)
+                    .overlay(
+                        Text("MY PAGE")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(selectedTab == "my" ? Color.white:Color.pageBlue)
+                    )
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -48,3 +61,4 @@ struct FloatingTabBarView: View {
         .padding(.bottom, 8)
     }
 }
+
