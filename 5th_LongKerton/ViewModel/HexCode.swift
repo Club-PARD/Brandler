@@ -59,6 +59,8 @@ extension Color {
     //BrandPage
     static let Inter = Color(hex: 0x0038FF)
     
+    static let Kakao = Color(hex: 0xFDE500)
+    
 
 
 
