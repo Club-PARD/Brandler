@@ -19,6 +19,9 @@ class BrandScrapeViewModel: ObservableObject {
             filteredBrands = brands.filter { $0.genre == selectedGenre }
         }
     }
+    var hasNoScrapedBrands: Bool {
+            brands.isEmpty
+        }
     
     var diggingCount: Int {
         brands.count
