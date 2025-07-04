@@ -47,7 +47,9 @@ struct DiggingStepView: View {
             .padding(.horizontal, 8)
             .frame(maxWidth: 200)
 
+            
             Spacer()
+            
         }
         .padding(.vertical, 12)
         .frame(height: 130)

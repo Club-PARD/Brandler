@@ -10,6 +10,10 @@ import Foundation
 class BrandScrapeViewModel: ObservableObject {
     @Published var brands: [MockBrand] = MockBrand.sampleData
 
+    var hasNoScrapedBrands: Bool {
+            brands.isEmpty
+        }
+    
     var diggingCount: Int {
         brands.count
     }
