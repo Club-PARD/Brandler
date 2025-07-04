@@ -9,7 +9,7 @@ struct TopTabBarView: View {
     var body: some View {
         ZStack {
             // 검은색 배경, 투명도는 tabBarScrollOffset 기반으로 동적 계산
-            Color(hex: "#1B191A")
+            Color.BgColor
                 .opacity(backgroundOpacity)
                 .ignoresSafeArea(edges: .top)
 
