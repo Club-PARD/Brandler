@@ -49,11 +49,11 @@ struct SecondModalView: View {
                             VStack(spacing: 0) {
                                 // ✅ 탭 버튼
                                 HStack(spacing: 8) {
-                                    TabButton(title: "디깅러 가이드", selected: selectedTab == 0) {
+                                    TabButton(title: "디깅러", selected: selectedTab == 0) {
                                         selectedTab = 0
                                     }
-
-                                    TabButton(title: "브랜드 가이드", selected: selectedTab == 1) {
+                                    
+                                    TabButton(title: "브랜드", selected: selectedTab == 1) {
                                         selectedTab = 1
                                     }
                                 }
@@ -63,10 +63,12 @@ struct SecondModalView: View {
                                 // ✅ 콘텐츠 설명 + 단계 카드
                                 VStack(spacing: 16) {
                                     Text(selectedTab == 0 ?
-                                         "디깅러들은 브랜드를 스크랩 할수록 브랜드와 만남" :
-                                            "브랜드는 스크랩 수에 따라 성장함")
-                                    .font(.system(size: 8))
-                                    .foregroundColor(.black)
+                                         "고래를 발견할수록 당신의 바다는 더 깊어집니다. \n 취향의 지도를 확장해 보세요." :
+                                            "디깅 수에 따라 고래가 자라납니다.")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(Color(hex: "#D0D4E4"))
+                                    .multilineTextAlignment(.center)
+                                    .frame(maxWidth: .infinity)
                                     
                                     VStack(spacing: 24) {
                                         if selectedTab == 0 {
@@ -100,10 +102,46 @@ struct SecondModalView: View {
                                         }()
                                     )
                                 )
-                                
-
+                                .overlay(
+                                    GeometryReader { geo in
+                                        let tabWidth: CGFloat = 160
+                                        let tabPadding: CGFloat = 25
+                                        
+                                        let gapStartX: CGFloat
+                                        let gapEndX: CGFloat
+                                        
+                                        let diggerOffset: CGFloat = -4
+                                        let brandOffset: CGFloat = 6
+                                        
+                                        if selectedTab == 0 {
+                                            gapStartX = tabPadding + diggerOffset - 20
+                                            gapEndX = tabPadding + tabWidth + diggerOffset
+                                        } else {
+                                            gapStartX = geo.size.width - tabPadding - tabWidth + brandOffset
+                                            gapEndX = geo.size.width - tabPadding + brandOffset + 19
+                                        }
+                                        
+                                        return AnyView( // ✅ 이 부분이 핵심입니다
+                                            CustomRoundedCornerWithFixedGap(
+                                                radius: 16,
+                                                corners: {
+                                                    var result: [Corner] = [.bottomLeft, .bottomRight]
+                                                    if selectedTab == 0 {
+                                                        result.append(.topRight)
+                                                    } else {
+                                                        result.append(.topLeft)
+                                                    }
+                                                    return result
+                                                }(),
+                                                gapStartX: gapStartX,
+                                                gapEndX: gapEndX
+                                            )
+                                            .stroke(Color(hex: "#C4D1FF"), lineWidth: 1)
+                                        )
+                                    }
+                                )
                                 .frame(maxWidth: .infinity)
-                                .padding(.horizontal, 25)
+                                    .padding(.horizontal, 25)
                             }
                             .frame(maxWidth: .infinity)
                         }
