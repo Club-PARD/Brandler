@@ -22,22 +22,22 @@ struct BrandCardBack: View {
             }
             .padding()
 
-            Button(action: {
-                showDeleteAlert = true
-            }) {
-                Image(systemName: "xmark")
-                    .foregroundColor(.white)
-                    .frame(width: 24, height: 24)
-                    .background(Color.black.opacity(0.6))
-                    .clipShape(Circle())
-            }
-            .padding(8)
-            .alert("정말 삭제하시겠습니까?", isPresented: $showDeleteAlert) {
-                Button("삭제", role: .destructive) {
-                    onDelete()
-                }
-                Button("취소", role: .cancel) {}
-            }
+//            Button(action: {
+//                showDeleteAlert = true
+//            }) {
+//                Image(systemName: "xmark")
+//                    .foregroundColor(.white)
+//                    .frame(width: 24, height: 24)
+//                    .background(Color.black.opacity(0.6))
+//                    .clipShape(Circle())
+//            }
+//            .padding(8)
+//            .alert("정말 삭제하시겠습니까?", isPresented: $showDeleteAlert) {
+//                Button("삭제", role: .destructive) {
+//                    onDelete()
+//                }
+//                Button("취소", role: .cancel) {}
+//            }
         }
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 2)

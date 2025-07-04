@@ -349,11 +349,6 @@ struct UserMainView: View {
                 }
 
                 // 플로팅 탭 바
-                VStack {
-                    Spacer()
-                    FloatingTabBarView()
-                        .padding(.bottom, -20)
-                }
             }
             .navigationDestination(isPresented: $showEditInfo) {
                 EditInfoView()

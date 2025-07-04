@@ -20,15 +20,15 @@ struct TabView:View{
             switch selectedTab{
             case "main":
                 MainPage()
-//            case "scrap":
-//                
+//            case "scrap": 
+//                BrandScrapePage()
             case "my":
                 UserMainView()
                 
             default:
                 MainPage()
             }
-            TabBar(selectedTab: $selectedTab)
+            FloatingTabBarView(selectedTab: $selectedTab)
         }
     }
 }
