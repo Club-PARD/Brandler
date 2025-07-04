@@ -18,7 +18,7 @@
 //                .opacity(0.4)
 //            Image("ScrapeBackground")
 //                .edgesIgnoringSafeArea(.all)
-//                
+//
 //            VStack {
 //                // 타이틀
 //                Spacer()
@@ -31,7 +31,7 @@
 //                    .padding(.bottom, 10)
 //
 //                Spacer()
-//                    .frame(height: 100) 
+//                    .frame(height: 100)
 //                // 현재 위치 텍스트
 //                Text("현재위치")
 //                    .font(.system(size: 20))
@@ -104,25 +104,38 @@ struct BrandDetailView: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // 배경 이미지
-            Image(brand.bannerImageName)
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            
-            // 브랜드 이름 오버레이
-            Text(brand.name)
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(.white)
-                .padding()
+            Rectangle()
+                .foregroundColor(.clear)
+                .frame(width: 99, height: 124)
                 .background(
                     LinearGradient(
-                        gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
-                        startPoint: .bottom,
-                        endPoint: .top
+                        stops: [
+                            Gradient.Stop(color: .black.opacity(0), location: 0.00),
+                            Gradient.Stop(color: Color(red: 0.29, green: 0.44, blue: 1).opacity(0.7), location: 1.00),
+                        ],
+                        startPoint: UnitPoint(x: 0.5, y: 0),
+                        endPoint: UnitPoint(x: 0.51, y: 0.88)
                     )
                 )
+                .background(
+                    Image(brand.bannerImageName)
+                )
+            HStack{
+                Image(brand.logoImageName)
+                    .clipShape(Circle())
+                    .frame(width: 14, height: 14)
+                    .background(.white)
+                    .overlay(
+                        Rectangle()
+                            .stroke(.white.opacity(0.3), lineWidth: 1)
+                    )
+                Text("최대글자수세븐")
+                    .font(Font.custom("Pretendard", size: 10))
+                    .foregroundColor(Color(red: 0.63, green: 0.63, blue: 0.63))
+                    .frame(minWidth: 64, maxWidth: 64, maxHeight: .infinity, alignment: .leading)
+            }
+            .frame(width: 81, height: 16, alignment: .leading)
+            
         }
     }
 }
