@@ -24,6 +24,7 @@ func BrandStepView(step: Int) -> some View {
                 .foregroundColor(.black.opacity(0.6))
         }
         .frame(maxWidth: .infinity)
+        
         Spacer()
     }
     .padding(.horizontal, 10)

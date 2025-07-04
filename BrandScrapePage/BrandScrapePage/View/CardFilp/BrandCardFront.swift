@@ -2,38 +2,57 @@ import SwiftUI
 
 struct BrandCardFront: View {
     let brand: MockBrand
-
+    
     var body: some View {
-        ZStack(alignment: .top) {
-            VStack(spacing: 0) {
-                // 상단 배너 이미지
-                Image(brand.bannerImageName)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
-                    .clipped()
-
-                // 하단 장르 텍스트 + 파란 배경
-                VStack {
-                    Spacer()
-                    Text(brand.genre)
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 10)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.blue)
-            }
-
-            // 중앙 로고 이미지 (중간에 걸쳐 뜨도록)
-            Image(brand.logoImageName)
+        ZStack {
+            // 배경 배너 이미지
+            Image(brand.bannerImageName)
                 .resizable()
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.blue, lineWidth: 2))
-                .background(Circle().fill(Color.white))
-                .offset(y: 80) // 배너 끝보다 약간 아래에 위치
+                .scaledToFill()
+                .frame(width: 99, height: 124)
+                .clipped()
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(hex:"000000").opacity(0.0), // #00000000
+                    Color(hex:"496FFF").opacity(0.7) // #496FFF + B2 = 약 70%
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(width: 99, height: 124)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            // 하단 정렬용 VStack
+            VStack {
+                Spacer() // 상단 공간을 밀어냄
+                
+                // 브랜드 로고 + 이름 (좌우 배치)
+                HStack(spacing: 6) {
+                    Image(brand.logoImageName)
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.white, lineWidth: 1))
+                    
+                    Text(brand.name)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(width: 49, alignment: .leading)
+                        .allowsTightening(true)
+                }
+                .padding(.horizontal, 4)
+                .padding(.vertical, 3)
+                .background(Color.black.opacity(0.5))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.white, lineWidth: 1)
+                )
+                .cornerRadius(30)
+                .padding(.bottom, 7) // 하단에서 7px 간격
+            }
         }
+        .frame(width: 99, height: 124)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 2)
     }
@@ -43,7 +62,7 @@ struct BrandCardFront: View {
     BrandCardFront(
         brand: MockBrand(
             id: UUID(),
-            name: "브랜드 A",
+            name: "브랜드",
             genre: "스트릿",
             description: "설명",
             bannerImageName: "mockBanner1",
