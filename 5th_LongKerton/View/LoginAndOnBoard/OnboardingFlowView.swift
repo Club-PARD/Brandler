@@ -2,7 +2,6 @@
 import SwiftUI
 
 enum OnboardingStep: Hashable {
-    case whaleAndDiver
     case nickName
     case chooseFashion
     case last
@@ -22,17 +21,14 @@ struct OnboardingFlowView: View {
             // 항상 첫 화면은 LoginView
             LoginView(
                 goToNext: {
-                    // 온보딩 시작 (WhaleAndDiverView로 이동)
-                    path.append(OnboardingStep.whaleAndDiver)
+                    // 온보딩 시작 (OnBoardNickNameView로 이동)
+                    path.append(OnboardingStep.nickName)
                 },
                 appState: $currentState
             )
             .navigationDestination(for: OnboardingStep.self) { step in
                 switch step {
-                case .whaleAndDiver:
-                    WhaleAndDiverView(goToNext: {
-                        path.append(OnboardingStep.nickName)
-                    })
+
                 case .nickName:
                     OnBoardNickNameView(
                         goToNext: {
