@@ -23,21 +23,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DA0EC3EB2E183B1C006C2212 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		31554A8C2E08285700B35D58 /* 5th_LongKerton */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = 5th_LongKerton;
-			sourceTree = "<group>";
-		};
-		31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = 5th_LongKertonTests;
 			sourceTree = "<group>";
 		};
 		31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */ = {
@@ -76,20 +84,11 @@
 			isa = PBXGroup;
 			children = (
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
-				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
-				31554A8B2E08285700B35D58 /* Products */,
+				DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */,
+				DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */,
+				DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		31554A8B2E08285700B35D58 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				31554A8A2E08285700B35D58 /* 5th_LongKerton.app */,
-				31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */,
-				31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +101,7 @@
 				31554A862E08285700B35D58 /* Sources */,
 				31554A872E08285700B35D58 /* Frameworks */,
 				31554A882E08285700B35D58 /* Resources */,
+				DA0EC3EB2E183B1C006C2212 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -114,7 +114,7 @@
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKerton;
-			productReference = 31554A8A2E08285700B35D58 /* 5th_LongKerton.app */;
+			productReference = DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */;
 			productType = "com.apple.product-type.application";
 		};
 		31554A962E08285B00B35D58 /* 5th_LongKertonTests */ = {
@@ -130,14 +130,11 @@
 			dependencies = (
 				31554A992E08285B00B35D58 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
-			);
 			name = 5th_LongKertonTests;
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKertonTests;
-			productReference = 31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */;
+			productReference = DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		31554AA02E08285B00B35D58 /* 5th_LongKertonUITests */ = {
@@ -160,7 +157,7 @@
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKertonUITests;
-			productReference = 31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */;
+			productReference = DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +167,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					31554A892E08285700B35D58 = {
@@ -196,7 +193,7 @@
 			mainGroup = 31554A812E08285700B35D58;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 31554A8B2E08285700B35D58 /* Products */;
+			productRefGroup = 31554A812E08285700B35D58;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -397,7 +394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = VV9N2QB3H4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -426,7 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = VV9N2QB3H4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";

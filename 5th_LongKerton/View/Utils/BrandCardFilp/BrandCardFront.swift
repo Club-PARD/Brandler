@@ -11,6 +11,7 @@ struct BrandCardFront: View {
                 .scaledToFill()
                 .frame(width: 99, height: 124)
                 .clipped()
+                .opacity(0.7) 
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color.black.opacity(0.0), // #00000000
@@ -35,7 +36,7 @@ struct BrandCardFront: View {
                     
                     Text(brand.name)
                         .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.BrandCardFontColor)
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .frame(width: 49, alignment: .leading)

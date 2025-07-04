@@ -57,6 +57,10 @@ extension Color {
     static let Gradient4 = Color(hex: 0x7E7E7F)
     static let Gradient5 = Color(hex: 0x3E3E3E)
     
+    static let ScrollPoint = Color(hex: 0x0022FF)
+    static let BrandCardFontColor = Color(hex: 0x9F9F9F)
+
+    
     //BrandPage
     static let Inter = Color(hex: 0x0038FF)
     

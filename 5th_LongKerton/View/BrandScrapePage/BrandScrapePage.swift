@@ -31,27 +31,38 @@ struct BrandScrapePage: View {
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
+            Color.black.edgesIgnoringSafeArea(.all)
+            // 🔸 배경: 상단은 검정, 하단은 블루로 이어지는 그라디언트
             LinearGradient(
-                gradient: Gradient(colors: [Color.black, Color.BackgroundBlue]),
-                startPoint: .top, endPoint: .bottom
+                gradient: Gradient(colors: [
+                    Color.black.opacity(1.0),
+                    Color.BackgroundBlue.opacity(0.9)
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
             )
-            .ignoresSafeArea()
+            .ignoresSafeArea() // 배경이 SafeArea를 넘어서도록 설정
+            Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
             
+            // 🔸 배경 이미지: 고래 배경 이미지 + 투명도 + 살짝 오른쪽 이동
             Image("whaleBackground")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
                 .opacity(0.3)
-                .offset(x: +26)
+                .offset(x: +13)
+                .opacity(0.8)
             
             VStack {
+                // 🔸 타이틀 텍스트
                 Text("My Digging List")
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .padding(.top, 20)
                 
-                Spacer().frame(height: 100)
+                Spacer().frame(height: 100) // 타이틀과 버튼 사이 여백
                 
+                // 🔸 '레벨 가이드 보기' 버튼
                 Button(action: {
                     showSecondModal = true
                 }) {
@@ -62,11 +73,11 @@ struct BrandScrapePage: View {
                 }
                 .padding(.bottom, 10)
                 .padding(.leading, 230)
-                
+                // MARK: - 카드 + 페이지뷰 + 인디케이터
                 VStack {
                     if viewModel.hasNoScrapedBrands {
                         ZStack {
-                            Color.clear
+                            Color.clear // 공간 채우기용 배경
                             Text("아직 스크랩한 브랜드가 없어요.")
                                 .font(.system(size: 14))
                                 .foregroundColor(.white.opacity(0.8))
@@ -74,41 +85,74 @@ struct BrandScrapePage: View {
                         }
                         .frame(height: 440)
                     } else {
-                        // TabView 중첩 ForEach를 함수로 분리
+                        // ✅ 스크랩된 브랜드가 있을 때 기존 카드 뷰 표시
                         TabView(selection: $currentPage) {
                             ForEach(0..<pagedBrands.count, id: \.self) { pageIndex in
-                                pageView(for: pageIndex)
-                                    .tag(pageIndex)
-                                    .frame(maxWidth: .infinity)
+                                VStack(spacing: 0) {
+                                    let brands = pagedBrands[pageIndex]
+                                    let rowSize = 3
+                                    let rowCount = brands.count / rowSize
+                                    
+                                    ForEach(0..<rowCount, id: \.self) { rowIndex in
+                                        HStack(spacing: 20) {
+                                            ForEach(0..<rowSize, id: \.self) { colIndex in
+                                                let brandIndex = rowIndex * rowSize + colIndex
+                                                let brand = brands[brandIndex]
+                                                
+                                                BrandFlipCardView(
+                                                    brand: brand,
+                                                    flippedID: $flippedID,
+                                                    onDelete: {
+                                                        viewModel.deleteBrand(brand)
+                                                    }
+                                                )
+                                                .frame(width: 90, height: 130)
+                                            }
+                                        }
+                                        .padding(.vertical, 8)
+                                        
+                                        if rowIndex < rowCount - 1 {
+                                            Rectangle()
+                                                .fill(Color.white.opacity(0.3))
+                                                .frame(height: 1)
+                                                .frame(width: 365)
+                                        }
+                                    }
+                                }
+                                .tag(pageIndex)
+                                .frame(maxWidth: .infinity)
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(height: 440)
                         
-                        // 페이지 인디케이터
+                        // ✅ 페이지 인디케이터
                         HStack(spacing: 8) {
                             ForEach(0..<pagedBrands.count, id: \.self) { index in
                                 Circle()
-                                    .fill(index == currentPage ? Color.pageBlue : Color.gray.opacity(0.3))
+                                    .fill(index == currentPage
+                                          ? Color.ScrollPoint
+                                          : Color.gray.opacity(0.3))
                                     .frame(width: 8, height: 8)
                             }
                         }
                         .padding(.top, 8)
                     }
                 }
+                // ✅ ⚠️ 아래 부분은 조건문 밖에 유지
                 .padding(.vertical, 20)
                 .background(
-                    RoundedRectangle(cornerRadius: 32, style: .continuous)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.clear)
                         .overlay(
                             ZStack {
                                 LinearGradient(
                                     gradient: Gradient(colors: [
-                                        Color.Gradient1,
-                                        Color.Gradient2,
-                                        Color.Gradient3,
-                                        Color.Gradient4,
-                                        Color.Gradient5
+                                        Color.Gradient1.opacity(0.5),
+                                        Color.Gradient2.opacity(0.5),
+                                        Color.Gradient3.opacity(0.5),
+                                        Color.Gradient4.opacity(0.5),
+                                        Color.Gradient5.opacity(0.5)
                                     ]),
                                     startPoint: .top,
                                     endPoint: .bottom
@@ -118,14 +162,14 @@ struct BrandScrapePage: View {
                                 
                                 Color.white.opacity(0.24)
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         )
                 )
                 .overlay(
                     ZStack {
-                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.white.opacity(0.2), lineWidth: 2)
-                        RoundedRectangle(cornerRadius: 30, style: .continuous)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.white.opacity(0.4), lineWidth: 0.8)
                     }
                 )
@@ -133,53 +177,18 @@ struct BrandScrapePage: View {
                 .opacity(0.9)
                 .padding(.horizontal, 35)
                 .padding(.bottom, 8)
-                
-                Spacer()
+                Spacer() // 아래쪽 남은 공간 채우기
             }
             
+            // MARK: - 오른쪽 SecondModalView 표시
             if showSecondModal {
                 SecondModalView(isVisible: $showSecondModal)
             }
         }
-        .animation(.easeInOut, value: showSecondModal)
+        .animation(.easeInOut, value: showSecondModal) // 모달 애니메이션
         .onAppear {
+            // 초기 오프셋 설정 (필요 시 드래그 모달 위치 기준)
             offsetY = UIScreen.main.bounds.height - 100
-        }
-    }
-    
-    // MARK: - 페이지 단위 브랜드 뷰 분리 함수
-    @ViewBuilder
-    func pageView(for pageIndex: Int) -> some View {
-        let brands = pagedBrands[pageIndex]
-        let rowSize = 3
-        let rowCount = brands.count / rowSize
-        
-        VStack(spacing: 0) {
-            ForEach(0..<rowCount, id: \.self) { rowIndex in
-                HStack(spacing: 12) {
-                    ForEach(0..<rowSize, id: \.self) { colIndex in
-                        let brandIndex = rowIndex * rowSize + colIndex
-                        let brand = brands[brandIndex]
-                        
-                        BrandFlipCardView(
-                            brand: brand,
-                            flippedID: $flippedID,
-                            onDelete: {
-                                viewModel.deleteBrand(brand)
-                            }
-                        )
-                        .frame(width: 90, height: 130)
-                    }
-                }
-                .padding(.vertical, 8)
-                
-                if rowIndex < rowCount - 1 {
-                    Rectangle()
-                        .fill(Color.white.opacity(0.3))
-                        .frame(height: 1)
-                        .frame(width: 365)
-                }
-            }
         }
     }
 }
