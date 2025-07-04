@@ -18,73 +18,28 @@ struct CircularProgressBar: View {
             Circle()
                 .trim(from: 0.0, to: progress)
                 .stroke(
-                    Color.LogBlue,
+                    Color(white: 0.9),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 3) {
+                Text("디깅 수")
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundColor(.white)
                 HStack(alignment: .firstTextBaseline, spacing: 0) {
                     Text("\(progressSteps)")
-                        .font(.system(size: 38, weight: .bold))
-                        .foregroundColor(Color.LogBlue)
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundColor(Color.white)
                     Text("/\(totalSteps)")
-                        .font(.system(size: 38, weight: .regular))
+                        .font(.system(size: 24, weight: .regular))
                         .foregroundColor(Color(.systemGray3))
                         .padding(.leading, 2)
                 }
-                Text("디깅 수")
-                    .font(.system(size: 10, weight: .regular))
-                    .foregroundColor(.white)
             }
         }
         .frame(width: size, height: size)
     }
 }
-
-struct FloatingTabBar: View {
-    var body: some View {
-        HStack(spacing: 16) {
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.myHomeGray)
-                .frame(width: 100, height: 36)
-                .overlay(
-                    Text("HOME")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.white)
-                )
-            Circle()
-                .fill(Color.myHomeGray)
-                .frame(width: 36, height: 36)
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.pageDarkBlue)
-                .frame(width: 100, height: 36)
-                .overlay(
-                    Text("MY PAGE")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.pageBlue)
-                )
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        // Glassmorphism background
-        .background(
-            .ultraThinMaterial,
-            in: RoundedRectangle(cornerRadius: 32, style: .continuous)
-        )
-        // Glassy border
-        .overlay(
-            RoundedRectangle(cornerRadius: 32, style: .continuous)
-                .stroke(Color.white.opacity(0.25), lineWidth: 1)
-        )
-        // Soft shadow for floating effect
-        .shadow(color: Color.black.opacity(0.10), radius: 8, y: 2)
-        .padding(.bottom, 8)
-    }
-}
-
-
-
-
 
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
@@ -93,9 +48,16 @@ struct UserMainView: View {
     let totalSteps = 5
 
     @State private var showEditInfo: Bool = false
+    @State private var showHistoryPage: Bool = false // 추가
+    @State private var showScrapePage: Bool = false
+    @State private var showDiggingPage: Bool = false
+    
 
     var nickname: String {
-        session.userData?.nickname ?? ""
+        session.userData?.nickname ?? "닉넴 없음"
+    }
+    var genre: String {
+        session.userData?.fashionGenre ?? "장르 없음"
     }
 
     var body: some View {
@@ -103,125 +65,200 @@ struct UserMainView: View {
             ZStack {
                 Color.BgColor.ignoresSafeArea()
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        Spacer().frame(height: 16)
-
-                        // 상단 제목 & setting 버튼
-                        HStack {
-                            Spacer()
-                            Text(nickname)
+                    //MYPAGE + 캐릭터 + circular bar
+                    VStack{
+                        //Top bar
+                        ZStack {
+                            Text("MY PAGE")
+                                .foregroundColor(Color(white: 0.7))
                                 .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(Color.LogBlue)
-                            Spacer()
-                            Button {
-                                showEditInfo = true
-                            } label: {
-                                Image("setting")
-                                    .foregroundColor(.white)
-                                    .frame(width: 32, height: 32)
+                            HStack {
+                                Spacer()
+                                Button {
+                                    showEditInfo = true
+                                } label: {
+                                    Image("setting")
+                                        .foregroundColor(.white)
+                                        .frame(width: 32, height: 32)
+                                }
                             }
                         }
-                        .padding(.horizontal, 16)
-
-                        Spacer().frame(height: 18)
-                        Divider()
-                            .frame(height: 1)
-                            .background(Color.white)
-                            .padding(.bottom, 14)
-
-                        HStack(alignment: .bottom, spacing: 0) {
-                            // 캐릭터 + "디깅 캐릭터"
+                        .padding(.horizontal, 20)
+                        .padding(.top, 18)
+                        .padding(.bottom, 15)
+                        
+                        Spacer()
+                        
+                        ZStack{
+                            // MARK: - 상단 프로필 카드
                             VStack {
-                                Spacer()
-                                Image("whale_char")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 120, height: 200)
-                                Text("디깅 캐릭터")
-                                    .font(.system(size: 17, weight: .regular))
-                                    .foregroundColor(.LogBlue)
-                                    .padding(.vertical, 14)
-                                    .frame(height: 28)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal, 16)
-                            .padding(.trailing, 10)
-                            .padding(.bottom, 10)
+                                HStack(alignment: .center, spacing: 0) {
+                                    // 캐릭터 이미지 (왼쪽)
+                                    Image("whale_char")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 160)
+                                        .padding(.leading, 24)
+                                    
+                                    Spacer().frame(width: 32)
+                                    
+                                    VStack(alignment: .leading, spacing: 24) {
+                                        // 닉네임
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("닉네임")
+                                                .font(.system(size: 13, weight: .medium))
+                                                .foregroundColor(.EditTxt)
+                                                .frame(width: 70, height: 30)
+                                                .background(Color.myDarkGray)
+                                                .cornerRadius(10)
+                                            Text(nickname)
+                                                .font(.system(size: 16, weight: .medium))
+                                                .foregroundColor(Color(.white))
+                                                .padding(.leading, 5)
+                                        }
+                                        .padding(.bottom, -10)
+                                        .padding(.top, 20)
 
-                            // 프로그레스 바 + "디깅 레벨"
-                            VStack {
-                                Spacer()
-                                CircularProgressBar(progressSteps: progressStep, totalSteps: totalSteps)
-                                Spacer()
-                                Text("디깅 레벨")
-                                    .font(.system(size: 17, weight: .regular))
-                                    .foregroundColor(.LogBlue)
-                                    .padding(.vertical, 14)
-                                    .frame(height: 28)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal, 16)
-                            .padding(.trailing, 10)
-                            .padding(.bottom, 10)
-                        }
-                        .frame(height: 260)
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.barBlue, lineWidth: 2)
+                                        // 구분선
+                                        Rectangle()
+                                            .fill(Color(.systemGray4))
+                                            .frame(height: 1)
+                                            .padding(.vertical, 2)
+                                        
+                                        // 장르
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("장르")
+                                                .font(.system(size: 13, weight: .medium))
+                                                .foregroundColor(.EditTxt)
+                                                .frame(width: 70, height: 30)
+                                                .background(Color.myDarkGray)
+                                                .cornerRadius(10)
+                                            Text(genre)
+                                                .font(.system(size: 16, weight: .medium))
+                                                .foregroundColor(Color(.white))
+                                                .padding(.leading, 5)
+                                        }
+                                        .padding(.top, -10)
+                                        .padding(.bottom, 20)
+
+                                    }
+                                    .padding(.vertical, 8)
+                                    .padding(.trailing, 32)
+                                    
+                                    Spacer()
+                                }
                                 .background(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .fill(Color.myGray)
+                                    // 그라데이션 배경 추가
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color.myGradStart,
+                                            Color.myGradEnd
+                                        ]),
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 18))
                                 )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 18)
+                                        .stroke(Color(.systemGray4), lineWidth: 2)
+                                )
+                                .padding(.horizontal, 8)
+                                .frame(height: 220)
+                            }
+                            .padding(.horizontal, 14)
+                        }
+                        
+                        // MARK: - 디깅 레벨/프로그레스
+                        HStack(alignment: .center, spacing: 0) {
+                            // 왼쪽: 텍스트 정보
+                            VStack(alignment: .leading, spacing: 18) {
+                                // 상단 안내
+                                Text("\(nickname) 님은 지금")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(.white)
+                                    .padding(.bottom, -8)
+                                
+                                // 심해 디깅러 타이틀 + 오버랩 하이라이트
+                                ZStack(alignment: .bottomLeading) {
+                                    // 파란 하이라이트 라인 (텍스트보다 뒤에 위치)
+                                    Rectangle()
+                                        .fill(Color.barBlue)
+                                        .frame(width: 170, height: 7)
+                                        .cornerRadius(3.5)
+                                        .offset(y: 2) // 텍스트 하단에 겹치도록 살짝 내림
+
+                                    // 텍스트
+                                    Text("🐋 심해 디깅러")
+                                        .font(.system(size: 22, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                                
+                                // 하단 안내
+                                VStack(alignment: .leading, spacing: 0) {
+                                    Text("다음 레벨까지 남은 디깅 수: 1개")
+                                        .font(.system(size: 13, weight: .medium))
+                                        .foregroundColor(Color.white)
+                                    
+                                    Button {
+                                        showDiggingPage = true
+                                    } label: {
+                                        Text("단계 레벨 가이드 보기")
+                                            .font(.system(size: 13, weight: .regular))
+                                            .foregroundColor(Color(white: 0.7))
+                                            .underline()
+                                            .padding(.top, 10)
+                                    }
+                                    .buttonStyle(.plain)
+                                    
+                                    
+                                    
+                                }
+                            }
+                            .padding(.vertical, 32)
+                            .padding(.leading, 26)
+                            .padding(.trailing, 12)
+                            
+                            Spacer()
+                            
+                            // 오른쪽: 원형 프로그레스바
+                            CircularProgressBar(progressSteps: 4, totalSteps: 5, lineWidth: 14, size: 140)
+                                .padding(.trailing, 30)
+                        }
+                        .padding(.bottom, 15)
+                    }
+                    .background(
+                        // 그라데이션 배경 추가
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.BgColor,
+                                Color.myGradEnd2
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
                         )
-                        .padding(.horizontal, 18)
-
-                        Spacer().frame(height: 22)
-
-                        // 메인 안내 텍스트
-                        HStack(spacing: 0) {
-                            Text(nickname)
-                                .font(.system(size: 15, weight: .bold))
-                                .foregroundColor(Color.LogBlue)
-                            Text(" 님은 지금")
-                                .font(.system(size: 15, weight: .regular))
-                                .foregroundColor(Color.LogBlue)
-                        }
-                        .padding(.bottom, 8)
-
-                        // 심해 디깅러 버튼
-                        VStack{
-                            Text("심해 디깅러")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                            Text("다음 레벨까지 남은 디깅 수: 1")
-                                .font(.system(size: 12, weight: .regular))
-                                .foregroundColor(Color.LogBlue)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 60)
-                        .background(Color.barBlue)
-                        .cornerRadius(8)
-                        .padding(.horizontal, 18)
-
-                        // 단계 레벨 가이드
-                        Text("단계 레벨 가이드 보기")
-                            .font(.system(size: 13, weight: .regular))
-                            .foregroundColor(Color(.systemGray3))
-                            .underline()
-                            .padding(.top, 5)
-                            .padding(.bottom, 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                    )
+                   
+                    VStack(spacing: 0) {
+                        Spacer().frame(height: 5)
 
                         // MY 디깅함
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("MY 디깅함")
                                     .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(.LogBlue)
+                                    .foregroundColor(.myGray)
                                 Spacer()
-                                Text("더보기")
-                                    .font(.system(size: 13, weight: .regular))
-                                    .foregroundColor(Color(.systemGray3))
+                                Button {
+                                    showScrapePage = true
+                                } label: {
+                                    Text("더보기")
+                                        .font(.system(size: 13, weight: .regular))
+                                        .foregroundColor(Color.myGray)
+                                        .padding(.trailing, 7)
+                                }
+                                .buttonStyle(.plain)
                             }
                             .padding(.top, 10)
                             .padding(.horizontal, 12)
@@ -232,56 +269,65 @@ struct UserMainView: View {
                                 ForEach(0..<3) { _ in
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(Color(.systemGray4))
-                                        .frame(width: 100, height: 85)
+                                        .frame(width: 110, height: 120)
                                 }
                             }
                             .padding(.horizontal, 12)
                             .padding(.bottom, 12)
+                            Spacer().frame(height: 8)
                         }
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.LogBlue, lineWidth: 1)
+                                .stroke(Color.white, lineWidth: 1)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.myGray)
+                                        .fill(Color.myHomeGray)
                                 )
                         )
                         .padding(.horizontal, 18)
                         .padding(.bottom, 12)
+                        
+                        Spacer().frame(height: 8)
 
                         // 최근 본 브랜드
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("최근 본 브랜드")
                                     .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(.LogBlue)
+                                    .foregroundColor(.myGray)
                                 Spacer()
-                                Text("더보기")
-                                    .font(.system(size: 13, weight: .regular))
-                                    .foregroundColor(Color(.systemGray3))
+                                // 여기만 Button으로 감싸고, showHistoryPage 토글
+                                Button {
+                                    showHistoryPage = true
+                                } label: {
+                                    Text("더보기")
+                                        .font(.system(size: 13, weight: .regular))
+                                        .foregroundColor(Color.myGray)
+                                        .padding(.trailing, 7)
+                                }
+                                .buttonStyle(.plain)
                             }
                             .padding(.top, 10)
                             .padding(.horizontal, 12)
-
                             Spacer().frame(height: 10)
 
                             HStack(spacing: 12) {
-
                                 ForEach(0..<3) { _ in
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(Color(.systemGray4))
-                                        .frame(width: 100, height: 85)
+                                        .frame(width: 110, height: 120)
                                 }
                             }
                             .padding(.horizontal, 12)
                             .padding(.bottom, 12)
+                            Spacer().frame(height: 8)
                         }
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.LogBlue, lineWidth: 1)
+                                .stroke(Color.white, lineWidth: 1)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.myGray)
+                                        .fill(Color.myHomeGray)
                                 )
                         )
                         .padding(.horizontal, 18)
@@ -306,15 +352,29 @@ struct UserMainView: View {
                 VStack {
                     Spacer()
                     FloatingTabBarView()
-                        .padding(.bottom, -25)
+                        .padding(.bottom, -20)
                 }
             }
             .navigationDestination(isPresented: $showEditInfo) {
                 EditInfoView()
             }
+            // 여기서 showHistoryPage가 true면 HistoryPage로 이동
+            .navigationDestination(isPresented: $showHistoryPage) {
+                HistoryPage()
+            }
+            //디깅함
+            .navigationDestination(isPresented: $showDiggingPage) {
+                HistoryPage()
+            }
+            //단계
+            .navigationDestination(isPresented: $showScrapePage) {
+                HistoryPage()
+            }
+            
         }
     }
 }
+
 
 #Preview {
     UserMainView()

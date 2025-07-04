@@ -31,7 +31,7 @@ struct OnBoardLastView: View {
 
                         Text("패션을 찾아 떠나는 잠수부,\n디깅러가 되신 걸 환영해요!")
                             .font(.system(size: 22, weight: .medium))
-                            .foregroundColor(.LogBlue)
+                            .foregroundColor(.NickWhite)
                     }
                     Spacer()
                 }
@@ -51,7 +51,7 @@ struct OnBoardLastView: View {
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
-                        .background(Color.barBlue)
+                        .background(Color.lastBox)
                         .cornerRadius(40)
                 }
                 .padding(.horizontal, 16)
