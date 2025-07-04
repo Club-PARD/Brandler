@@ -20,38 +20,38 @@ class BrandScrapeViewModel: ObservableObject {
         }
     }
     var hasNoScrapedBrands: Bool {
-            brands.isEmpty
-        }
+        brands.isEmpty
+    }
     
     var diggingCount: Int {
         brands.count
     }
-
+    
     var diggingDistanceInKM: Double {
         Double(diggingCount) * 0.1 // 100m = 0.1km
     }
-
+    
     var remainingDistance: Double {
         max(0, 10.0 - diggingDistanceInKM)
     }
-
+    
     func deleteBrand(_ brand: MockBrand) {
         brands.removeAll { $0.id == brand.id }
     }
     var whaleLevel: Int {
-            switch diggingDistanceInKM {
+        switch diggingDistanceInKM {
             case 0..<2.0: return 0
             case 2.0..<4.0: return 1
             case 4.0..<6.0: return 2
             case 6.0..<8.0: return 3
             case 8.0..<10.0: return 4
             default: return 5
-            }
-}
+        }
+    }
     
     var whaleImageName: String {
-            "level\(whaleLevel)" // 예: whale0, whale1, ..., whale5
-        }
+        "level\(whaleLevel)" // 예: whale0, whale1, ..., whale5
+    }
     func progress(for step: Int) -> Double {
         let distance = diggingDistanceInKM
         let lower = Double((step - 1) * 2)

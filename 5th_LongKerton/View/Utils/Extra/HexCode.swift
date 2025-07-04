@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension Color {
     init(hex: UInt, alpha: Double = 1.0) {
@@ -15,7 +16,7 @@ extension Color {
     static let backgroundBlueGray = Color(hex: 0xF2F5FF)
     static let barBlue = Color(hex: 0x002FFF)
     static let buttonGray = Color(hex: 0xBDBDBD)
-    static let NextButton = Color(hex: 0x8D8D8D)    
+    static let NextButton = Color(hex: 0x8D8D8D)
     static let DarkGr = Color(hex: 0x5B5B5B)
     static let LogBlue = Color(hex: 0xC4D1FF)
     static let barBlack = Color(hex: 0x3A3A3A)
@@ -61,39 +62,23 @@ extension Color {
     
     static let Kakao = Color(hex: 0xFDE500)
     
+    static func interpolateHex(from: Color, to: Color, fraction: CGFloat) -> Color {
+        let clampedFraction = min(max(fraction, 0), 1)
 
+        let fromUIColor = UIColor(from)
+        let toUIColor = UIColor(to)
 
+        var fr: CGFloat = 0, fg: CGFloat = 0, fb: CGFloat = 0, fa: CGFloat = 0
+        var tr: CGFloat = 0, tg: CGFloat = 0, tb: CGFloat = 0, ta: CGFloat = 0
 
+        fromUIColor.getRed(&fr, green: &fg, blue: &fb, alpha: &fa)
+        toUIColor.getRed(&tr, green: &tg, blue: &tb, alpha: &ta)
 
+        let r = fr + (tr - fr) * clampedFraction
+        let g = fg + (tg - fg) * clampedFraction
+        let b = fb + (tb - fb) * clampedFraction
+        let a = fa + (ta - fa) * clampedFraction
 
-
-
-    
-    
-    
-    
-
-
-
-    
-    
+        return Color(red: r, green: g, blue: b, opacity: a)
+    }
 }
-
-
-/* how to use
- ZStack {
-     Color.backgroundGray.ignoresSafeArea()
-     VStack {
-         // ... your content ...
-         RoundedRectangle(cornerRadius: 6)
-             .fill(Color.boxGray)
-         Button(action: {}) {
-             Text("디깅하러 고고링")
-                 .foregroundColor(.white)
-                 .frame(maxWidth: .infinity, minHeight: 48)
-                 .background(Color.buttonGray)
-                 .cornerRadius(24)
-         }
-     }
- }
-*/
