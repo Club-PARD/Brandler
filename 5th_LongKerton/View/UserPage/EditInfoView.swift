@@ -5,11 +5,13 @@ struct EditInfoView: View {
     @EnvironmentObject var session: UserSessionManager
     @State private var nickname: String = ""
     @State private var selectedGenre: String = ""
+    @Environment(\.dismiss) var dismiss
     
     // Genre list
     let genres = [
-        ["아메카지", "펑크", "스트릿", "빈티지"],
-        ["히피", "포멀", "페미닌", "테크"]
+        ["아메카지", "스트릿", "히피", "빈티지"],
+        ["포멀", "페미닌", "캐주얼", "테크"],
+        ["기타"]
     ]
     
     // Initialize nickname and genre from session
@@ -24,57 +26,71 @@ struct EditInfoView: View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
-                // Top bar
-                ZStack {
+
+                HStack {
+                    // Back Button
+                    Button(action: {
+                        dismiss() // Dismiss the view (go back)
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(Color(white: 0.9))
+                    }
+
+                    Spacer()
+
+                    // Title
                     Text("설정")
-                        .foregroundColor(.LogBlue)
+                        .foregroundColor(Color.white)
                         .font(.system(size: 18, weight: .medium))
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            // Save changes to session
-                            session.saveUserData(nickname: nickname, genre: selectedGenre)
-                        }) {
-                            Text("확인")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .medium))
-                        }
+
+                    Spacer()
+
+                    // Confirm Button
+                    Button(action: {
+                        session.saveUserData(nickname: nickname, genre: selectedGenre)
+                    }) {
+                        Text("확인")
+                            .foregroundColor(Color(white: 0.7))
+                            .font(.system(size: 18, weight: .medium))
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 18)
                 .padding(.bottom, 40)
 
+
                 
                 // Nickname change
                 Text("닉네임 변경")
-                    .foregroundColor(.LogBlue)
+                    .foregroundColor(.EditBox)
                     .font(.system(size: 15, weight: .medium))
                     .padding(.horizontal, 20)
                 ZStack(alignment: .leading) {
                     if nickname.isEmpty {
                         Text("닉네임을 입력해주세요")
-                            .foregroundColor(.white.opacity(0.2))
+                            .foregroundColor(.EditBox)
                             .font(.system(size: 17))
                             .padding(.leading, 18)
+                            .padding(.vertical, 30)
                     }
                     TextField("", text: $nickname)
                         .foregroundColor(.white)
                         .font(.system(size: 17))
                         .padding(.horizontal, 18)
-                        .padding(.vertical, 18)
+                        .padding(.vertical, 30)
                 }
-                .background(Color(red: 0.12, green: 0.13, blue: 0.16))
+                .background(Color.nickBox)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                        .stroke(Color.nickBoxStroke, lineWidth: 2.5)
                 )
                 .cornerRadius(10)
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
                 
                 Text("기존 닉네임: \(session.userData?.nickname ?? "-")")
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.EditBox)
                     .font(.system(size: 13))
                     .padding(.horizontal, 22)
                     .padding(.top, 6)
@@ -82,7 +98,7 @@ struct EditInfoView: View {
                 
                 // Genre change
                 Text("장르 변경")
-                    .foregroundColor(.LogBlue)
+                    .foregroundColor(.EditBox)
                     .font(.system(size: 15, weight: .medium))
                     .padding(.horizontal, 20)
                     .padding(.bottom, 12)
@@ -96,17 +112,14 @@ struct EditInfoView: View {
                                 }) {
                                     Text(genre)
                                         .font(.system(size: 15, weight: .medium))
-                                        .foregroundColor(selectedGenre == genre ? .white : .LogBlue)
+                                        .foregroundColor(selectedGenre == genre ? .white : .EditTxt)
                                         .frame(width: 78, height: 38)
                                         .background(
                                             selectedGenre == genre
-                                            ? Color.barBlue
-                                            : Color.EditBox
+                                            ? Color.FashBox
+                                            : Color.nickBox
                                         )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 18)
-                                                .stroke(selectedGenre == genre ? Color.LogBlue : Color.LogBlue.opacity(0.3), lineWidth: 1.5)
-                                        )
+                                        
                                         .cornerRadius(18)
                                 }
                             }
@@ -116,7 +129,7 @@ struct EditInfoView: View {
                 .padding(.horizontal, 20)
                 
                 Text("기존 장르: \(session.userData?.fashionGenre ?? "-")")
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.EditBox)
                     .font(.system(size: 13))
                     .padding(.horizontal, 22)
                     .padding(.top, 10)
@@ -148,6 +161,8 @@ struct EditInfoView: View {
         .onAppear {
             loadUserInfo()
         }
+        .navigationBarBackButtonHidden(true)
+
     }
 }
 

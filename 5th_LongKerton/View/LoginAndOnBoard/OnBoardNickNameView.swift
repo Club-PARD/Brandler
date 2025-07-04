@@ -27,7 +27,7 @@ struct OnBoardNickNameView: View {
                 HStack {
                     Text("닉네임을 설정해주세요")
                         .font(.system(size: 22, weight: .medium))
-                        .foregroundColor(.LogBlue)
+                        .foregroundColor(.NickWhite)
                     Spacer()
                 }
                 .padding(.leading, 16)
@@ -35,7 +35,7 @@ struct OnBoardNickNameView: View {
                 HStack {
                     Text("닉네임")
                         .font(.system(size: 15))
-                        .foregroundColor(.gray)
+                        .foregroundColor(.EditBox)
                     Spacer()
                 }
                 .padding(.leading, 16)
@@ -45,8 +45,8 @@ struct OnBoardNickNameView: View {
                     ZStack(alignment: .leading) {
                         if nickname.isEmpty {
                             Text("닉네임을 입력해주세요")
-                                .foregroundColor(Color.white.opacity(0.2))
-                                .font(.system(size: 17))
+                                .foregroundColor(Color.EditBox)
+                                .font(.system(size: 13))
                                 .padding(.leading, 20)
                         }
                         TextField("", text: $nickname)
@@ -58,7 +58,7 @@ struct OnBoardNickNameView: View {
                     .background(Color.nickBox)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.white, lineWidth: 2)
+                            .stroke(Color.nickBoxStroke, lineWidth: 2.5)
                     )
                     .cornerRadius(15)
                 }

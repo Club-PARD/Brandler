@@ -1,61 +1,133 @@
 import SwiftUI
 
-struct BrandOverlayInfoView: View {
-    @EnvironmentObject var viewModel: BrandPageViewModel
+struct BrandInfoOverlayView: View {
+    let scrollOffset: CGFloat
+    let bannerHeight: CGFloat
+
+    @State private var showFullText = false
+    @State private var isLiked = false
+
+    let descriptionText = "힙하고 유니크한 감성을 담은 브랜드입니다. 브랜드의 미학을 기반으로 자유롭고 실험적인 스타일을 추구합니다. 감성과 철학이 담긴 디자인으로 사용자와 소통합니다."
 
     var body: some View {
-        GeometryReader { geo in
-            let holeWidth = viewModel.holeSize.width
-            let holeHeight = viewModel.holeSize.height
+        let textColor = Color.white
 
-            // ✅ ContentView 방식과 동일한 offset 계산
-            let offsetX = -geo.size.width / 2 + 61 + holeWidth / 2
-            let offsetY = viewModel.offsetYForScroll - 180
+        VStack(alignment: .leading, spacing: 8) {
+            Image("brandLogo")
+                .resizable()
+                .frame(width: 48, height: 48)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                .shadow(radius: 4)
+                .padding(.bottom, 7)
 
-            // ⬇️ 왼쪽 아래로부터 1/4 지점
-            let brandX = geo.size.width / 2 + offsetX - holeWidth / 2
-            let brandY = geo.size.height / 2 + offsetY + holeHeight * 0.75
-
-            // 색상 보간 (스크롤 시 밝은색 → 어두운색 전환)
-            let scrollProgress = min(max(viewModel.scrollOffset / 300, 0), 1)
-            let interpolatedColor = Color.interpolateHex(from: "#FFFFFF", to: "#888888", fraction: scrollProgress)
-
-            VStack(spacing: 6) {
-                Image("brandLogo")
-                    .resizable()
-                    .frame(width: 48, height: 48)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-
+            HStack(alignment: .center) {
                 Text("브랜드이름")
-                    .font(.headline)
-                    .foregroundColor(interpolatedColor)
+                    .font(.system(size: 35))
+                    .foregroundColor(textColor)
 
-                Text("힙하고 유니크한 감성을 담은 브랜드입니다.")
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(interpolatedColor)
+//                Spacer(minLength: 39)
+
+                Image("level1")
+                    .resizable()
+                    .frame(width: 50, height: 50)
             }
-            .position(x: brandX, y: brandY)
+            .padding(.bottom, 10)
+
+            HStack(alignment: .top) {
+                if showFullText {
+                    HStack(spacing: 0) {
+                        Text(descriptionText)
+                            .font(.system(size: 12))
+                            .foregroundColor(textColor)
+
+                        Text("   닫기")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white)
+                            .bold()
+                    }
+                    .onTapGesture {
+                        withAnimation {
+                            showFullText = false
+                        }
+                    }
+                } else {
+                    HStack(spacing: 0) {
+                        Text(truncatedText + "... ")
+                            .font(.system(size: 12))
+                            .foregroundColor(textColor)
+
+                        Text("더보기")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white)
+                            .bold()
+                    }
+                    .onTapGesture {
+                        withAnimation {
+                            showFullText = true
+                        }
+                    }
+                }
+
+                Spacer(minLength: 65)
+
+                Button(action: {
+                    withAnimation {
+                        isLiked.toggle()
+                    }
+                }) {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .font(.system(size: 30))
+                        .foregroundColor(isLiked ? .blue : .white)
+                        .offset(x: -20)
+                }
+                .padding(.leading, 5)
+            }
         }
-        .frame(height: viewModel.bannerHeight)
+        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.black.opacity(0.0))
+        .cornerRadius(12)
+        .shadow(radius: 8)
+       // .opacity(1.0 - progress * 0.3)  // 수정된 부분: 1을 1.0으로 변경
+    }
+
+    var truncatedText: String {
+        if descriptionText.count > 60 {
+            let index = descriptionText.index(descriptionText.startIndex, offsetBy: 60)
+            return String(descriptionText[..<index])
+        } else {
+            return descriptionText
+        }
     }
 }
+
 #Preview {
     struct PreviewWrapper: View {
-        @StateObject private var viewModel = BrandPageViewModel()
+        @State private var scrollOffset: CGFloat = 0
+        let bannerHeight: CGFloat = 500
 
         var body: some View {
             ZStack {
-                // 🎞 실제 배너 이미지
-                BrandBannerView()
-                    .environmentObject(viewModel)
+                Image("brandBanner")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: bannerHeight)
+                    .clipped()
 
-                // ⬆️ 오버레이 텍스트/로고
-                BrandOverlayInfoView()
-                    .environmentObject(viewModel)
+                BrandInfoOverlayView(
+                    scrollOffset: scrollOffset,
+                    bannerHeight: bannerHeight
+                )
+
+                VStack {
+                    Spacer()
+                    Slider(value: $scrollOffset, in: 0...300)
+                        .padding()
+                }
             }
-            .frame(height: viewModel.bannerHeight)
+            .frame(height: bannerHeight)
+            .background(Color.black)
         }
     }
 

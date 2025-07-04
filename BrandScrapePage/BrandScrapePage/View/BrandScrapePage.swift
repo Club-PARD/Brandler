@@ -13,11 +13,10 @@ struct BrandScrapePage: View {
 
     var body: some View {
         ZStack {
-            // 배경색 (연회색)
-            Color(hex: "#8f8f8f").ignoresSafeArea()
-                .opacity(0.4)
             Image("ScrapeBackground")
-                .edgesIgnoringSafeArea(.all)
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
                 
             VStack {
                 // 타이틀
