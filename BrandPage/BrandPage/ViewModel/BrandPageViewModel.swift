@@ -57,7 +57,7 @@ final class BrandPageViewModel: ObservableObject {
 
     // 스크롤 진행도에 따라 두 색상 사이 보간된 색상 반환
     var interpolatedColor: Color {
-        Color.interpolateHex(from: "#0038FF", to: "#C4D1FF", fraction: scrollProgress)
+        Color.interpolateHex(from: Color.Inter, to: Color.LogBlue, fraction: scrollProgress)
     }
 
     // 현재 선택된 카테고리에 해당하는 아이템만 필터링해서 반환

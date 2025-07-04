@@ -13,8 +13,8 @@ struct BrandCardFront: View {
                 .clipped()
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(hex:"000000").opacity(0.0), // #00000000
-                    Color(hex:"496FFF").opacity(0.7) // #496FFF + B2 = 약 70%
+                    Color.black.opacity(0.0), // #00000000
+                    Color.pageBlue.opacity(0.7) // #496FFF + B2 = 약 70%
                 ]),
                 startPoint: .top,
                 endPoint: .bottom

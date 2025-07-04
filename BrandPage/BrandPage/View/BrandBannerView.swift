@@ -51,8 +51,8 @@ struct BrandBannerView: View {
                 // 🔹 선명한 이미지 위에 덮는 그라디언트 오버레이 (밝기 점진적 감소)
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color(hex: "#1B191A").opacity(0.0),  // 위쪽은 투명
-                        Color(hex: "#1B191A").opacity(1.0)   // 아래쪽은 완전 불투명 검정
+                        Color.BgColor.opacity(0.0),  // 위쪽은 투명
+                        Color.BgColor.opacity(1.0)   // 아래쪽은 완전 불투명 검정
                     ]),
                     startPoint: .top,
                     endPoint: .bottom

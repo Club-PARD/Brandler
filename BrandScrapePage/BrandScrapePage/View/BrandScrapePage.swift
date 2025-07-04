@@ -34,8 +34,8 @@ struct BrandScrapePage: View {
             // 🔸 배경: 상단은 검정, 하단은 블루로 이어지는 그라디언트
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(hex: "#000000"),
-                    Color(hex: "#3B55BB")
+                    Color.black,
+                    Color.BackgroundBlue
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -129,7 +129,7 @@ struct BrandScrapePage: View {
                             ForEach(0..<pagedBrands.count, id: \.self) { index in
                                 Circle()
                                     .fill(index == currentPage
-                                          ? Color(hex: "#496FFF")
+                                          ? Color.pageBlue
                                           : Color.gray.opacity(0.3))
                                     .frame(width: 8, height: 8)
                             }
@@ -146,11 +146,11 @@ struct BrandScrapePage: View {
                             ZStack {
                                 LinearGradient(
                                     gradient: Gradient(colors: [
-                                        Color(hex: "#F8F8F8"),
-                                        Color(hex: "#BEBEC0"),
-                                        Color(hex: "#DBDBDC"),
-                                        Color(hex: "#7E7E7F"),
-                                        Color(hex: "#3E3E3E")
+                                        Color.Gradient1,
+                                        Color.Gradient2,
+                                        Color.Gradient3,
+                                        Color.Gradient4,
+                                        Color.Gradient5
                                     ]),
                                     startPoint: .top,
                                     endPoint: .bottom

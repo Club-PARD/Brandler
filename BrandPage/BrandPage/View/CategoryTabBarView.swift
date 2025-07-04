@@ -21,11 +21,11 @@ struct CategoryTabBarView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 // 선택된 카테고리이면 진한 파란색 (#002FFF), 아니면 어두운 회색 (#3E3E3E)
-                                .fill(selected == category ? Color(hex: "#002FFF") : Color(hex: "#3E3E3E"))
+                                .fill(selected == category ? Color.barBlue : Color.Gradient5)
                         )
                         // 글자 색상도 선택 여부에 따라 흰색 혹은 회색으로 변경
                         .foregroundColor(
-                            selected == category ? Color(hex: "#FFFFFF") : Color(hex: "#878787")
+                            selected == category ? Color.white : Color.EditTxt
                         )
                 }
                 // 버튼 좌우에 8pt 패딩 추가해 버튼 간격 확보
@@ -37,7 +37,7 @@ struct CategoryTabBarView: View {
         // 가로 공간 최대한 넓게 사용하도록 지정
         .frame(maxWidth: .infinity)
         // 탭바 배경 색상 지정 (다크톤 #1B191A)
-        .background(Color(hex: "#1B191A"))
+        .background(Color.BgColor)
     }
 }
 

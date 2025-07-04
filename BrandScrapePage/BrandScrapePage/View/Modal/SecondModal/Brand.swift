@@ -16,7 +16,7 @@ func BrandStepView(step: Int) -> some View {
                 .foregroundColor(.black)
 
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(hex: "#D9D9D9"))
+                .fill(Color.NickWhite)
                 .frame(width: 60, height: 60)
 
             Text("스크랩 수 기준")

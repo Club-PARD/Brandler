@@ -66,7 +66,7 @@ struct SecondModalView: View {
                                          "고래를 발견할수록 당신의 바다는 더 깊어집니다. \n 취향의 지도를 확장해 보세요." :
                                             "디깅 수에 따라 고래가 자라납니다.")
                                     .font(.system(size: 11))
-                                    .foregroundColor(Color(hex: "#D0D4E4"))
+                                    .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
                                     .frame(maxWidth: .infinity)
                                     
@@ -87,7 +87,7 @@ struct SecondModalView: View {
                                     }
                                 }
                                 .padding()
-                                .background(Color(hex: "#C4D1FF").opacity(0.6))
+                                .background(Color.LogBlue.opacity(0.6))
                                 .mask(
                                     CustomRoundedCorner(
                                         radius: 16,
@@ -136,7 +136,7 @@ struct SecondModalView: View {
                                                 gapStartX: gapStartX,
                                                 gapEndX: gapEndX
                                             )
-                                            .stroke(Color(hex: "#C4D1FF"), lineWidth: 1)
+                                            .stroke(Color.LogBlue, lineWidth: 1)
                                         )
                                     }
                                 )
@@ -149,7 +149,7 @@ struct SecondModalView: View {
                         Spacer()
                     }
                     .frame(width: geometry.size.width - 19, height: maxHeight) // ✅ 크기 지정
-                    .background(Color(hex: "#63616066").opacity(0.6)) // ✅ 배경색
+                    .background(Color.ModalBackground.opacity(0.6)) // ✅ 배경색
                     .clipShape(RoundedRectangle(cornerRadius: 30)) // ✅ 모서리 둥글게
                     .offset(y: offsetY + dragOffset) // ✅ 애니메이션 위치
                     .gesture(
@@ -203,7 +203,7 @@ struct ProgressBarView: View {
                 Spacer(minLength: 0)
             }
             .frame(height: 8)
-            .background(Color(hex: "#D9D9D9"))
+            .background(Color.NickWhite)
             .cornerRadius(4)
         }
         .frame(height: 8)

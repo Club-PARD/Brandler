@@ -19,7 +19,7 @@ func TabButton(title: String, selected: Bool, action: @escaping () -> Void) -> s
             Spacer()
             Text(title)
                 .font(.system(size: 12))
-                .foregroundColor(Color(hex:"#D0D4E4"))
+                .foregroundColor(Color.TabPurple)
             Spacer()
         }
         .frame(height: selected ? 56 : 40)
@@ -29,10 +29,10 @@ func TabButton(title: String, selected: Bool, action: @escaping () -> Void) -> s
             Group {
                 if selected {
                     TopRoundedRectangle(radius: 12)
-                        .fill(Color(hex: "#C4D1FF").opacity(0.6))
+                        .fill(Color.LogBlue.opacity(0.6))
                 } else {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(hex: "#959595"))
+                        .fill(Color.TabGray)
                 }
             }
         )
@@ -40,10 +40,10 @@ func TabButton(title: String, selected: Bool, action: @escaping () -> Void) -> s
             Group {
                 if selected {
                     StrokeExcludingBottom(radius: 16)
-                        .stroke(Color(hex: "#C4D1FF"), lineWidth: 1)
+                        .stroke(Color.LogBlue, lineWidth: 1)
                 } else {
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color(hex: "#C4D1FF"), lineWidth: 1)
+                        .stroke(Color.LogBlue, lineWidth: 1)
                 }
             }
         )

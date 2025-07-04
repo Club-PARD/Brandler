@@ -35,21 +35,21 @@ struct FlipCardView: View {
 }
 
 
-//#Preview {
-//    StatefulPreviewWrapper(nil) { flippedID in
-//        FlipCardView(
-//            brand: MockBrand(
-//                id: UUID(),
-//                name: "테스트 브랜드",
-//                genre: "힙합",
-//                description: "설명입니다.",
-//                bannerImageName: "mockBanner1",
-//                logoImageName: "mockLogo1"
-//            ),
-//            flippedID: flippedID,
-//            onDelete: { print("삭제됨") }
-//        )
-//        .frame(width: 120, height: 180)
-//        .background(Color.gray)
-//    }
-//}
+#Preview {
+    StatefulPreviewWrapper(nil) { flippedID in
+        FlipCardView(
+            brand: MockBrand(
+                id: UUID(),
+                name: "테스트 브랜드",
+                genre: "힙합",
+                description: "설명입니다.",
+                bannerImageName: "mockBanner1",
+                logoImageName: "mockLogo1"
+            ),
+            flippedID: flippedID,
+            onDelete: { print("삭제됨") }
+        )
+        .frame(width: 120, height: 180)
+        .background(Color.gray)
+    }
+}
