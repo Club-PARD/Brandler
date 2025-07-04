@@ -39,7 +39,7 @@ struct OnBoardChooseFashionView: View {
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }
-                .padding(.leading, 16)
+                .padding(.leading, 24)
                 .padding(.bottom, 36)
                 
                 //버튼 선택하기
@@ -75,7 +75,7 @@ struct OnBoardChooseFashionView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 20)
                 
                 Spacer()
                 
@@ -89,7 +89,7 @@ struct OnBoardChooseFashionView: View {
                         .background(Color.NextButton)
                         .cornerRadius(40)
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 25)
                 
             }
         }

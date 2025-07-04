@@ -166,7 +166,7 @@ struct UserMainView: View {
                                 .padding(.horizontal, 8)
                                 .frame(height: 220)
                             }
-                            .padding(.horizontal, 14)
+                            .padding(.horizontal, 20)
                         }
                         
                         // MARK: - 디깅 레벨/프로그레스
@@ -216,14 +216,14 @@ struct UserMainView: View {
                                 }
                             }
                             .padding(.vertical, 32)
-                            .padding(.leading, 26)
+                            .padding(.leading, 29)
                             .padding(.trailing, 12)
                             
                             Spacer()
                             
                             // 오른쪽: 원형 프로그레스바
                             CircularProgressBar(progressSteps: 4, totalSteps: 5, lineWidth: 14, size: 140)
-                                .padding(.trailing, 30)
+                                .padding(.trailing, 40)
                         }
                         .padding(.bottom, 15)
                     }
@@ -284,7 +284,7 @@ struct UserMainView: View {
                                         .fill(Color.myHomeGray)
                                 )
                         )
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 20)
                         .padding(.bottom, 12)
                         
                         Spacer().frame(height: 8)
@@ -330,7 +330,7 @@ struct UserMainView: View {
                                         .fill(Color.myHomeGray)
                                 )
                         )
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 20)
 
                         // 중앙 명언
                         VStack {
