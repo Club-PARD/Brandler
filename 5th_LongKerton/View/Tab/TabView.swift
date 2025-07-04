@@ -28,7 +28,7 @@ struct TabView:View{
             default:
                 MainPage()
             }
-            TabBar(selectedTab: $selectedTab)
+            FloatingTabBarView(selectedTab: $selectedTab)
         }
     }
 }

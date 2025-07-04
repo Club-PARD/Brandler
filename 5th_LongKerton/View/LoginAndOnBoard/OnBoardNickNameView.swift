@@ -4,30 +4,24 @@ import SwiftUI
 struct OnBoardNickNameView: View {
     let goToNext: () -> Void
     @Binding var nickname: String
-    
+    var currentStep: Int = 0 // 0, 1, 2 중 현재 단계
+
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
             VStack(spacing: 0) {
                 Spacer().frame(height: 30)
-                GeometryReader { geometry in
-                    let totalWidth = geometry.size.width
-                    let progressWidth = totalWidth / 3
-
-                    VStack(spacing: 8) {
-                        ZStack(alignment: .leading) {
-                            Capsule()
-                                .fill(Color.barBlack)
-                                .frame(height: 10)
-                            Capsule()
-                                .fill(Color.barBlue)
-                                .frame(width: progressWidth, height: 10)
-                        }
+                
+                // 동그라미 인디케이터
+                HStack(spacing: 8) {
+                    ForEach(0..<3) { idx in
+                        Circle()
+                            .fill(idx == currentStep ? Color.barBlue : Color.barBlack)
+                            .frame(width: 10, height: 10)
                     }
-                    .frame(width: totalWidth)
                 }
                 .frame(height: 56)
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 .padding(.bottom, 25)
                 
                 HStack {
@@ -36,7 +30,7 @@ struct OnBoardNickNameView: View {
                         .foregroundColor(.LogBlue)
                     Spacer()
                 }
-                .padding(.leading, 18)
+                .padding(.leading, 16)
                 .padding(.bottom, 40)
                 HStack {
                     Text("닉네임")
@@ -44,8 +38,9 @@ struct OnBoardNickNameView: View {
                         .foregroundColor(.gray)
                     Spacer()
                 }
-                .padding(.leading, 18)
+                .padding(.leading, 16)
                 .padding(.bottom, 6)
+                
                 HStack {
                     ZStack(alignment: .leading) {
                         if nickname.isEmpty {
@@ -67,7 +62,7 @@ struct OnBoardNickNameView: View {
                     )
                     .cornerRadius(15)
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 .padding(.bottom, 0)
                 Spacer()
                 Button(action: {
@@ -81,12 +76,13 @@ struct OnBoardNickNameView: View {
                         .cornerRadius(40)
                 }
                 .padding(.horizontal, 16)
-
             }
         }
         .navigationBarBackButtonHidden(true)
     }
 }
+
+
 
 #Preview {
     OnBoardNickNameView(goToNext: {}, nickname: .constant(""))

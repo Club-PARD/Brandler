@@ -25,27 +25,26 @@ struct EditInfoView: View {
             Color.BgColor.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 // Top bar
-                HStack {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold))
-                    Spacer()
+                ZStack {
                     Text("설정")
                         .foregroundColor(.LogBlue)
                         .font(.system(size: 18, weight: .medium))
-                    Spacer()
-                    Button(action: {
-                        // Save changes to session
-                        session.saveUserData(nickname: nickname, genre: selectedGenre)
-                    }) {
-                        Text("확인")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            // Save changes to session
+                            session.saveUserData(nickname: nickname, genre: selectedGenre)
+                        }) {
+                            Text("확인")
+                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .medium))
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 18)
                 .padding(.bottom, 40)
+
                 
                 // Nickname change
                 Text("닉네임 변경")
