@@ -9,7 +9,7 @@ struct OnBoardChooseFashionView: View {
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
-        ["펑크", "레트로", "기타"]
+        ["펑크", "테크", "기타"]
     ]
     
     var body: some View {
@@ -35,7 +35,7 @@ struct OnBoardChooseFashionView: View {
                 HStack {
                     Text("관심있는 패션 장르를\n선택해주세요")
                         .font(.system(size: 22, weight: .medium))
-                        .foregroundColor(.LogBlue)
+                        .foregroundColor(.NickWhite)
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }
@@ -45,7 +45,7 @@ struct OnBoardChooseFashionView: View {
                 //버튼 선택하기
                 VStack(spacing: 16) {
                     ForEach(0..<genres.count, id: \.self) { rowIndex in
-                        HStack(spacing: 16) {
+                        HStack(spacing: 20) {
                             ForEach(genres[rowIndex], id: \.self) { genre in
                                 Button(action: {
                                     // Toggle selection: select if not selected, deselect if same
@@ -53,20 +53,20 @@ struct OnBoardChooseFashionView: View {
                                 }) {
                                     Text(genre)
                                         .font(.system(size: 13, weight: .medium))
-                                        .foregroundColor(.LogBlue)
+                                        .foregroundColor(.FashionText)
                                         .frame(maxWidth: .infinity, minHeight: 100)
                                         .background(
                                             selectedGenre == genre
-                                            ? Color.barBlue
-                                            : Color(white: 0.6)
+                                            ? Color.FashBox
+                                            : Color.nickBox
                                         )
                                         .cornerRadius(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
                                                 .stroke(
                                                     selectedGenre == genre
-                                                    ? Color.LogBlue
-                                                    : Color.clear,
+                                                    ? Color.barBlue
+                                                    : Color.nickBoxStroke,
                                                     lineWidth: 2
                                                 )
                                         )
@@ -75,7 +75,7 @@ struct OnBoardChooseFashionView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 18)
                 
                 Spacer()
                 
