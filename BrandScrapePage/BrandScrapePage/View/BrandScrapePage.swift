@@ -71,7 +71,6 @@ struct BrandScrapePage: View {
                 .padding(.bottom, 10)
                 .padding(.leading, 230)
                 // MARK: - 카드 + 페이지뷰 + 인디케이터
-                // MARK: - 카드 + 페이지뷰 + 인디케이터
                 VStack {
                     if viewModel.hasNoScrapedBrands {
                         ZStack {
