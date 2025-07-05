@@ -14,7 +14,7 @@ struct ScrollToTopButton: View {
                 }) {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.system(size: 40))
-                        .foregroundColor(Color.Inter)
+                        .foregroundColor(Color.white).opacity(0.5)
                         .padding(12)
                         .clipShape(Circle())
                         .shadow(radius: 5)
