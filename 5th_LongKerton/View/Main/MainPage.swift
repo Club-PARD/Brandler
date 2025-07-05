@@ -9,15 +9,15 @@ import SwiftUI
 
 struct MainPage: View {
     @StateObject private var viewModel = BrandScrapeViewModel()
-////    @StateObject private var brandModel = BrandViewModel()
+    ////    @StateObject private var brandModel = BrandViewModel()
     @State public var selectedGenre: String = "빈티지"
     @State private var togglemesage: Bool = false
     private var toggleGenre: Bool = false
     @State public var bannerData = [
-            Banner(imageName: "mockBanner1", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
-            Banner(imageName: "mockBanner2", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
-            Banner(imageName: "mockBanner2", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
-        ]
+        Banner(imageName: "mockBanner1", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
+        Banner(imageName: "mockBanner2", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
+        Banner(imageName: "mockBanner2", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
+    ]
     
     
     var body: some View {
@@ -29,10 +29,13 @@ struct MainPage: View {
                     .frame(width:98,height:33)
                 Spacer()
                 
-                
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color("SearchingIconColor"))
-                    .font(.system(size: 20, weight: .medium))
+                NavigationLink(destination: SearchView())
+                {
+                    
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(Color("SearchingIconColor"))
+                        .font(.system(size: 20, weight: .medium))
+                }
             }
             .padding(.bottom,2)
             ScrollView {
@@ -40,7 +43,7 @@ struct MainPage: View {
                     
                     // MARK: - Banner Image
                     BannerCarouselView(banners: bannerData)
-    
+                    
                     
                     // MARK: - Section Title
                     HStack{
@@ -69,10 +72,10 @@ struct MainPage: View {
                     // MARK: - Blue Banner
                     ZStack(alignment: .bottomLeading) {
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 188, height: 6)
-                          .background(Color(red: 0, green: 0.21, blue: 1))
-                          .cornerRadius(2)
+                            .foregroundColor(.clear)
+                            .frame(width: 188, height: 6)
+                            .background(Color(red: 0, green: 0.21, blue: 1))
+                            .cornerRadius(2)
                         Text("디깅러 취향 저격 리스트")
                             .foregroundColor(.white)
                             .font(.Pretendard_Bold)
