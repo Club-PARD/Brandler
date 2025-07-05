@@ -59,6 +59,7 @@ struct BrandCardVIew:View {
             
         }
     }
+    
 }
 //
 //#Preview{
