@@ -1,0 +1,661 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA303E592E18454100762F02 /* Brandler Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DA303E582E18454100762F02 /* Brandler Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA303E5A2E18454100762F02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA303E4C2E18454100762F02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA303E572E18454100762F02;
+			remoteInfo = "Brandler Watch App";
+		};
+		DA303E682E18454100762F02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA303E4C2E18454100762F02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA303E572E18454100762F02;
+			remoteInfo = "Brandler Watch App";
+		};
+		DA303E722E18454200762F02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA303E4C2E18454100762F02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA303E572E18454100762F02;
+			remoteInfo = "Brandler Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA303E7E2E18454200762F02 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DA303E592E18454100762F02 /* Brandler Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DA303E522E18454100762F02 /* Brandler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brandler.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA303E582E18454100762F02 /* Brandler Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brandler Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA303E672E18454100762F02 /* Brandler Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brandler Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA303E712E18454200762F02 /* Brandler Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brandler Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DA303E5C2E18454100762F02 /* Brandler Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Brandler Watch App";
+			sourceTree = "<group>";
+		};
+		DA303E6A2E18454100762F02 /* Brandler Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Brandler Watch AppTests";
+			sourceTree = "<group>";
+		};
+		DA303E742E18454200762F02 /* Brandler Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Brandler Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA303E552E18454100762F02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E642E18454100762F02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E6E2E18454200762F02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA303E4B2E18454100762F02 = {
+			isa = PBXGroup;
+			children = (
+				DA303E5C2E18454100762F02 /* Brandler Watch App */,
+				DA303E6A2E18454100762F02 /* Brandler Watch AppTests */,
+				DA303E742E18454200762F02 /* Brandler Watch AppUITests */,
+				DA303E532E18454100762F02 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA303E532E18454100762F02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA303E522E18454100762F02 /* Brandler.app */,
+				DA303E582E18454100762F02 /* Brandler Watch App.app */,
+				DA303E672E18454100762F02 /* Brandler Watch AppTests.xctest */,
+				DA303E712E18454200762F02 /* Brandler Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA303E512E18454100762F02 /* Brandler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA303E7F2E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler" */;
+			buildPhases = (
+				DA303E502E18454100762F02 /* Resources */,
+				DA303E7E2E18454200762F02 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA303E5B2E18454100762F02 /* PBXTargetDependency */,
+			);
+			name = Brandler;
+			packageProductDependencies = (
+			);
+			productName = Brandler;
+			productReference = DA303E522E18454100762F02 /* Brandler.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		DA303E572E18454100762F02 /* Brandler Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA303E7B2E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch App" */;
+			buildPhases = (
+				DA303E542E18454100762F02 /* Sources */,
+				DA303E552E18454100762F02 /* Frameworks */,
+				DA303E562E18454100762F02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DA303E5C2E18454100762F02 /* Brandler Watch App */,
+			);
+			name = "Brandler Watch App";
+			packageProductDependencies = (
+			);
+			productName = "Brandler Watch App";
+			productReference = DA303E582E18454100762F02 /* Brandler Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA303E662E18454100762F02 /* Brandler Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA303E822E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch AppTests" */;
+			buildPhases = (
+				DA303E632E18454100762F02 /* Sources */,
+				DA303E642E18454100762F02 /* Frameworks */,
+				DA303E652E18454100762F02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA303E692E18454100762F02 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DA303E6A2E18454100762F02 /* Brandler Watch AppTests */,
+			);
+			name = "Brandler Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "Brandler Watch AppTests";
+			productReference = DA303E672E18454100762F02 /* Brandler Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA303E702E18454200762F02 /* Brandler Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA303E852E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch AppUITests" */;
+			buildPhases = (
+				DA303E6D2E18454200762F02 /* Sources */,
+				DA303E6E2E18454200762F02 /* Frameworks */,
+				DA303E6F2E18454200762F02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA303E732E18454200762F02 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DA303E742E18454200762F02 /* Brandler Watch AppUITests */,
+			);
+			name = "Brandler Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "Brandler Watch AppUITests";
+			productReference = DA303E712E18454200762F02 /* Brandler Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA303E4C2E18454100762F02 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					DA303E512E18454100762F02 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					DA303E572E18454100762F02 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					DA303E662E18454100762F02 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = DA303E572E18454100762F02;
+					};
+					DA303E702E18454200762F02 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = DA303E572E18454100762F02;
+					};
+				};
+			};
+			buildConfigurationList = DA303E4F2E18454100762F02 /* Build configuration list for PBXProject "Brandler" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA303E4B2E18454100762F02;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DA303E532E18454100762F02 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA303E512E18454100762F02 /* Brandler */,
+				DA303E572E18454100762F02 /* Brandler Watch App */,
+				DA303E662E18454100762F02 /* Brandler Watch AppTests */,
+				DA303E702E18454200762F02 /* Brandler Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA303E502E18454100762F02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E562E18454100762F02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E652E18454100762F02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E6F2E18454200762F02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA303E542E18454100762F02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E632E18454100762F02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA303E6D2E18454200762F02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA303E5B2E18454100762F02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA303E572E18454100762F02 /* Brandler Watch App */;
+			targetProxy = DA303E5A2E18454100762F02 /* PBXContainerItemProxy */;
+		};
+		DA303E692E18454100762F02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA303E572E18454100762F02 /* Brandler Watch App */;
+			targetProxy = DA303E682E18454100762F02 /* PBXContainerItemProxy */;
+		};
+		DA303E732E18454200762F02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA303E572E18454100762F02 /* Brandler Watch App */;
+			targetProxy = DA303E722E18454200762F02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DA303E792E18454200762F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA303E7A2E18454200762F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DA303E7C2E18454200762F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Brandler;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = APIPractice.Brandler.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Debug;
+		};
+		DA303E7D2E18454200762F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Brandler;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = APIPractice.Brandler.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Release;
+		};
+		DA303E802E18454200762F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = Brandler;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = APIPractice.Brandler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DA303E812E18454200762F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = Brandler;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = APIPractice.Brandler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA303E832E18454200762F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "APIPractice.Brandler-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brandler Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brandler Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Debug;
+		};
+		DA303E842E18454200762F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "APIPractice.Brandler-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brandler Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brandler Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Release;
+		};
+		DA303E862E18454200762F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "APIPractice.Brandler-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Brandler Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Debug;
+		};
+		DA303E872E18454200762F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "APIPractice.Brandler-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Brandler Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA303E4F2E18454100762F02 /* Build configuration list for PBXProject "Brandler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA303E792E18454200762F02 /* Debug */,
+				DA303E7A2E18454200762F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA303E7B2E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA303E7C2E18454200762F02 /* Debug */,
+				DA303E7D2E18454200762F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA303E7F2E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA303E802E18454200762F02 /* Debug */,
+				DA303E812E18454200762F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA303E822E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA303E832E18454200762F02 /* Debug */,
+				DA303E842E18454200762F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA303E852E18454200762F02 /* Build configuration list for PBXNativeTarget "Brandler Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA303E862E18454200762F02 /* Debug */,
+				DA303E872E18454200762F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA303E4C2E18454100762F02 /* Project object */;
+}
