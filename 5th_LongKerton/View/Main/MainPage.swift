@@ -10,7 +10,7 @@ import SwiftUI
 struct MainPage: View {
     @ObservedObject private var session = UserSessionManager.shared
 
-    @StateObject private var viewModel = BrandScrapeViewModel()
+    @StateObject private var viewModel = BrandViewModel()
 
 ////    @StateObject private var brandModel = BrandViewModel()
     //@State public var selectedGenre: String = "빈티지"

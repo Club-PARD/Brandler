@@ -1,14 +1,14 @@
 import SwiftUI  // ✅ 이 줄이 꼭 필요함!
 
 struct BrandCardBack: View {
-    let brand: MockBrand
+    let brand: Brand
     let onDelete: () -> Void
 
     @State private var showDeleteAlert = false  // ✅ 삭제 알림 상태
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            Image(brand.bannerImageName)
+            Image(brand.brandBannerUrl)
                 .resizable()
                 .scaledToFill()
                 .opacity(0.5)

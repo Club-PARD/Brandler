@@ -12,10 +12,10 @@ class SearchViewModel: ObservableObject {
     @Published var recentSearches: [String] = []
     @Published var isFocused: Bool = false
 
-    let allItems: [BrandItem] = MockData.brandItems
+    var allItems: [Product] = Product.brandItems
 
     // ✅ 필터된 브랜드 리스트
-    var filteredItems: [BrandItem] {
+    var filteredItems: [Product] {
         if searchText.isEmpty {
             return []
         }

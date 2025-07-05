@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemFlipCardView: View {
-    let item: BrandItem
+    let item: Product
     @Binding var flippedID: UUID?
     var onDelete: () -> Void
 

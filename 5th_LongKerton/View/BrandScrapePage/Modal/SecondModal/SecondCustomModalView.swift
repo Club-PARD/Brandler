@@ -5,7 +5,7 @@ struct SecondModalView: View {
     @GestureState private var dragOffset: CGFloat = 0 // 드래그 실시간 변화량
     @State private var offsetY: CGFloat = UIScreen.main.bounds.height // 현재 위치 상태
     @State private var selectedTab = 0 // 선택된 탭 인덱스
-    @StateObject private var viewModel = BrandScrapeViewModel() // 브랜드 데이터
+    @StateObject private var viewModel = BrandViewModel() // 브랜드 데이터
     
     var body: some View {
         GeometryReader { geometry in
