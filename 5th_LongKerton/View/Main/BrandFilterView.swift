@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct BrandFilterView: View{
-    let brands: [MockBrand]
+    let brands: [Brand]
     var selectedGenre: String = "전체"
     
-    var filteredBrands: [MockBrand] {
+    var filteredBrands: [Brand] {
         selectedGenre == "전체"
         ? brands
-        : brands.filter { $0.genre == selectedGenre }
+        : brands.filter { $0.brandGenre == selectedGenre }
     }
     
     var body: some View{
@@ -37,13 +37,13 @@ struct BrandFilterView: View{
                                 )
                             )
                             .background(
-                                    Image(brand.bannerImageName)
+                                    Image(brand.brandBannerUrl)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                             )
                             .cornerRadius(12)
                         HStack{
-                            Image(brand.logoImageName)
+                            Image(brand.brandLogoUrl)
                                 .resizable()
                                 .frame(width: 14, height: 14)
                                 .clipShape(Circle())
@@ -77,5 +77,5 @@ struct BrandFilterView: View{
 }
 
 #Preview{
-    BrandFilterView(brands:MockBrand.sampleData)
+    BrandFilterView(brands: Brand.sampleData)
 }
