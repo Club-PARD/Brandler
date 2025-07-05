@@ -51,17 +51,17 @@ struct OnBoardLastView: View {
                 Spacer()
                 
                 VStack(alignment: .center, spacing: 8) {
-                    Text("""
-                    좋아하는 브랜드를 발견하고 모으는 사람.
-                    그걸 우리는 '디깅러'라고 부릅니다.
-                    - 
-                    이제,디깅을 시작할 시간이에요.🌊
-                    """)
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.NickWhite)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
+                    (
+                        Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
+                        + Text("'디깅러'").bold()
+                        + Text("라고 부릅니다.\n- \n이제, 디깅을 시작할 시간이에요. 🌊")
+                    )
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.NickWhite)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
                 }
+
                 Spacer()
                     .padding(.leading, 24)
                     .padding(.bottom, 20)
