@@ -88,6 +88,7 @@ struct UserMainView: View {
                     
                     Spacer()
                     
+                    
                     ZStack{
                         // MARK: - 상단 프로필 카드
                         VStack {
@@ -165,7 +166,7 @@ struct UserMainView: View {
                             .padding(.horizontal, 8)
                             .frame(height: 220)
                         }
-                        .padding(.horizontal, 14)
+                        .padding(.horizontal, 20)
                     }
                     
                     // MARK: - 디깅 레벨/프로그레스
@@ -215,14 +216,14 @@ struct UserMainView: View {
                             }
                         }
                         .padding(.vertical, 32)
-                        .padding(.leading, 26)
+                        .padding(.leading, 29)
                         .padding(.trailing, 12)
                         
                         Spacer()
                         
                         // 오른쪽: 원형 프로그레스바
                         CircularProgressBar(progressSteps: 4, totalSteps: 5, lineWidth: 14, size: 140)
-                            .padding(.trailing, 30)
+                            .padding(.trailing, 40)
                     }
                     .padding(.bottom, 15)
                 }
@@ -288,6 +289,7 @@ struct UserMainView: View {
                     
                     Spacer().frame(height: 8)
                     
+                    
                     // 최근 본 브랜드
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
@@ -320,6 +322,7 @@ struct UserMainView: View {
                         .padding(.horizontal, 12)
                         .padding(.bottom, 12)
                         Spacer().frame(height: 8)
+                        
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 12)

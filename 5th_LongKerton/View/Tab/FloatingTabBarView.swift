@@ -17,7 +17,7 @@ struct FloatingTabBarView: View {
             } label: {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(selectedTab == "main" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 100, height: 36)
+                    .frame(width: 120, height: 40)
                     .overlay(
                         Text("HOME")
                             .font(.system(size: 15, weight: .medium))
@@ -29,14 +29,14 @@ struct FloatingTabBarView: View {
             } label: {
                 Circle()
                     .fill(selectedTab == "scrap" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 36, height: 36)
+                    .frame(width: 40, height: 40)
             }
             Button{
                 selectedTab = "my"
             } label: {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(selectedTab == "my" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 100, height: 36)
+                    .frame(width: 120, height: 40)
                     .overlay(
                         Text("MY PAGE")
                             .font(.system(size: 15, weight: .medium))
@@ -44,7 +44,7 @@ struct FloatingTabBarView: View {
                     )
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 35)
         .padding(.vertical, 12)
         // Glassmorphism background
         .background(

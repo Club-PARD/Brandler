@@ -59,6 +59,6 @@ struct GenreFilterView: View {
                 }
             }
         }
-        .background(Color.black.edgesIgnoringSafeArea(.all)) // Dark background for the whole view
+        .background(Color.BgColor.edgesIgnoringSafeArea(.all)) // Dark background for the whole view
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BannerCarouselView: View {
+    @ObservedObject private var session = UserSessionManager.shared
+
     var banners: [Banner]
     @State private var currentIndex = 1 // 💡 진짜 첫 배너는 index 1
     let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
@@ -21,7 +23,8 @@ struct BannerCarouselView: View {
         ZStack(alignment: .topTrailing){
             VStack{
                 HStack{
-                    Text("장마엔 종로룩 완성")
+                    //Text("장마엔 종로룩 완성")
+                    Text(UserSessionManager.shared.userData?.nickname ?? "장마엔 로그인")
                         .foregroundColor(Color("BannerHeadTextColor"))
                         .font(.custom("Pretendard-Medium.ttf",size: 13))
                         .font(.system(size:13,weight:.medium))
@@ -49,7 +52,7 @@ struct BannerCarouselView: View {
                         currentIndex += 1
                     }
                 }
-                .onChange(of: currentIndex) { newIndex in
+                .onChange(of: currentIndex) { oldIndex, newIndex in
                     if newIndex == loopedBanners.count - 1 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             withAnimation(.none) {
