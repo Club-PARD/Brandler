@@ -20,7 +20,7 @@ struct BrandFilterView: View{
     var body: some View{
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
             ForEach(filteredBrands) { brand in
-                NavigationLink(destination: BrandDetailView(brand: brand)) {
+                NavigationLink(destination: BrandPage(brand: brand)) {
                     VStack {
                         Image(brand.logoImageName)
                             .resizable()

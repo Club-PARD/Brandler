@@ -51,13 +51,15 @@ struct HistoryPage: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
                             ForEach(History) { history in
-                                HStack {
-                                    Image(history.logoImageName)
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                        .padding(.trailing, 10)
-                                    Text(history.name)
-                                        .foregroundColor(.white)
+                                NavigationLink(destination: BrandPage(brand: history)){
+                                    HStack {
+                                        Image(history.logoImageName)
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .padding(.trailing, 10)
+                                        Text(history.name)
+                                            .foregroundColor(.white)
+                                    }
                                 }
                             }
                         }
