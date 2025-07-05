@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct BrandFilterView: View{
-    let brands: [MockBrand]
+    let brands: [Brand]
     var selectedGenre: String = "전체"
     
-    var filteredBrands: [MockBrand] {
+    var filteredBrands: [Brand] {
         selectedGenre == "전체"
         ? brands
-        : brands.filter { $0.genre == selectedGenre }
+        : brands.filter { $0.brandGenre == selectedGenre }
     }
     
     var body: some View{
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
-            ForEach(filteredBrands) { brand in
-                NavigationLink(destination: BrandPage(brand: brand)) {
+            ForEach(filteredBrands) { brands in
+                NavigationLink(destination: BrandPage(brand: brands)) {
                     VStack {
-                        Image(brand.logoImageName)
+                        Image(brands.brandLogoUrl)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 173, height: 252)

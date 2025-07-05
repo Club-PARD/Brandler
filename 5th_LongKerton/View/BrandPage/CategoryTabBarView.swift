@@ -42,30 +42,30 @@ struct CategoryTabBarView: View {
 }
 
 // MARK: - 미리보기용 래퍼 뷰
-#Preview {
-    struct PreviewWrapper: View {
-        // 선택 상태를 관리하는 State 변수 (기본값 전체)
-        @State private var selected: Category = .all
-
-        var body: some View {
-            VStack {
-                // 실제 CategoryTabBarView 호출 (선택 바인딩만 전달)
-                CategoryTabBarView(
-                    selected: $selected
-                )
-                // 배경을 검은색으로 설정 (미리보기 구분용)
-                .background(Color.black)
-
-                // 현재 선택된 카테고리 텍스트 표시 (디버깅 및 시각화 용도)
-                Text("Selected Category: \(selected.rawValue)")
-                    .foregroundColor(.white)
-                    .padding(.top)
-            }
-            // 전체 배경을 검은색으로 채우고 안전 영역까지 확장
-            .background(Color.black.ignoresSafeArea())
-        }
-    }
-
-    // PreviewWrapper를 미리보기 대상으로 반환
-    return PreviewWrapper()
-}
+//#Preview {
+//    struct PreviewWrapper: View {
+//        // 선택 상태를 관리하는 State 변수 (기본값 전체)
+//        @State private var selected: Category = .all
+//
+//        var body: some View {
+//            VStack {
+//                // 실제 CategoryTabBarView 호출 (선택 바인딩만 전달)
+//                CategoryTabBarView(
+//                    selected: $selected
+//                )
+//                // 배경을 검은색으로 설정 (미리보기 구분용)
+//                .background(Color.black)
+//
+//                // 현재 선택된 카테고리 텍스트 표시 (디버깅 및 시각화 용도)
+//                Text("Selected Category: \(selected.rawValue)")
+//                    .foregroundColor(.white)
+//                    .padding(.top)
+//            }
+//            // 전체 배경을 검은색으로 채우고 안전 영역까지 확장
+//            .background(Color.black.ignoresSafeArea())
+//        }
+//    }
+//
+//    // PreviewWrapper를 미리보기 대상으로 반환
+//    return PreviewWrapper()
+//}
