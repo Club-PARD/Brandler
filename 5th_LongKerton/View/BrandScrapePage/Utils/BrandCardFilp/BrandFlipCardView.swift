@@ -4,6 +4,7 @@ struct BrandFlipCardView: View {
     let brand: MockBrand
     @Binding var flippedID: UUID?
     var onDelete: () -> Void
+    var onGoToBrandPage: () -> Void = {}
 
     @State private var rotation: Double = 0
 
@@ -17,24 +18,37 @@ struct BrandFlipCardView: View {
                 .opacity(isFlipped ? 0 : 1)
                 .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
 
-            BrandCardBack(brand: brand, onDelete: onDelete)
-                .opacity(isFlipped ? 1 : 0)
-                .rotation3DEffect(.degrees(rotation + 180), axis: (x: 0, y: 1, z: 0))
+            BrandCardBack(
+                brand: brand,
+                onDelete: onDelete,
+                onGoToBrandPage: onGoToBrandPage
+            )
+            .opacity(isFlipped ? 1 : 0)
+            .rotation3DEffect(.degrees(rotation + 180), axis: (x: 0, y: 1, z: 0))
         }
         .animation(.easeInOut(duration: 0.3), value: rotation)
         .onTapGesture {
             if isFlipped {
-                rotation = 0
-                flippedID = nil
+                withAnimation {
+                    rotation = 0
+                    flippedID = nil
+                }
             } else {
-                rotation = 180
-                flippedID = brand.id
+                withAnimation {
+                    flippedID = brand.id
+                    rotation = 180
+                }
+            }
+        }
+        .onChange(of: flippedID) { newID in
+            if newID != brand.id && rotation != 0 {
+                withAnimation {
+                    rotation = 0
+                }
             }
         }
     }
 }
-
-
 #Preview {
     StatefulPreviewWrapper(nil) { flippedID in
         BrandFlipCardView(
@@ -47,9 +61,11 @@ struct BrandFlipCardView: View {
                 logoImageName: "mockLogo1"
             ),
             flippedID: flippedID,
-            onDelete: { print("삭제됨") }
+            onDelete: { print("삭제됨") },
+            onGoToBrandPage: { print("브랜드 페이지 이동") } // ✅ 추가
         )
         .frame(width: 120, height: 180)
         .background(Color.gray)
     }
 }
+

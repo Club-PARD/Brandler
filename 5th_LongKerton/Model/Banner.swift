@@ -1,4 +1,4 @@
-//
+// 장르 banner 김경동
 //  banner.swift
 //  5th_LongKerton
 //

@@ -1,12 +1,18 @@
+// brandmodel // 정태주
 import Foundation
 
-struct MockBrand: Identifiable, Hashable {
-    var id = UUID()
+struct Brand: Identifiable, Hashable {
+    var id = Int
     let name: String
-    let genre: String
+    let brandLogoUrl: String
+    let brandBannerUrl: String
+    let brandGenre : String
+    let brandHomePageUrl : String
+    let products    : [Product]
     let description: String
-    let bannerImageName: String
-    let logoImageName: String
+    
+//    let bannerImageName: String
+//    let logoImageName: String
     var isScraped: Bool = true // 기본값 true로 시작 (디깅됨)
     
     init(
@@ -26,18 +32,18 @@ struct MockBrand: Identifiable, Hashable {
        }
 }
 
-extension MockBrand {
-    static let sampleData: [MockBrand] = [
-        MockBrand(id: UUID(), name: "NukeStreet", genre: "스트릿", description: "강렬한 컬러로 존재감을 드러내는 브랜드", bannerImageName: "mockBanner1", logoImageName: "mockLogo1"),
-        MockBrand(id: UUID(), name: "VoidNest", genre: "테크", description: "공허 속 기능미를 담은 감성적 아우터", bannerImageName: "mockBanner2", logoImageName: "mockLogo2"),
-        MockBrand(id: UUID(), name: "GreySyntax", genre: "포멀", description: "간결한 실루엣 속에서 묵직한 분위기를 표현", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
-        MockBrand(id: UUID(), name: "BeatTheory", genre: "스트릿", description: "비트처럼 살아있는 스트릿 무드", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
-        MockBrand(id: UUID(), name: "RoughLayer", genre: "빈티지", description: "낡았지만 멋스러운 무드로 과거를 되살리다", bannerImageName: "mockBanner1", logoImageName: "mockLogo1"),
-        MockBrand(id: UUID(), name: "CoreClub", genre: "기타", description: "일상 속 편안한 감성과 실용성의 조화", bannerImageName: "mockBanner2", logoImageName: "mockLogo2"),
-        MockBrand(id: UUID(), name: "NeonEcho", genre: "기타", description: "빛나는 밤을 위한 미래적인 감성", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
-        MockBrand(id: UUID(), name: "DustedSoul", genre: "빈티지", description: "먼지 낀 듯한 무드 속 깊은 감성", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
-        MockBrand(id: UUID(), name: "UrbanDrift", genre: "아메카지", description: "도시를 유영하는 모던한 아웃핏", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
-        MockBrand(id: UUID(), name: "FlatForm", genre: "포멀", description: "미니멀리즘의 극단을 추구한 실루엣", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
+extension Brand {
+    static let sampleBrands: [Brand] = [
+        Brand(id: UUID(), name: "NukeStreet", genre: "스트릿", description: "강렬한 컬러로 존재감을 드러내는 브랜드", bannerImageName: "mockBanner1", logoImageName: "mockLogo1"),
+        Brand(id: UUID(), name: "VoidNest", genre: "테크", description: "공허 속 기능미를 담은 감성적 아우터", bannerImageName: "mockBanner2", logoImageName: "mockLogo2"),
+        Brand(id: UUID(), name: "GreySyntax", genre: "포멀", description: "간결한 실루엣 속에서 묵직한 분위기를 표현", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
+        Brand(id: UUID(), name: "BeatTheory", genre: "스트릿", description: "비트처럼 살아있는 스트릿 무드", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
+        Brand(id: UUID(), name: "RoughLayer", genre: "빈티지", description: "낡았지만 멋스러운 무드로 과거를 되살리다", bannerImageName: "mockBanner1", logoImageName: "mockLogo1"),
+        Brand(id: UUID(), name: "CoreClub", genre: "기타", description: "일상 속 편안한 감성과 실용성의 조화", bannerImageName: "mockBanner2", logoImageName: "mockLogo2"),
+        Brand(id: UUID(), name: "NeonEcho", genre: "기타", description: "빛나는 밤을 위한 미래적인 감성", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
+        Brand(id: UUID(), name: "DustedSoul", genre: "빈티지", description: "먼지 낀 듯한 무드 속 깊은 감성", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
+        Brand(id: UUID(), name: "UrbanDrift", genre: "아메카지", description: "도시를 유영하는 모던한 아웃핏", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
+        Brand(id: UUID(), name: "FlatForm", genre: "포멀", description: "미니멀리즘의 극단을 추구한 실루엣", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
         MockBrand(id: UUID(), name: "WornIn", genre: "빈티지", description: "레트로 감성을 현대적으로 재해석한 브랜드", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),
         MockBrand(id: UUID(), name: "EdgeCraft", genre: "테크", description: "기능성과 조형미의 완벽한 밸런스", bannerImageName: "mockBanner2", logoImageName: "mockLogo1"),
         MockBrand(id: UUID(), name: "SlowBurn", genre: "포멀", description: "잔잔하게 타오르는 데일리 무드", bannerImageName: "mockBanner1", logoImageName: "mockLogo2"),

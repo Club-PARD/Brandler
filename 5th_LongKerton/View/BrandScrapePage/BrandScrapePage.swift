@@ -55,7 +55,7 @@ struct BrandScrapePage: View {
             
             VStack {
                 // 🔸 타이틀 텍스트
-                Text("My Digging List")
+                Text("My 디깅함")
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .padding(.top, 20)

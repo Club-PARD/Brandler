@@ -47,7 +47,7 @@ struct RotatingRectHole: Shape {
 
         let anchor = CGPoint(
             x: holeRect.minX,
-            y: holeRect.maxY - holeRect.height * 0.16
+            y: holeRect.maxY - holeRect.height * 0.15
         )
 
         let transform = CGAffineTransform(translationX: anchor.x, y: anchor.y)
