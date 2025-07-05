@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct BrandPage: View {
-    @StateObject private var viewModel = BrandPageViewModel()
+    @StateObject private var viewModel = BrandViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
-    var brand: MockBrand
+    
+    var brand: Brand
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -14,7 +15,7 @@ struct BrandPage: View {
                     VStack(spacing: 0) {
                         Color.clear.frame(height: 0).id("top")
                         GeometryReader { geo in
-                            BrandBannerView()
+                            BrandBannerView(brand: brand)
                                 .frame(height: viewModel.bannerHeight)
                                 .onAppear {
                                     viewModel.updateScrollOffset(-geo.frame(in: .named("scroll")).minY)
@@ -27,7 +28,7 @@ struct BrandPage: View {
                         
                         BrandInfoOverlayView(
                             scrollOffset: viewModel.scrollOffset,
-                            bannerHeight: viewModel.bannerHeight
+                            bannerHeight: viewModel.bannerHeight, brand: brand
                         )
                         .offset(x: 15, y: overlayOffset + 250)
                         .padding(.top, -viewModel.bannerHeight + 40)
@@ -99,6 +100,3 @@ struct BrandPage: View {
         }
     }
 }
-//#Preview {
-//    BrandPage()
-//}

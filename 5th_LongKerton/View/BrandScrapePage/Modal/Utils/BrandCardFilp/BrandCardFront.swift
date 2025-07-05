@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct BrandCardFront: View {
-    let brand: MockBrand
+    let brand: Brand
     
     var body: some View {
         ZStack {
             // 배경 배너 이미지
-            Image(brand.bannerImageName)
+            Image(brand.brandBannerUrl)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 99, height: 124)
@@ -28,7 +28,7 @@ struct BrandCardFront: View {
                 
                 // 브랜드 로고 + 이름 (좌우 배치)
                 HStack(spacing: 6) {
-                    Image(brand.logoImageName)
+                    Image(brand.brandLogoUrl)
                         .resizable()
                         .frame(width: 14, height: 14)
                         .clipShape(Circle())
@@ -59,17 +59,17 @@ struct BrandCardFront: View {
     }
 }
 
-#Preview {
-    BrandCardFront(
-        brand: MockBrand(
-            id: UUID(),
-            name: "브랜드",
-            genre: "스트릿",
-            description: "설명",
-            bannerImageName: "mockBanner1",
-            logoImageName: "mockLogo1"
-        )
-    )
-    .frame(width: 120, height: 180)
-    .background(Color.gray)
-}
+//#Preview {
+//    BrandCardFront(
+//        brand: MockBrand(
+//            id: UUID(),
+//            name: "브랜드",
+//            genre: "스트릿",
+//            description: "설명",
+//            bannerImageName: "mockBanner1",
+//            logoImageName: "mockLogo1"
+//        )
+//    )
+//    .frame(width: 120, height: 180)
+//    .background(Color.gray)
+//}

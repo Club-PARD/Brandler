@@ -100,7 +100,7 @@
 import SwiftUI
 
 struct BrandDetailView: View {
-    let brand: MockBrand
+    let brand: Brand
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -118,10 +118,10 @@ struct BrandDetailView: View {
                     )
                 )
                 .background(
-                    Image(brand.bannerImageName)
+                    Image(brand.brandBannerUrl)
                 )
             HStack{
-                Image(brand.logoImageName)
+                Image(brand.brandLogoUrl)
                     .clipShape(Circle())
                     .frame(width: 14, height: 14)
                     .background(.white)

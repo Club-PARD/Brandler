@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct HistoryPage: View {
-    var History: [MockBrand] = MockBrand.sampleData
+    var History: [Brand] = Brand.sampleData
     @Environment(\.dismiss) var dismiss
 
 
@@ -53,7 +53,7 @@ struct HistoryPage: View {
                             ForEach(History) { history in
                                 NavigationLink(destination: BrandPage(brand: history)){
                                     HStack {
-                                        Image(history.logoImageName)
+                                        Image(history.brandLogoUrl)
                                             .resizable()
                                             .frame(width: 30, height: 30)
                                             .padding(.trailing, 10)

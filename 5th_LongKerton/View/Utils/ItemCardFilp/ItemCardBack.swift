@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemCardBack: View {
-    let item: BrandItem
+    let item: Product
     let onDelete: () -> Void
 
     @State private var showDeleteAlert = false

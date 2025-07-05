@@ -11,7 +11,7 @@ struct BrandScrapePage: View {
     @GestureState private var dragOffset: CGFloat = 0
     
     // 🔹 브랜드 리스트 및 상태 관리 ViewModel
-    @StateObject private var viewModel = BrandScrapeViewModel()
+    @StateObject private var viewModel = BrandViewModel()
     
     // 🔹 현재 뒤집힌 카드의 ID (FlipCardView 내부에서 참조)
     @State private var flippedID: UUID? = nil
@@ -23,7 +23,7 @@ struct BrandScrapePage: View {
     private let itemsPerPage = 9
     
     // 🔹 브랜드 리스트를 페이지 단위로 나눈 2차원 배열
-    var pagedBrands: [[MockBrand]] {
+    var pagedBrands: [[Brand]] {
         stride(from: 0, to: viewModel.brands.count, by: itemsPerPage).map {
             Array(viewModel.brands[$0..<min($0 + itemsPerPage, viewModel.brands.count)])
         }

@@ -2,8 +2,9 @@ import SwiftUI
 
 struct BrandBannerView: View {
     // 뷰모델을 환경객체로 받아와서 상태와 계산된 값을 사용
-    @EnvironmentObject var viewModel: BrandPageViewModel
-
+    @EnvironmentObject var viewModel: BrandViewModel
+    let brand: Brand
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -18,14 +19,14 @@ struct BrandBannerView: View {
                 let offsetY = viewModel.offsetYForScroll
 
                 // 1️⃣ 아래 레이어: 선명한 배너 이미지
-                Image("brandBanner") // 실제 앱에서는 모델에서 이미지명 받아옴
+                Image(brand.brandBannerUrl) // 실제 앱에서는 모델에서 이미지명 받아옴
                     .resizable()      // 크기 조절 가능하도록 설정
                     .scaledToFill()   // 프레임에 꽉 차도록 비율 유지하며 확대/축소
                     .frame(height: viewModel.bannerHeight) // 고정 높이 적용
                     .clipped()        // 프레임 넘치는 부분 잘라내기
                 
                 // 2️⃣ 위에 덮는 블러 처리된 배너 이미지 + 구멍 모양 마스크 적용
-                Image("brandBanner") // 동일한 이미지, 블러용
+                Image(brand.brandBannerUrl) // 동일한 이미지, 블러용
                     .resizable()
                     .scaledToFill()
                     .frame(height: viewModel.blurredBannerHeight) // 더 큰 높이로 설정
@@ -75,35 +76,4 @@ struct BrandBannerView: View {
             .clipped()  // 프레임 벗어나는 부분 자르기
         }
     }
-}
-
-// MARK: - 미리보기용 Wrapper
-#Preview {
-    struct PreviewWrapper: View {
-        @StateObject private var viewModel = BrandPageViewModel() // 뷰모델 생성 및 상태 관리
-        @State private var sliderValue: CGFloat = 0                // 슬라이더 값으로 스크롤 위치 조절용
-
-        var body: some View {
-            VStack {
-                BrandBannerView()       // 실제 배너 뷰
-                    .environmentObject(viewModel) // 환경객체로 뷰모델 전달
-
-                Slider(value: $sliderValue, in: 0...300) {  // 슬라이더로 스크롤 오프셋을 변경 가능
-                    Text("Scroll Offset")
-                }
-                .padding()
-                .onChange(of: sliderValue) { newValue in
-                    viewModel.updateScrollOffset(newValue)  // 슬라이더 값 변경 시 뷰모델에 반영
-                }
-
-                // 디버깅용 텍스트: 현재 스크롤 위치와 회전 각도 출력
-                Text("scrollOffset: \(Int(sliderValue)) / angle: \(Int(viewModel.angleForScroll.degrees))°")
-                    .font(.caption)
-                    .foregroundColor(.white)
-            }
-            .background(Color.black)  // 배경 검정색으로 설정
-        }
-    }
-
-    return PreviewWrapper()
 }

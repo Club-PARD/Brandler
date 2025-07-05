@@ -3,7 +3,7 @@ import SwiftUI
 struct BrandInfoOverlayView: View {
     let scrollOffset: CGFloat      // 스크롤 위치를 외부에서 전달받아 UI 반응에 사용
     let bannerHeight: CGFloat      // 배너 높이, 필요 시 위치 계산용
-    
+    let brand: Brand
     @State private var showFullText = false  // 설명 텍스트의 '더보기/닫기' 상태를 로컬 상태로 관리
     @State private var isLiked = false        // 좋아요 상태를 로컬 상태로 관리 (스크랩 여부)
     
@@ -18,7 +18,7 @@ struct BrandInfoOverlayView: View {
         
         VStack(alignment: .leading, spacing: 8) {
             // 🔹 브랜드 로고 이미지
-            Image("brandLogo")               // 브랜드 로고 이미지 (모델에서 받아올 예정)
+            Image(brand.brandLogoUrl)               // 브랜드 로고 이미지 (모델에서 받아올 예정)
                 .resizable()                 // 크기 조절 가능하도록
                 .frame(width: 48, height: 48) // 고정 크기 지정
                 .clipShape(Circle())         // 원형 모양으로 자름
@@ -29,12 +29,12 @@ struct BrandInfoOverlayView: View {
             // 🔹 브랜드 이름, 레벨 이미지, 좋아요 버튼을 가로로 배치하는 HStack
             HStack(alignment: .center, spacing: 8) {
                 // 브랜드 이름 텍스트 (모델에서 받아오기 예정)
-                Text("브랜드이름")
+                Text(brand.name)
                     .font(.system(size: 35)) // 크고 두꺼운 폰트
                     .foregroundColor(textColor)
                 
                 // 브랜드 레벨 이미지 (예: 등급 아이콘)
-                Image("level1")
+                Image("level1") // brand 레벨을 모델에서 받아와서 쓰기
                     .resizable()
                     .frame(width: 50, height: 50) // 고정 크기
                 
@@ -127,35 +127,35 @@ struct BrandInfoOverlayView: View {
 }
 
 // MARK: - 미리보기 설정
-#Preview {
-    struct PreviewWrapper: View {
-        @State private var scrollOffset: CGFloat = 0    // 스크롤 오프셋 시뮬레이션 상태
-        let bannerHeight: CGFloat = 500                  // 배너 높이 고정값
-
-        var body: some View {
-            ZStack {
-                // 배경으로 빨간색 박스 (배너 위치 가시화용)
-                Rectangle()
-                    .fill(Color.red)
-                    .frame(height: bannerHeight)
-
-                // 브랜드 오버레이 뷰
-                BrandInfoOverlayView(
-                    scrollOffset: scrollOffset,
-                    bannerHeight: bannerHeight
-                )
-
-                VStack {
-                    Spacer()
-                    // 슬라이더로 스크롤 오프셋 값 조정 가능 (디버깅/테스트용)
-                    Slider(value: $scrollOffset, in: 0...300)
-                        .padding()
-                }
-            }
-            .frame(height: bannerHeight)  // 전체 프리뷰 높이 지정
-            .background(Color.black)      // 배경색 검정으로 설정
-        }
-    }
-
-    return PreviewWrapper()
-}
+//#Preview {
+//    struct PreviewWrapper: View {
+//        @State private var scrollOffset: CGFloat = 0    // 스크롤 오프셋 시뮬레이션 상태
+//        let bannerHeight: CGFloat = 500                  // 배너 높이 고정값
+//
+//        var body: some View {
+//            ZStack {
+//                // 배경으로 빨간색 박스 (배너 위치 가시화용)
+//                Rectangle()
+//                    .fill(Color.red)
+//                    .frame(height: bannerHeight)
+//
+//                // 브랜드 오버레이 뷰
+//                BrandInfoOverlayView(
+//                    scrollOffset: scrollOffset,
+//                    bannerHeight: bannerHeight
+//                )
+//
+//                VStack {
+//                    Spacer()
+//                    // 슬라이더로 스크롤 오프셋 값 조정 가능 (디버깅/테스트용)
+//                    Slider(value: $scrollOffset, in: 0...300)
+//                        .padding()
+//                }
+//            }
+//            .frame(height: bannerHeight)  // 전체 프리뷰 높이 지정
+//            .background(Color.black)      // 배경색 검정으로 설정
+//        }
+//    }
+//
+//    return PreviewWrapper()
+//}

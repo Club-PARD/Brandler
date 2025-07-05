@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemCardFront: View {
-    let item: BrandItem
+    let item: Product
 
     var body: some View {
         Image("level1")
