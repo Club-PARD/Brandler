@@ -45,11 +45,15 @@ struct MainPage: View {
                 }
             }
             .padding(.bottom,2)
+            .padding(.horizontal, 20)
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     
                     // MARK: - Banner Image
                     BannerCarouselView(banners: bannerData)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 15)
                     
                     
                     // MARK: - Section Title
@@ -64,6 +68,7 @@ struct MainPage: View {
                         }
                         Spacer()
                     }
+                    .padding(.horizontal, 20)
                     
                     // MARK: - Brand Grid Placeholder
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -75,6 +80,7 @@ struct MainPage: View {
                             }
                         }
                     }
+                    .padding(.leading, 20)
                     
                     // MARK: - Blue Banner
                     ZStack(alignment: .bottomLeading) {
@@ -87,8 +93,10 @@ struct MainPage: View {
                             .foregroundColor(.white)
                             .font(.Pretendard_Bold)
                     }
+                    .padding(.horizontal, 20)
                     
                     GenreFilterView(selectedFilter: $selectedGenre)
+                        .padding(.horizontal, 20)
 
                     // MARK: - Filter + 전체 버튼
                     VStack {
@@ -126,11 +134,11 @@ struct MainPage: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 20)
                 }
                 .padding(.bottom, 80)
             }
         }
-        .padding(.horizontal, 20)
         .background(Color.BgColor.edgesIgnoringSafeArea(.all))
     }
 }

@@ -74,11 +74,13 @@ struct BannerCarouselView: View {
                     timer.upstream.connect().cancel()
                 }
             }
-            Image("dig_character")
+            .padding(.top,26)
+            .padding(.trailing,5)
+            Image("MainBannerSplash")
                 .resizable()
                 .scaledToFit()
                 .foregroundColor(.clear)
-                .frame(width: 62, height: 84)
+                .frame(width: 88, height: 70)
         }
     }
 
