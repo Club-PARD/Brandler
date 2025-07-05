@@ -23,8 +23,9 @@ struct MainPage: View {
     var body: some View {
         VStack {
             HStack {
-                Image("Logo")
+                Image("brandler")
                     .resizable()
+                    .scaledToFit()
                     .frame(width:98,height:33)
                 Spacer()
                 
@@ -58,7 +59,7 @@ struct MainPage: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             ForEach(viewModel.brands) { brand in
-                                NavigationLink(destination: BrandDetailView(brand: brand)) {
+                                NavigationLink(destination: BrandPage(brand: brand)) {
                                     BrandCardVIew(brand: brand)
                                 }
                             }

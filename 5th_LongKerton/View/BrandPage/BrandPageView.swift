@@ -3,6 +3,7 @@ import SwiftUI
 struct BrandPage: View {
     @StateObject private var viewModel = BrandPageViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
+    var brand: MockBrand
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -62,7 +63,8 @@ struct BrandPage: View {
             TopTabBarView(
                 tabBarScrollOffset: viewModel.tabBarScrollOffset,
                 brandName: "브랜드이름",
-                backAction: { print("뒤로가기 탭됨") }
+                backAction: {
+                    print("뒤로가기 탭됨") }
             )
             .offset(y: -85)
             .zIndex(1000)
@@ -75,6 +77,7 @@ struct BrandPage: View {
             .offset(y: -70)
         }
         .environmentObject(viewModel)
+        .navigationBarBackButtonHidden(true)
     }
     
     var overlayOffset: CGFloat {
@@ -96,6 +99,6 @@ struct BrandPage: View {
         }
     }
 }
-#Preview {
-    BrandPage()
-}
+//#Preview {
+//    BrandPage()
+//}

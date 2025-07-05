@@ -5,6 +5,7 @@ struct TopTabBarView: View {
     let tabBarScrollOffset: CGFloat
     let brandName: String
     var backAction: (() -> Void)?
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         ZStack {
@@ -14,7 +15,9 @@ struct TopTabBarView: View {
                 .ignoresSafeArea(edges: .top)
 
             HStack {
-                Button(action: { backAction?() }) {
+                Button(action: {
+                    dismiss()
+                }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.white)
                         .font(.system(size: 24, weight: .bold))
