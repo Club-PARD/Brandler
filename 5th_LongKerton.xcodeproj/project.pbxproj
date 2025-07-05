@@ -37,20 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-<<<<<<< HEAD
-		DA0EC3EB2E183B1C006C2212 /* Embed Foundation Extensions */ = {
-=======
 		DA0EC6D52E183E2E006C2212 /* Embed Foundation Extensions */ = {
->>>>>>> JTJ
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-<<<<<<< HEAD
-=======
 				DA0EC6D42E183E2E006C2212 /* BrandShowWidgetExtension.appex in Embed Foundation Extensions */,
->>>>>>> JTJ
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,18 +51,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
-		DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-=======
 		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0EC6BE2E183E2D006C2212 /* BrandShowWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BrandShowWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0EC6C02E183E2D006C2212 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DA0EC6C22E183E2D006C2212 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
->>>>>>> JTJ
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -86,6 +73,11 @@
 		31554A8C2E08285700B35D58 /* 5th_LongKerton */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = 5th_LongKerton;
+			sourceTree = "<group>";
+		};
+		31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = 5th_LongKertonTests;
 			sourceTree = "<group>";
 		};
 		31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */ = {
@@ -141,15 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
+				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
-<<<<<<< HEAD
-				DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */,
-				DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */,
-				DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */,
-			);
-			sourceTree = "<group>";
-		};
-=======
 				DA0EC6C42E183E2D006C2212 /* BrandShowWidget */,
 				DA0EC6BF2E183E2D006C2212 /* Frameworks */,
 				31554A8B2E08285700B35D58 /* Products */,
@@ -176,7 +161,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
->>>>>>> JTJ
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -187,11 +171,7 @@
 				31554A862E08285700B35D58 /* Sources */,
 				31554A872E08285700B35D58 /* Frameworks */,
 				31554A882E08285700B35D58 /* Resources */,
-<<<<<<< HEAD
-				DA0EC3EB2E183B1C006C2212 /* Embed Foundation Extensions */,
-=======
 				DA0EC6D52E183E2E006C2212 /* Embed Foundation Extensions */,
->>>>>>> JTJ
 			);
 			buildRules = (
 			);
@@ -205,7 +185,7 @@
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKerton;
-			productReference = DA0EC44B2E183B94006C2212 /* 5th_LongKerton.app */;
+			productReference = 31554A8A2E08285700B35D58 /* 5th_LongKerton.app */;
 			productType = "com.apple.product-type.application";
 		};
 		31554A962E08285B00B35D58 /* 5th_LongKertonTests */ = {
@@ -221,11 +201,14 @@
 			dependencies = (
 				31554A992E08285B00B35D58 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
+			);
 			name = 5th_LongKertonTests;
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKertonTests;
-			productReference = DA0EC4522E183C0B006C2212 /* 5th_LongKertonTests.xctest */;
+			productReference = 31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		31554AA02E08285B00B35D58 /* 5th_LongKertonUITests */ = {
@@ -248,7 +231,7 @@
 			packageProductDependencies = (
 			);
 			productName = 5th_LongKertonUITests;
-			productReference = DA0EC4532E183C0B006C2212 /* 5th_LongKertonUITests.xctest */;
+			productReference = 31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		DA0EC6BD2E183E2D006C2212 /* BrandShowWidgetExtension */ = {
@@ -309,7 +292,7 @@
 			mainGroup = 31554A812E08285700B35D58;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 31554A812E08285700B35D58;
+			productRefGroup = 31554A8B2E08285700B35D58 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -530,10 +513,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VV9N2QB3H4;
+				DEVELOPMENT_TEAM = SM8M7LZBR2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -559,10 +541,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VV9N2QB3H4;
+				DEVELOPMENT_TEAM = SM8M7LZBR2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

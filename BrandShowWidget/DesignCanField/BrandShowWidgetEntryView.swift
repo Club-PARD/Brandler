@@ -29,7 +29,6 @@ struct BrandShowWidgetEntryView: View {
         ZStack {
             Rectangle()
                 .frame(width: 200, height: 200)
-                .Color.
             VStack {
                 Text("😀")
                     .font(.largeTitle)
