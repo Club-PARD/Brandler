@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct MainPage: View {
+    @ObservedObject private var session = UserSessionManager.shared
+
     @StateObject private var viewModel = BrandScrapeViewModel()
-    ////    @StateObject private var brandModel = BrandViewModel()
-    @State public var selectedGenre: String = "빈티지"
+
+////    @StateObject private var brandModel = BrandViewModel()
+    //@State public var selectedGenre: String = "빈티지"
+    @State public var selectedGenre: String = UserSessionManager.shared.userData?.fashionGenre ?? "전체"
+
+    
+
     @State private var togglemesage: Bool = false
     private var toggleGenre: Bool = false
     @State public var bannerData = [
@@ -81,7 +88,8 @@ struct MainPage: View {
                             .font(.Pretendard_Bold)
                     }
                     
-                    GenreFilterView(selectedFilter:$selectedGenre)
+                    GenreFilterView(selectedFilter: $selectedGenre)
+
                     // MARK: - Filter + 전체 버튼
                     VStack {
                         HStack {
@@ -122,8 +130,8 @@ struct MainPage: View {
                 .padding(.bottom, 80)
             }
         }
-        .padding(.horizontal, 10)
-        .background(Color.black.edgesIgnoringSafeArea(.all))
+        .padding(.horizontal, 20)
+        .background(Color.BgColor.edgesIgnoringSafeArea(.all))
     }
 }
 

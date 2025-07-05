@@ -30,7 +30,7 @@ struct OnBoardNickNameView: View {
                         .foregroundColor(.NickWhite)
                     Spacer()
                 }
-                .padding(.leading, 16)
+                .padding(.leading, 24)
                 .padding(.bottom, 40)
                 HStack {
                     Text("닉네임")
@@ -38,7 +38,7 @@ struct OnBoardNickNameView: View {
                         .foregroundColor(.EditBox)
                     Spacer()
                 }
-                .padding(.leading, 16)
+                .padding(.leading, 20)
                 .padding(.bottom, 6)
                 
                 HStack {
@@ -47,7 +47,7 @@ struct OnBoardNickNameView: View {
                             Text("닉네임을 입력해주세요")
                                 .foregroundColor(Color.EditBox)
                                 .font(.system(size: 13))
-                                .padding(.leading, 20)
+                                .padding(.leading, 24)
                         }
                         TextField("", text: $nickname)
                             .foregroundColor(.white)
@@ -62,7 +62,7 @@ struct OnBoardNickNameView: View {
                     )
                     .cornerRadius(15)
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 20)
                 .padding(.bottom, 0)
                 Spacer()
                 Button(action: {
@@ -75,7 +75,7 @@ struct OnBoardNickNameView: View {
                         .background(Color.NextButton)
                         .cornerRadius(40)
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 25)
             }
         }
         .navigationBarBackButtonHidden(true)
