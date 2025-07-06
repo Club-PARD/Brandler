@@ -12,14 +12,14 @@ struct DiggingStepView: View {
             // ✅ 레벨 이름 + 설명 텍스트
             HStack {
                 Text(levelTitle)
-                    .font(.subheadline)
+                    .font(.system(size: 15))
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(step == 5 ? Color.GuideFontColor : .white)
                 
                 Spacer()
                 
                 Text(levellength)
-                    .font(.caption)
+                    .font(.system(size:12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
                 
@@ -29,14 +29,14 @@ struct DiggingStepView: View {
             
             HStack {
                 Text(levelDescription)
-                    .font(.caption)
+                    .font(.system(size:12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
                 
                 Spacer()
                 
                 Text(levelCount)
-                    .font(.caption)
+                    .font(.system(size:12))
                     .foregroundColor(Color.white)
                     .multilineTextAlignment(.trailing)
                     .frame(width: 50, height: 15) // 텍스트 자체에 프레임 먼저 지정
@@ -51,7 +51,7 @@ struct DiggingStepView: View {
             }
             .padding(.horizontal)
             // ✅ 레벨 이미지
-            Image("level\(step)")
+            Image("Digging_Level\(step)")
                 .resizable()
                 .frame(width: 336, height: 60)
             

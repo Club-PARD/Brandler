@@ -100,7 +100,7 @@ struct BrandInfoOverlayView: View {
                         UIApplication.shared.open(url)  // URL 열기 (Safari 등)
                     }
                 }) {
-                    Image(systemName: "cart")
+                    Image("shop")
                         .font(.system(size: 18))     // 적당한 크기 아이콘
                         .foregroundColor(.white)     // 흰색 아이콘
                 }
