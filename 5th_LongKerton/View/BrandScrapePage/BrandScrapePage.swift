@@ -175,7 +175,8 @@ struct BrandScrapePage: View {
                 )
                 .shadow(color: Color.black.opacity(0.1), radius: 8, y: 2)
                 .opacity(0.9)
-                .padding(.horizontal, 35)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 40)
                 .padding(.bottom, 8)
                 Spacer() // 아래쪽 남은 공간 채우기
             }

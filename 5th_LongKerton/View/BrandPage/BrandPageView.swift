@@ -113,4 +113,3 @@ struct BrandPage: View {
         }
     }
 }
-

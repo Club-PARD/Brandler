@@ -56,7 +56,7 @@ struct SecondModalView: View {
                                     TabButton(title: "브랜드", selected: selectedTab == 1) {
                                         selectedTab = 1
                                     }
-                                }
+                                } // Hstack
                                 .padding(.horizontal, 25)
                                 .frame(height: 56)
                                 .padding(.top, 20)
@@ -93,7 +93,7 @@ struct SecondModalView: View {
                                         }
                                     }
 
-                                }
+                                } // Vstack
                                 .background(Color.LogBlue.opacity(0.6))
                                 .mask(
                                     CustomRoundedCorner(
@@ -122,9 +122,9 @@ struct SecondModalView: View {
                                         
                                         if selectedTab == 0 {
                                             gapStartX = tabPadding + diggerOffset - 20
-                                            gapEndX = tabPadding + tabWidth + diggerOffset
+                                            gapEndX = tabPadding + tabWidth + diggerOffset - 7
                                         } else {
-                                            gapStartX = geo.size.width - tabPadding - tabWidth + brandOffset
+                                            gapStartX = geo.size.width - tabPadding - tabWidth + brandOffset + 5
                                             gapEndX = geo.size.width - tabPadding + brandOffset + 19
                                         }
                                         
@@ -151,6 +151,8 @@ struct SecondModalView: View {
                                     .padding(.horizontal, 25)
                             }
                             .frame(maxWidth: .infinity)
+                            Spacer()
+                                .frame(height: 150)
                         }
                         .ignoresSafeArea(.container, edges: .bottom)
                         Spacer()
@@ -192,32 +194,6 @@ struct SecondModalView: View {
         }
     }
 }
-
-
-// ✅ 진행률 바 (ZStack 사용 안 함)
-struct ProgressBarView: View {
-    var progress: Double // 0.0 ~ 1.0
-    
-    var body: some View {
-        GeometryReader { geo in
-            let totalWidth = geo.size.width
-            let filledWidth = totalWidth * progress
-            
-            HStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color.black)
-                    .frame(width: filledWidth)
-                Spacer(minLength: 0)
-            }
-            .frame(height: 8)
-            .background(Color.NickWhite)
-            .cornerRadius(4)
-        }
-        .frame(height: 8)
-        .padding(.horizontal, 10)
-    }
-}
-
 // ✅ 프리뷰용 Wrapper
 struct SecondModalPreviewWrapper: View {
     @State private var isVisible = true
@@ -227,6 +203,7 @@ struct SecondModalPreviewWrapper: View {
             Color.black.opacity(0.6).ignoresSafeArea()
             Image("ScrapeBackground")
                 .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea()
             
             Button("모달 열기") {
                 isVisible = true

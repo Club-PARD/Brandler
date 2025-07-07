@@ -14,8 +14,8 @@ struct BrandCardFront: View {
                 .opacity(0.7) 
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color.black.opacity(0.0), // #00000000
-                    Color.pageBlue.opacity(0.7) // #496FFF + B2 = 약 70%
+                    Color.black.opacity(0.0),
+                    Color.pageBlue.opacity(0.7)
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -44,13 +44,13 @@ struct BrandCardFront: View {
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 3)
-                .background(Color.black.opacity(0.5))
+                .background(Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 30)
                         .stroke(Color.white, lineWidth: 1)
                 )
                 .cornerRadius(30)
-                .padding(.bottom, 7) // 하단에서 7px 간격
+                .padding(.bottom, 7)
             }
         }
         .frame(width: 99, height: 124)
@@ -59,17 +59,18 @@ struct BrandCardFront: View {
     }
 }
 
-//#Preview {
-//    BrandCardFront(
-//        brand: MockBrand(
-//            id: UUID(),
-//            name: "브랜드",
-//            genre: "스트릿",
-//            description: "설명",
-//            bannerImageName: "mockBanner1",
-//            logoImageName: "mockLogo1"
-//        )
-//    )
-//    .frame(width: 120, height: 180)
-//    .background(Color.gray)
-//}
+#Preview {
+    BrandCardFront(brand: Brand(
+        id: UUID(),
+        name: "테스트브랜드",
+        brandGenre: "스트릿",
+        description: "테스트 설명입니다.",
+        brandBannerUrl: "mockLogo2",     // Assets에 있는 이미지 이름
+        brandLogoUrl: "mockLogo1",        // Assets에 있는 로고 이름
+        brandHomePageUrl: "https://example.com",
+        brandLevel: 1
+    ))
+    .previewLayout(.sizeThatFits)
+    .padding()
+    .background(Color.gray)
+}
