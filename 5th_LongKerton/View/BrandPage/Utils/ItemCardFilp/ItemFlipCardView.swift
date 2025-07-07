@@ -29,8 +29,8 @@ struct ItemFlipCardView: View {
                 flippedID = item.id
             }
         }
-        .onChange(of: flippedID) { newValue in
-            if newValue == item.id {
+        .onChange(of: flippedID) {
+            if flippedID == item.id {
                 rotation = 180
             } else {
                 rotation = 0

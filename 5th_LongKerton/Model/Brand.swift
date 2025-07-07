@@ -1,6 +1,6 @@
 import Foundation
 
-struct Brand: Identifiable, Hashable {
+struct Brand: Identifiable, Hashable,Codable {
     var id = UUID()
     let name: String
     let brandGenre: String

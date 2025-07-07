@@ -8,10 +8,12 @@ struct BrandInfoOverlayView: View {
     @State private var isLiked = false        // 좋아요 상태를 로컬 상태로 관리 (스크랩 여부)
     
     // 브랜드 설명 텍스트 (나중에 모델에서 받아오는 데이터로 교체 예정)
-    let descriptionText = "힙하고 유니크한 감성을 담은 브랜드입니다. 브랜드의 미학을 기반으로 자유롭고 실험적인 스타일을 추구합니다. 감성과 철학이 담긴 디자인으로 사용자와 소통합니다."
+    var descriptionText: String {
+        brand.description
+    }
     
     // 브랜드 쇼핑몰 URL (나중에 모델에서 받아오기)
-    let storeURL = "https://www.frizm.co.kr/"
+//    let storeURL = "https://www.frizm.co.kr/"
     
     var body: some View {
         let textColor = Color.white   // 텍스트 색상 지정
@@ -25,7 +27,7 @@ struct BrandInfoOverlayView: View {
                 .overlay(Circle().stroke(Color.white, lineWidth: 2)) // 흰색 테두리 원 추가
                 .shadow(radius: 4)           // 그림자 효과
                 .padding(.bottom, 7)         // 아래쪽 여백 7pt
-                
+            
             // 🔹 브랜드 이름, 레벨 이미지, 좋아요 버튼을 가로로 배치하는 HStack
             HStack(alignment: .center, spacing: 8) {
                 // 브랜드 이름 텍스트 (모델에서 받아오기 예정)
@@ -34,7 +36,7 @@ struct BrandInfoOverlayView: View {
                     .foregroundColor(textColor)
                 
                 // 브랜드 레벨 이미지 (예: 등급 아이콘)
-                Image("level1") // brand 레벨을 모델에서 받아와서 쓰기
+                Image("level\(brand.brandLevel)")// brand 레벨을 모델에서 받아와서 쓰기
                     .resizable()
                     .frame(width: 50, height: 50) // 고정 크기
                 
@@ -96,7 +98,7 @@ struct BrandInfoOverlayView: View {
                 
                 // 🔹 쇼핑몰 열기 버튼 (카트 아이콘)
                 Button(action: {
-                    if let url = URL(string: storeURL) {
+                    if let url = URL(string: brand.brandHomePageUrl) {
                         UIApplication.shared.open(url)  // URL 열기 (Safari 등)
                     }
                 }) {
