@@ -10,9 +10,8 @@ import SwiftUI
 struct User {
     let email: String
     let name: String
-//    let recentlyViewedBrands: [Brand]
-//    let myDiggedBrands: [Brand]
-    let Genre: [Int] // 장르 ID 리스트
+
+    let genre: [Int] // 장르 ID 리스트
 }
 
 //extension User {

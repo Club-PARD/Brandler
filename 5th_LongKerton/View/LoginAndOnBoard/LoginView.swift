@@ -1,12 +1,16 @@
+
+
 import SwiftUI
+import GoogleSignIn
 
 struct LoginView: View {
-    let goToNext: () -> Void
+    @Binding var currentState: AppState
     @EnvironmentObject var session: UserSessionManager
-    @Binding var appState: AppState
-    
+
+    @State private var showGoogleSheet = false
+
     var body: some View {
-        ZStack(alignment: .bottom){
+        ZStack(alignment: .bottom) {
             Color.BgColor.ignoresSafeArea()
             VStack {
                 VStack(spacing: 16) {
@@ -24,11 +28,11 @@ struct LoginView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
             }
-            
+
             VStack(spacing: 12) {
                 // Google 로그인 버튼
                 Button(action: {
-                    // Google 로그인 액션 구현
+                    showGoogleSheet = true
                 }) {
                     HStack {
                         Image("googleLogo")
@@ -46,51 +50,47 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 }
-                
-                // 카카오 로그인 버튼
-                Button(action: {
-                    if session.isLoggedIn {
-                        goToMain()
-                    } else {
-                        goToNext()
+                .sheet(isPresented: $showGoogleSheet) {
+                    GoogleSignInView { success, email in
+                        showGoogleSheet = false
+                        if success {
+                            // 온보딩 정보가 있으면 바로 메인, 없으면 온보딩
+                            if let userData = session.userData,
+                               !userData.nickname.isEmpty,
+                               !userData.fashionGenre.isEmpty {
+                                goToMain()
+                            } else {
+                                goToOnboarding()
+                            }
+                        }
                     }
-                }) {
-                    HStack {
-                        Image("kakaoLogo")
-                            .font(.title2)
-                            .padding(.horizontal, 20)
-                        Spacer()
-                        Text("카카오로 3초 만에 로그인")
-                            .font(.body)
-                            .fontWeight(.medium)
-                            .padding(.trailing, 85)
-                    }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, minHeight: 70)
-                    .background(Color.Kakao)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
                 }
             }
             .padding(.bottom, 24)
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            if session.isLoggedIn {
+            // 이미 로그인 & 온보딩 정보가 있으면 바로 메인
+            if session.isLoggedIn,
+               let userData = session.userData,
+               !userData.nickname.isEmpty,
+               !userData.fashionGenre.isEmpty {
                 goToMain()
             }
         }
     }
-    
+
     private func goToMain() {
         DispatchQueue.main.async {
-            appState = .main
+            currentState = .main
+        }
+    }
+
+    private func goToOnboarding() {
+        DispatchQueue.main.async {
+            currentState = .onboarding
         }
     }
 }
 
-#Preview {
-    LoginView(goToNext: {}, appState: .constant(.onboarding))
-        .environmentObject(UserSessionManager.shared)
-}
 

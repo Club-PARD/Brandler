@@ -1,8 +1,10 @@
 
 import SwiftUI
+import GoogleSignIn
 
 enum AppState {
     case splash
+    case login
     case onboarding
     case main
 }
@@ -16,6 +18,9 @@ struct ContentView: View {
         case .splash:
             SplashView(currentState: $currentState)
                 .environmentObject(session)
+        case .login:
+            LoginView(currentState: $currentState)
+                .environmentObject(session)
         case .onboarding:
             OnboardingFlowView(currentState: $currentState)
                 .environmentObject(session)
@@ -23,11 +28,7 @@ struct ContentView: View {
             KDView()
                 .environmentObject(session)
         }
+        
     }
 }
-
-#Preview {
-    ContentView() 
-}
-
 
