@@ -5,8 +5,8 @@ struct DiggingStepView: View {
     let diggingDistanceInKM: Double
     
     var body: some View {
-        let nextKM = step < 6 ? Double(step * 2) : 12.0
-        let remaining = max(0, nextKM - diggingDistanceInKM)
+//        let nextKM = step < 6 ? Double(step * 2) : 12.0
+//        let remaining = max(0, nextKM - diggingDistanceInKM)
         
         VStack(spacing: 12) {
             // ✅ 레벨 이름 + 설명 텍스트

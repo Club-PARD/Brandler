@@ -11,31 +11,20 @@ struct OnboardingFlowView: View {
     @Binding var currentState: AppState
     @EnvironmentObject var session: UserSessionManager
     @State private var path = NavigationPath()
-    
-    // 온보딩 데이터 상태
     @State private var nickname: String = ""
     @State private var selectedGenre: String = ""
-    
+
     var body: some View {
         NavigationStack(path: $path) {
-            // 항상 첫 화면은 LoginView
-            LoginView(
+            // 온보딩 첫 화면
+            OnBoardNickNameView(
                 goToNext: {
-                    // 온보딩 시작 (OnBoardNickNameView로 이동)
-                    path.append(OnboardingStep.nickName)
+                    path.append(OnboardingStep.chooseFashion)
                 },
-                appState: $currentState
+                nickname: $nickname
             )
             .navigationDestination(for: OnboardingStep.self) { step in
                 switch step {
-
-                case .nickName:
-                    OnBoardNickNameView(
-                        goToNext: {
-                            path.append(OnboardingStep.chooseFashion)
-                        },
-                        nickname: $nickname
-                    )
                 case .chooseFashion:
                     OnBoardChooseFashionView(
                         goToNext: {
@@ -46,25 +35,20 @@ struct OnboardingFlowView: View {
                 case .last:
                     OnBoardLastView(
                         finish: {
-                            // 온보딩 데이터 저장
-                            session.saveUserData(nickname: nickname, genre: selectedGenre)
-                            // 온보딩 완료 후 다시 LoginView로 이동
+                            if let email = session.userData?.email {
+                                session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+                            }
+                            // 온보딩 끝나면 LoginView로 돌아감
                             withAnimation {
-                                // path를 초기화하면 LoginView로 이동
-                                path = NavigationPath()
+                                currentState = .login
                             }
                         },
                         nickname: nickname,
                         selectedGenre: selectedGenre
                     )
+                default: EmptyView()
                 }
             }
         }
     }
 }
-
-#Preview {
-    OnboardingFlowView(currentState: .constant(.onboarding))
-        .environmentObject(UserSessionManager.shared)
-}
-

@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.877118761520-er34tqfft26c1ml343bmvn2oovgm70o2</string>
+			</array>
+		</dict>
+	</array>
+	<key>GIDClientID</key>
+	<string>877118761520-er34tqfft26c1ml343bmvn2oovgm70o2.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Thin.ttf</string>
@@ -14,5 +27,7 @@
 		<string>Pretendard-Black.ttf</string>
 		<string>Pretendard-Bold.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array/>
 </dict>
 </plist>
