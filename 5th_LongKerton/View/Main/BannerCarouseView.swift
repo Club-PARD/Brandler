@@ -34,6 +34,7 @@ struct BannerCarouselView: View {
                         .font(.system(size:13,weight:.light))
                     Spacer()
                 }
+                .padding(.leading, 20)
                 
                 SwiftUI.TabView(selection: $currentIndex) {
                     ForEach(Array(loopedBanners.enumerated()), id: \.offset) { index, banner in
@@ -43,6 +44,8 @@ struct BannerCarouselView: View {
                             total: banners.count
                         )
                         .tag(index)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -74,11 +77,13 @@ struct BannerCarouselView: View {
                     timer.upstream.connect().cancel()
                 }
             }
-            Image("dig_character")
+            .padding(.top,26)
+            Image("MainBannerSplash")
                 .resizable()
                 .scaledToFit()
                 .foregroundColor(.clear)
-                .frame(width: 62, height: 84)
+                .frame(width: 88, height: 70)
+                .padding(.trailing,15)
         }
     }
 
