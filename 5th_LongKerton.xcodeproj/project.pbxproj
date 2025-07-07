@@ -23,10 +23,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DAFF7E442E19342600B4E293 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -78,6 +93,7 @@
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
 				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
+				DAFF7E2A2E19342500B4E293 /* Frameworks */,
 				31554A8B2E08285700B35D58 /* Products */,
 			);
 			sourceTree = "<group>";

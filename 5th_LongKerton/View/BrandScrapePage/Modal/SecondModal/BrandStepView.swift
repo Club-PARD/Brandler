@@ -6,14 +6,14 @@ struct BrandStepView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 16) {
-                Image("level\(step)")
+                Image("Level\(step)")
                     .resizable()
-                    .frame(width: 111, height: 72)
+                    .frame(width: 91, height: 91)
                     .padding()
                 VStack(alignment: .leading, spacing: 8) {
                     Text(levelTitle)
-                        .font(.headline)
-                        .foregroundColor(.black)
+                        .font(.system(size:15))
+                        .foregroundColor(step == 5 ? Color.GuideFontColor : .white)
                     
                     Text(levelDescription)
                         .font(.system(size:12))
@@ -37,7 +37,6 @@ struct BrandStepView: View {
                 Spacer()
                 
             }
-            Spacer()
         }
     }
     
