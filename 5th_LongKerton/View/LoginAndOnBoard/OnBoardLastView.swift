@@ -46,7 +46,7 @@ struct OnBoardLastView: View {
                     .scaledToFit()
                     .frame(width: 160, height: 240)
                     .padding(.leading, 55)
-                    .padding(.bottom, 38)
+                    .padding(.bottom, 20)
 
                 Spacer()
                 
