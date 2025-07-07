@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		18D1BD6A2E1AB2E100D9B70B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 18D1BD692E1AB2E100D9B70B /* GoogleSignIn */; };
 		18D1BD6C2E1AB2E100D9B70B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D1BD6B2E1AB2E100D9B70B /* GoogleSignInSwift */; };
-		DAFF7E2C2E19342500B4E293 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */; };
-		DAFF7E2E2E19342500B4E293 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */; };
-		DAFF7E3F2E19342600B4E293 /* BrandShowImageExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,25 +28,10 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		DAFF7E442E19342600B4E293 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -66,11 +48,6 @@
 		31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = 5th_LongKertonUITests;
-			sourceTree = "<group>";
-		};
-		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BrandShowImage;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -108,7 +85,6 @@
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
 				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
-				DAFF7E2A2E19342500B4E293 /* Frameworks */,
 				31554A8B2E08285700B35D58 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -433,7 +409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 59PXQ6F8CX;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -447,7 +423,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -462,7 +438,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 59PXQ6F8CX;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -476,7 +452,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -553,62 +529,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = 5th_LongKerton;
-			};
-			name = Release;
-		};
-		DAFF7E422E19342600B4E293 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 59PXQ6F8CX;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BrandShowImage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BrandShowImage;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton.BrandShowImage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		DAFF7E432E19342600B4E293 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 59PXQ6F8CX;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BrandShowImage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BrandShowImage;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton.BrandShowImage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
