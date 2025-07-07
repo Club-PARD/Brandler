@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct BrandScrapePage: View {
+    
+    
     // 🔹 두 번째 모달(레벨 가이드) 표시 여부
     @State private var showSecondModal = false
     
@@ -30,6 +32,7 @@ struct BrandScrapePage: View {
     }
     
     var body: some View {
+        
         ZStack(alignment: .topTrailing) {
             Color.black.edgesIgnoringSafeArea(.all)
             // 🔸 배경: 상단은 검정, 하단은 블루로 이어지는 그라디언트
@@ -190,10 +193,11 @@ struct BrandScrapePage: View {
             // 초기 오프셋 설정 (필요 시 드래그 모달 위치 기준)
             offsetY = UIScreen.main.bounds.height - 100
         }
+        
     }
 }
 
-// 🔸 미리보기
-#Preview {
-    BrandScrapePage()
-}
+//// 🔸 미리보기
+//#Preview {
+//    BrandScrapePage()
+//}
