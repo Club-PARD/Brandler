@@ -52,8 +52,6 @@ struct MainPage: View {
                     
                     // MARK: - Banner Image
                     BannerCarouselView(banners: bannerData)
-                        .padding(.leading, 20)
-                        .padding(.trailing, 15)
                     
                     
                     // MARK: - Section Title
