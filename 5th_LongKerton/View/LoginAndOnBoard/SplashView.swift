@@ -89,7 +89,8 @@ struct SplashView: View {
             // 3초 후 화면 전환
             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                 withAnimation {
-                    currentState = .onboarding
+                    //currentState = .onboarding
+                    currentState = .login
                 }
             }
         }

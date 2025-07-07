@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		18D1BD6A2E1AB2E100D9B70B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 18D1BD692E1AB2E100D9B70B /* GoogleSignIn */; };
+		18D1BD6C2E1AB2E100D9B70B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D1BD6B2E1AB2E100D9B70B /* GoogleSignInSwift */; };
+		DAFF7E2C2E19342500B4E293 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */; };
+		DAFF7E2E2E19342500B4E293 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */; };
+		DAFF7E3F2E19342600B4E293 /* BrandShowImageExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		31554A982E08285B00B35D58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,6 +29,13 @@
 			remoteGlobalIDString = 31554A892E08285700B35D58;
 			remoteInfo = 5th_LongKerton;
 		};
+		DAFF7E3D2E19342600B4E293 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31554A822E08285700B35D58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAFF7E282E19342500B4E293;
+			remoteInfo = BrandShowImageExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				DAFF7E3F2E19342600B4E293 /* BrandShowImageExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,6 +56,7 @@
 		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BrandShowImageExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -60,6 +77,11 @@
 			path = 5th_LongKertonUITests;
 			sourceTree = "<group>";
 		};
+		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BrandShowImage;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D1BD6A2E1AB2E100D9B70B /* GoogleSignIn in Frameworks */,
+				18D1BD6C2E1AB2E100D9B70B /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +108,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAFF7E262E19342500B4E293 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFF7E2E2E19342500B4E293 /* SwiftUI.framework in Frameworks */,
+				DAFF7E2C2E19342500B4E293 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -93,6 +126,7 @@
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
 				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
+				DAFF7E2F2E19342500B4E293 /* BrandShowImage */,
 				DAFF7E2A2E19342500B4E293 /* Frameworks */,
 				31554A8B2E08285700B35D58 /* Products */,
 			);
@@ -104,6 +138,7 @@
 				31554A8A2E08285700B35D58 /* 5th_LongKerton.app */,
 				31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */,
 				31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */,
+				DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,12 +167,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				DAFF7E3E2E19342600B4E293 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
 			);
 			name = 5th_LongKerton;
 			packageProductDependencies = (
+				18D1BD692E1AB2E100D9B70B /* GoogleSignIn */,
+				18D1BD6B2E1AB2E100D9B70B /* GoogleSignInSwift */,
 			);
 			productName = 5th_LongKerton;
 			productReference = 31554A8A2E08285700B35D58 /* 5th_LongKerton.app */;
@@ -189,6 +227,28 @@
 			productReference = 31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DAFF7E282E19342500B4E293 /* BrandShowImageExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFF7E412E19342600B4E293 /* Build configuration list for PBXNativeTarget "BrandShowImageExtension" */;
+			buildPhases = (
+				DAFF7E252E19342500B4E293 /* Sources */,
+				DAFF7E262E19342500B4E293 /* Frameworks */,
+				DAFF7E272E19342500B4E293 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DAFF7E2F2E19342500B4E293 /* BrandShowImage */,
+			);
+			name = BrandShowImageExtension;
+			packageProductDependencies = (
+			);
+			productName = BrandShowImageExtension;
+			productReference = DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -210,6 +270,9 @@
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = 31554A892E08285700B35D58;
 					};
+					DAFF7E282E19342500B4E293 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 31554A852E08285700B35D58 /* Build configuration list for PBXProject "5th_LongKerton" */;
@@ -221,6 +284,9 @@
 			);
 			mainGroup = 31554A812E08285700B35D58;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				18D1BD682E1AB2E100D9B70B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 31554A8B2E08285700B35D58 /* Products */;
 			projectDirPath = "";
@@ -229,6 +295,7 @@
 				31554A892E08285700B35D58 /* 5th_LongKerton */,
 				31554A962E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA02E08285B00B35D58 /* 5th_LongKertonUITests */,
+				DAFF7E282E19342500B4E293 /* BrandShowImageExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -249,6 +316,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		31554A9F2E08285B00B35D58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFF7E272E19342500B4E293 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -279,6 +353,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAFF7E252E19342500B4E293 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -291,6 +372,11 @@
 			isa = PBXTargetDependency;
 			target = 31554A892E08285700B35D58 /* 5th_LongKerton */;
 			targetProxy = 31554AA22E08285B00B35D58 /* PBXContainerItemProxy */;
+		};
+		DAFF7E3E2E19342600B4E293 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAFF7E282E19342500B4E293 /* BrandShowImageExtension */;
+			targetProxy = DAFF7E3D2E19342600B4E293 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -423,7 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VV9N2QB3H4;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -437,7 +523,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -452,7 +538,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VV9N2QB3H4;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -466,7 +552,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -480,11 +566,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKertonTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKertonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -499,11 +585,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKertonTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKertonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -517,10 +603,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKertonUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKertonUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -534,15 +620,71 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SM8M7LZBR2;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKertonUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKertonUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = 5th_LongKerton;
+			};
+			name = Release;
+		};
+		DAFF7E422E19342600B4E293 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrandShowImage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BrandShowImage;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton.BrandShowImage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAFF7E432E19342600B4E293 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59PXQ6F8CX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrandShowImage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BrandShowImage;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yhc.-th-LongKerton.BrandShowImage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -585,7 +727,40 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DAFF7E412E19342600B4E293 /* Build configuration list for PBXNativeTarget "BrandShowImageExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFF7E422E19342600B4E293 /* Debug */,
+				DAFF7E432E19342600B4E293 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18D1BD682E1AB2E100D9B70B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18D1BD692E1AB2E100D9B70B /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D1BD682E1AB2E100D9B70B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		18D1BD6B2E1AB2E100D9B70B /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D1BD682E1AB2E100D9B70B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 31554A822E08285700B35D58 /* Project object */;
 }
