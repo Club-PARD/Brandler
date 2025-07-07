@@ -24,35 +24,17 @@ struct ItemFlipCardView: View {
         .animation(.easeInOut(duration: 0.3), value: rotation)
         .onTapGesture {
             if isFlipped {
-                rotation = 0
                 flippedID = nil
             } else {
-                rotation = 180
                 flippedID = item.id
+            }
+        }
+        .onChange(of: flippedID) {
+            if flippedID == item.id {
+                rotation = 180
+            } else {
+                rotation = 0
             }
         }
     }
 }
-
-//#Preview {
-//    struct PreviewWrapper: View {
-//        @State private var flippedID: UUID? = nil
-//
-//        var body: some View {
-//            FlipCardView(
-//                item: BrandItem(
-//                    frontImageName: "mockBanner1",
-//                    name: "프리뷰 브랜드",
-//                    price: 59000,
-//                    category: .accessory
-//                ),
-//                flippedID: $flippedID,
-//                onDelete: { print("삭제됨") }
-//            )
-//            .frame(width: 120, height: 180)
-//            .background(Color.gray)
-//        }
-//    }
-//
-//    return PreviewWrapper()
-//}
