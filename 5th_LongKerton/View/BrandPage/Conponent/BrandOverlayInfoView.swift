@@ -36,7 +36,7 @@ struct BrandInfoOverlayView: View {
                     .foregroundColor(textColor)
                 
                 // 브랜드 레벨 이미지 (예: 등급 아이콘)
-                Image("level\(brand.brandLevel)")// brand 레벨을 모델에서 받아와서 쓰기
+                Image("Level\(brand.brandLevel)")// brand 레벨을 모델에서 받아와서 쓰기
                     .resizable()
                     .frame(width: 50, height: 50) // 고정 크기
                 

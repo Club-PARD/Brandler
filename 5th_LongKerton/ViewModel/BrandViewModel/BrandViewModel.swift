@@ -20,7 +20,8 @@ final class BrandViewModel: ObservableObject {
     @Published var selectedGenre: String = "전체"                  // 현재 선택된 장르
 
     // MARK: - 카테고리 관련
-    @Published var selectedCategory: Category = .all               // 현재 선택된 카테고리 (상품 필터용)
+    @Published var selectedCategory: Category = .all
+    @Published var items: [Product] = Product.brandItems// 현재 선택된 카테고리 (상품 필터용)
 
     // MARK: - 스크롤 상태
     @Published var scrollOffset: CGFloat = 0
@@ -28,22 +29,22 @@ final class BrandViewModel: ObservableObject {
     @Published var tabBarScrollOffset: CGFloat = 0
     @Published var categoryTabBarScrollOffset: CGFloat = 0
     
-    @Published var items: [Product] = [                    // 브랜드 아이템 리스트 (샘플 데이터)
-        .init(productImageUrl: "sample1", name: "루즈핏 후드", price: 49000, productCategory:  .top),
-        .init(productImageUrl: "sample2", name: "벌룬 니트", price: 59000, productCategory: .top),
-        .init(productImageUrl: "sample3", name: "크롭 점퍼", price: 71000, productCategory: .top),
-        .init(productImageUrl: "sample1", name: "루즈핏 후드", price: 49000, productCategory: .top),
-        .init(productImageUrl: "sample2", name: "벌룬 니트", price: 59000, productCategory: .top),
-        .init(productImageUrl: "sample3", name: "크롭 점퍼", price: 71000, productCategory: .top),
-        .init(productImageUrl: "sample1", name: "루즈핏 후드", price: 49000, productCategory: .top),
-        .init(productImageUrl: "sample2", name: "벌룬 니트", price: 59000, productCategory: .top),
-        .init(productImageUrl: "sample3", name: "크롭 점퍼", price: 71000, productCategory: .top),
-        .init(productImageUrl: "sample1", name: "루즈핏 후드", price: 49000, productCategory: .top),
-        .init(productImageUrl: "sample2", name: "벌룬 니트", price: 59000, productCategory: .top),
-        .init(productImageUrl: "sample3", name: "크롭 점퍼", price: 71000, productCategory: .top),
-        .init(productImageUrl: "sample4", name: "기모 팬츠", price: 48000, productCategory: .top)
-    ]
-
+//    @Published var items: [Product] = [                    // 브랜드 아이템 리스트 (샘플 데이터)
+//        .init(productImageUrl: "level1 1", name: "루즈핏 후드", price: 49000, productCategory:  .top),
+//        .init(productImageUrl: "level1 1", name: "벌룬 니트", price: 59000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "크롭 점퍼", price: 71000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "루즈핏 후드", price: 49000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "벌룬 니트", price: 59000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "크롭 점퍼", price: 71000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "루즈핏 후드", price: 49000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "벌룬 니트", price: 59000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "크롭 점퍼", price: 71000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "루즈핏 후드", price: 49000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "벌룬 니트", price: 59000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "크롭 점퍼", price: 71000, productCategory: .top),
+//        .init(productImageUrl: "level1 1", name: "기모 팬츠", price: 48000, productCategory: .top)
+//    ]
+//
     // MARK: - 필터링된 상품 리스트 (selectedCategory 기준)
     var filteredItems: [Product] {
         if selectedCategory == .all {
