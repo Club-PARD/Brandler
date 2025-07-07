@@ -13,10 +13,13 @@ struct BannerCardView: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            Rectangle()
-                .foregroundColor(.clear)
-                .frame(width: .infinity, height: 160)
-                .background(
+            
+            Image(banner.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width:.infinity, height: 160)
+                .clipped()
+                .overlay(
                     LinearGradient(
                         gradient: Gradient(colors: [
                             Color.black.opacity(0.3),
@@ -27,14 +30,7 @@ struct BannerCardView: View {
                         endPoint: .bottom
                     )
                 )
-                .background(
-                    Image(banner.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width:.infinity, height: 160)
-                        .clipped()
-                        .cornerRadius(12)
-                )
+                .cornerRadius(12)
             
             
             HStack(alignment: .bottom){
