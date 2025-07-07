@@ -59,6 +59,8 @@ extension Color {
     
     static let ScrollPoint = Color(hex: 0x0022FF)
     static let BrandCardFontColor = Color(hex: 0x9F9F9F)
+    static let GuideFontColor = Color(hex: 0xCDFF5D)
+    
 
     
     //BrandPage
