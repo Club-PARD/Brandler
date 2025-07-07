@@ -29,6 +29,13 @@
 			remoteGlobalIDString = 31554A892E08285700B35D58;
 			remoteInfo = 5th_LongKerton;
 		};
+		DAFF7E3D2E19342600B4E293 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31554A822E08285700B35D58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAFF7E282E19342500B4E293;
+			remoteInfo = BrandShowImageExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				DAFF7E3F2E19342600B4E293 /* BrandShowImageExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,21 +56,10 @@
 		31554A8A2E08285700B35D58 /* 5th_LongKerton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5th_LongKerton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 5th_LongKertonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BrandShowImageExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
-
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DAFF7E282E19342500B4E293 /* BrandShowImageExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		31554A8C2E08285700B35D58 /* 5th_LongKerton */ = {
@@ -82,11 +79,6 @@
 		};
 		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-
-			exceptions = (
-				18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */,
-			);
-
 			path = BrandShowImage;
 			sourceTree = "<group>";
 		};
@@ -116,6 +108,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAFF7E262E19342500B4E293 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFF7E2E2E19342500B4E293 /* SwiftUI.framework in Frameworks */,
+				DAFF7E2C2E19342500B4E293 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -125,6 +126,7 @@
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
 				31554A9A2E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA42E08285B00B35D58 /* 5th_LongKertonUITests */,
+				DAFF7E2F2E19342500B4E293 /* BrandShowImage */,
 				DAFF7E2A2E19342500B4E293 /* Frameworks */,
 				31554A8B2E08285700B35D58 /* Products */,
 			);
@@ -136,8 +138,18 @@
 				31554A8A2E08285700B35D58 /* 5th_LongKerton.app */,
 				31554A972E08285B00B35D58 /* 5th_LongKertonTests.xctest */,
 				31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */,
+				DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DAFF7E2A2E19342500B4E293 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */,
+				DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,10 +162,12 @@
 				31554A862E08285700B35D58 /* Sources */,
 				31554A872E08285700B35D58 /* Frameworks */,
 				31554A882E08285700B35D58 /* Resources */,
+				DAFF7E442E19342600B4E293 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DAFF7E3E2E19342600B4E293 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				31554A8C2E08285700B35D58 /* 5th_LongKerton */,
@@ -213,6 +227,28 @@
 			productReference = 31554AA12E08285B00B35D58 /* 5th_LongKertonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DAFF7E282E19342500B4E293 /* BrandShowImageExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFF7E412E19342600B4E293 /* Build configuration list for PBXNativeTarget "BrandShowImageExtension" */;
+			buildPhases = (
+				DAFF7E252E19342500B4E293 /* Sources */,
+				DAFF7E262E19342500B4E293 /* Frameworks */,
+				DAFF7E272E19342500B4E293 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DAFF7E2F2E19342500B4E293 /* BrandShowImage */,
+			);
+			name = BrandShowImageExtension;
+			packageProductDependencies = (
+			);
+			productName = BrandShowImageExtension;
+			productReference = DAFF7E292E19342500B4E293 /* BrandShowImageExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -220,7 +256,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					31554A892E08285700B35D58 = {
@@ -233,6 +269,9 @@
 					31554AA02E08285B00B35D58 = {
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = 31554A892E08285700B35D58;
+					};
+					DAFF7E282E19342500B4E293 = {
+						CreatedOnToolsVersion = 16.4;
 					};
 				};
 			};
@@ -256,6 +295,7 @@
 				31554A892E08285700B35D58 /* 5th_LongKerton */,
 				31554A962E08285B00B35D58 /* 5th_LongKertonTests */,
 				31554AA02E08285B00B35D58 /* 5th_LongKertonUITests */,
+				DAFF7E282E19342500B4E293 /* BrandShowImageExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -276,6 +316,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		31554A9F2E08285B00B35D58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFF7E272E19342500B4E293 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,6 +353,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAFF7E252E19342500B4E293 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -318,6 +372,11 @@
 			isa = PBXTargetDependency;
 			target = 31554A892E08285700B35D58 /* 5th_LongKerton */;
 			targetProxy = 31554AA22E08285B00B35D58 /* PBXContainerItemProxy */;
+		};
+		DAFF7E3E2E19342600B4E293 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAFF7E282E19342500B4E293 /* BrandShowImageExtension */;
+			targetProxy = DAFF7E3D2E19342600B4E293 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -664,6 +723,15 @@
 			buildConfigurations = (
 				31554AB22E08285B00B35D58 /* Debug */,
 				31554AB32E08285B00B35D58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAFF7E412E19342600B4E293 /* Build configuration list for PBXNativeTarget "BrandShowImageExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFF7E422E19342600B4E293 /* Debug */,
+				DAFF7E432E19342600B4E293 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
