@@ -62,7 +62,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DAFF7E402E19342600B4E293 /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */ = {
+		18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -90,7 +90,7 @@
 		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DAFF7E402E19342600B4E293 /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */,
+				18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */,
 			);
 			path = BrandShowImage;
 			sourceTree = "<group>";

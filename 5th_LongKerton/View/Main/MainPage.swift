@@ -1,23 +1,25 @@
+
+//MainPage.swift
+//5th_LongKerton
 //
-//  MainPage.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 6/30/25.
-//
+//Created by Kim Kyengdong on 6/30/25.
+
 
 import SwiftUI
 
 struct MainPage: View {
     @ObservedObject private var session = UserSessionManager.shared
-
+    
     @StateObject private var viewModel = BrandViewModel()
-
-////    @StateObject private var brandModel = BrandViewModel()
+    
+    
+    
+    ////    @StateObject private var brandModel = BrandViewModel()
     //@State public var selectedGenre: String = "빈티지"
     @State public var selectedGenre: String = UserSessionManager.shared.userData?.fashionGenre ?? "전체"
-
     
-
+    
+    
     @State private var togglemesage: Bool = false
     private var toggleGenre: Bool = false
     @State public var bannerData = [
@@ -89,7 +91,7 @@ struct MainPage: View {
                     }
                     
                     GenreFilterView(selectedFilter: $selectedGenre)
-
+                    
                     // MARK: - Filter + 전체 버튼
                     VStack {
                         HStack {
@@ -132,9 +134,12 @@ struct MainPage: View {
         }
         .padding(.horizontal, 20)
         .background(Color.BgColor.edgesIgnoringSafeArea(.all))
+        
     }
 }
 
 #Preview {
     MainPage()
 }
+
+

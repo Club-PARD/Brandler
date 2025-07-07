@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 enum OnboardingStep: Hashable {
@@ -38,7 +37,6 @@ struct OnboardingFlowView: View {
                             if let email = session.userData?.email {
                                 session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
                             }
-                            // 온보딩 끝나면 LoginView로 돌아감
                             withAnimation {
                                 currentState = .login
                             }
@@ -46,6 +44,7 @@ struct OnboardingFlowView: View {
                         nickname: nickname,
                         selectedGenre: selectedGenre
                     )
+                    .environmentObject(session)
                 default: EmptyView()
                 }
             }
