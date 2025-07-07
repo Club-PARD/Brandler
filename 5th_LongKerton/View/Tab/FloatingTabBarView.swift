@@ -10,6 +10,9 @@ import SwiftUI
 
 struct FloatingTabBarView: View {
     @Binding var selectedTab: String
+    
+
+    
     var body: some View {
         HStack(spacing: 16) {
             Button {
@@ -44,6 +47,8 @@ struct FloatingTabBarView: View {
                     )
             }
         }
+        
+        
         .padding(.horizontal, 35)
         .padding(.vertical, 12)
         // Glassmorphism background

@@ -52,6 +52,18 @@
 		DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DAFF7E282E19342500B4E293 /* BrandShowImageExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		31554A8C2E08285700B35D58 /* 5th_LongKerton */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -70,6 +82,11 @@
 		};
 		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+
+			exceptions = (
+				18D1BEA42E1B8E8500D9B70B /* Exceptions for "BrandShowImage" folder in "BrandShowImageExtension" target */,
+			);
+
 			path = BrandShowImage;
 			sourceTree = "<group>";
 		};
