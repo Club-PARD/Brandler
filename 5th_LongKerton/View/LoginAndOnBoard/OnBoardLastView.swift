@@ -46,7 +46,7 @@ struct OnBoardLastView: View {
                     .scaledToFit()
                     .frame(width: 160, height: 240)
                     .padding(.leading, 55)
-                    .padding(.bottom, 38)
+                    .padding(.bottom, 20)
 
                 Spacer()
                 
@@ -54,7 +54,7 @@ struct OnBoardLastView: View {
                     (
                         Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
                         + Text("'디깅러'").bold()
-                        + Text("라고 부릅니다.\n- \n이제, 디깅을 시작할 시간이에요. 🌊")
+                        + Text("라고 부릅니다.\n - \n이제, 디깅을 시작할 시간이에요. 🌊")
                     )
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.NickWhite)

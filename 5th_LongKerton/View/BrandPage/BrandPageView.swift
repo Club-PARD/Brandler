@@ -114,17 +114,3 @@ struct BrandPage: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        BrandPage(brand: Brand(
-            id: UUID(),
-            name: "테스트 브랜드",
-            brandGenre: "스트릿",
-            description: "이것은 브랜드 설명입니다.",
-            brandBannerUrl: "mockBanner1",
-            brandLogoUrl: "mockLogo1",
-            brandHomePageUrl: "https://example.com",
-            brandLevel: 1
-        ))
-    }
-}
