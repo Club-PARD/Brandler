@@ -18,9 +18,8 @@ struct BrandCardVIew:View {
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color.black.opacity(0),
-                            Color.blue.opacity(0.1),
-                            Color.blue.opacity(0.7)
+                            Color("CardGradiantBlack").opacity(0),
+                            Color("CardGradiant").opacity(0.7)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
@@ -29,12 +28,14 @@ struct BrandCardVIew:View {
                 .background(
                     Image(brand.brandBannerUrl)
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 99, height: 124)
                 )
                 .cornerRadius(12)
             HStack{
                 Image(brand.brandLogoUrl)
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 14, height: 14)
                     .clipShape(Circle())
                     .overlay(
@@ -63,5 +64,5 @@ struct BrandCardVIew:View {
 }
 
 #Preview{
-    BrandCardVIew(brand: .sampleData[1])
+    BrandCardVIew(brand: .sampleData[0])
 }

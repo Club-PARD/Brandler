@@ -26,9 +26,7 @@ struct BrandCardBack: View {
 
             // ✅ 상단 버튼 영역
             HStack(spacing: 8) {
-                Button(action: {
-                    onShop()  // 상점 액션
-                }) {
+                NavigationLink(destination: BrandPage(brand: brand)) {
                     Image("shop")
                         .resizable()
                         .frame(width: 20, height: 20)

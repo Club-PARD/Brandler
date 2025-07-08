@@ -98,7 +98,6 @@ struct MainPage: View {
                     GenreFilterView(selectedFilter: $selectedGenre)
                         .padding(.horizontal, 20)
 
-
                     // MARK: - Filter + 전체 버튼
                     VStack {
                         HStack {
@@ -108,12 +107,14 @@ struct MainPage: View {
                                 togglemesage.toggle()
                             }) {
                                 Image(systemName: "questionmark.circle")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(Color("SearchingIconColor"))
                             }
                         }
+                        .padding(.trailing,20)
                         
                         ZStack (alignment: .topTrailing){
                             BrandFilterView(brands: viewModel.brands, selectedGenre: selectedGenre)
+                                .padding(.horizontal, 20)
                             if togglemesage {
                                 ZStack(alignment:.topTrailing){
                                     Text("스크랩 수가 적은 브랜드 순으로 \n정렬되어있어요.")
@@ -131,11 +132,13 @@ struct MainPage: View {
                                     Image("CloseButton")
                                         .resizable()
                                         .frame(width:9,height:9)
+                                        .padding(.vertical,5)
+                                        .padding(.horizontal,6)
                                 }
+                                .padding(.trailing,19)
                             }
                         }
                     }
-                    .padding(.horizontal, 20)
                 }
                 .padding(.bottom, 80)
             }

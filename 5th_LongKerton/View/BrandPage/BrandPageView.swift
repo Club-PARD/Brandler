@@ -114,3 +114,7 @@ struct BrandPage: View {
     }
 }
 
+#Preview
+{
+    BrandPage(brand: Brand.sampleData[0])
+}

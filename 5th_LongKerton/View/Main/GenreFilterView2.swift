@@ -9,22 +9,21 @@
 
 import SwiftUI
 
-struct GenreFilterView: View {
-    @State private var showMoreFilters: Bool = false
-    @Binding var selectedFilter: String
+struct GenreFilterView2: View {
+    @State private var showMoreFilters: Bool = true
+    @Binding var selectedFilter: String // "All"
     
     let allFilters: [String] = ["전체", "아메카지", "스트릿", "빈티지", "히피", "포멀", "페미닌", "테크", "펑크", "기타"]
     
     var body: some View {
-        HStack(alignment: .top, spacing: 0) {
+        HStack(alignment: .top) {
             Button(action: {
                 showMoreFilters.toggle()
             }) {
                 Image("Filter") // Filter icon
                     .resizable()
-                    .scaledToFit()
                     .frame(width: 24, height: 24)
-                    .padding(.trailing,18)
+                    .padding(2)
             }
             if showMoreFilters {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 10) {
@@ -40,6 +39,7 @@ struct GenreFilterView: View {
                                 .cornerRadius(10)
                         }
                     }
+                    Spacer()
                 }
                 .frame(maxWidth:.infinity)
                 .transition(.opacity.combined(with: .slide)) // Add a subtle animation
@@ -63,4 +63,3 @@ struct GenreFilterView: View {
         .background(Color.BgColor.edgesIgnoringSafeArea(.all)) // Dark background for the whole view
     }
 }
-
