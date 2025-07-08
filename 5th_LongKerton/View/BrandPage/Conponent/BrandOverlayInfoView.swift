@@ -73,6 +73,7 @@ struct BrandInfoOverlayView: View {
                 Spacer()
             }
             .padding(.bottom, 10) // `HStack` 아래쪽에 10pt의 여백을 추가합니다.
+            
             Text(brand.brandGenre)
                 .font(.custom("Prentendard-Medium", size: 10))
                 .foregroundColor(Color.white)
