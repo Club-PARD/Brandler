@@ -62,8 +62,6 @@
 			path = 5th_LongKertonUITests;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-=======
 		DAFF7E2F2E19342500B4E293 /* BrandShowImage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 
@@ -74,7 +72,6 @@
 			path = BrandShowImage;
 			sourceTree = "<group>";
 		};
->>>>>>> 98359327f26122847bebe46978dabb4541e60bb3
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
