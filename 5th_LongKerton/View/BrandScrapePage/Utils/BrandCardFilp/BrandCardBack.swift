@@ -30,16 +30,13 @@ struct BrandCardBack: View {
 
             // 상단 오른쪽 버튼 영역
             HStack(spacing: 8) {
-                // 쇼핑 버튼
-                Button(action: {
-                    onShop() // 외부에서 전달된 쇼핑 액션 실행
-                }) {
-                    Image("shop") // Assets 내 이미지 사용
-                        .resizable() // 크기 조절
-                        .frame(width: 20, height: 20) // 고정 크기
-                        .padding(6) // 내부 여백
-                        .background(Color.black.opacity(0.0)) // 배경 투명
-                        .clipShape(Circle()) // 원형 버튼
+                NavigationLink(destination: BrandPage(brand: brand)) {
+                    Image("shop")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(6)
+                        .background(Color.black.opacity(0.0))
+                        .clipShape(Circle())
                 }
 
                 Spacer() // 두 버튼 사이 간격 확보

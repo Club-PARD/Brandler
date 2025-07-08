@@ -18,25 +18,25 @@ struct BannerCarouselView: View {
         guard let first = banners.first, let last = banners.last else { return [] }
         return [last] + banners + [first] // 앞뒤로 가짜 추가
     }
+    let userName = Text("\(UserSessionManager.shared.userData?.nickname ?? "장마엔 로그인")").font(.custom("Pretendard-SemiBold",size: 13))
+        .foregroundColor(Color("BannerHeadTextColor"))
+    
+    let hello = Text("님 반가워요").font(.custom("Pretendard-Light",size: 13))
+        .foregroundColor(Color("BannerHeadTextColor"))
 
     var body: some View {
         ZStack(alignment: .topTrailing){
             VStack{
                 HStack{
                     //Text("장마엔 종로룩 완성")
-                    Text(UserSessionManager.shared.userData?.nickname ?? "장마엔 로그인")
-                        .foregroundColor(Color("BannerHeadTextColor"))
-                        .font(.custom("Pretendard-Medium.ttf",size: 13))
-                        .font(.system(size:13,weight:.medium))
-                    Text("님 반가워요")
-                        .foregroundColor(Color("BannerHeadTextColor"))
-                        .font(.custom("Pretendard-Medium.ttf",size: 13))
-                        .font(.system(size:13,weight:.light))
+                        userName
+                        +
+                        hello
                     Spacer()
                 }
                 .padding(.leading, 20)
                 
-                SwiftUI.TabView(selection: $currentIndex) {
+                TabView(selection: $currentIndex) {
                     ForEach(Array(loopedBanners.enumerated()), id: \.offset) { index, banner in
                         BannerCardView(
                             banner: banner,
