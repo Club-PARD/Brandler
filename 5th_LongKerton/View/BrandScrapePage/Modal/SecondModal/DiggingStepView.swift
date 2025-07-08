@@ -1,85 +1,84 @@
 import SwiftUI
+
 struct DiggingStepView: View {
-    let step: Int
-    let progress: Double
-    let diggingDistanceInKM: Double
-    
+    let step: Int                           // 현재 단계 번호
+    let progress: Double                    // 진행도 (0.0 ~ 1.0)
+    let diggingDistanceInKM: Double         // 디깅 거리 (킬로미터 기준)
+
     var body: some View {
-//        let nextKM = step < 6 ? Double(step * 2) : 12.0
-//        let remaining = max(0, nextKM - diggingDistanceInKM)
-        
-        VStack(spacing: 12) {
-            // ✅ 레벨 이름 + 설명 텍스트
+        VStack(spacing: 3) { // stack 간의 여백 3 
+            // 상단 텍스트 (레벨명 + 수심 범위)
             HStack {
-                Text(levelTitle)
-                    .font(.system(size: 15))
+                Text(levelTitle)            // 단계 제목
+                    .font(.custom("Pretendard-Bold", size: 15))
                     .fontWeight(.bold)
                     .foregroundColor(step == 5 ? Color.GuideFontColor : .white)
-                
+
                 Spacer()
-                
-                Text(levellength)
-                    .font(.system(size:12))
+
+                Text(levellength)           // 수심 범위 텍스트
+                    .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
-                
+                    
             }
-            .padding(.horizontal)
-            .padding(.top, 10)
-            
+            .padding(.horizontal,9)           // 양옆 여백
+            .padding(.top, 10)              // 상단 여백
+
+            // 설명 텍스트 + 개수 정보
             HStack {
-                Text(levelDescription)
-                    .font(.system(size:12))
+                Text(levelDescription)      // 각 단계의 설명
+                    .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
-                
+
                 Spacer()
-                
-                Text(levelCount)
-                    .font(.system(size:12))
-                    .foregroundColor(Color.white)
+
+                Text(levelCount)            // 브랜드 수 범위
+                    .font(.custom("Pretendard-Medium", size: 12))
+                    .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
-                    .frame(width: 50, height: 15) // 텍스트 자체에 프레임 먼저 지정
+                    .frame(width: 61, height: 15) // 고정 크기
                     .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.Inter)
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.Inter) // 배경색
                     )
-                    .overlay( // ✅ Stroke 추가
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.white, lineWidth: 1)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white, lineWidth: 1) // 테두리
                     )
             }
-            .padding(.horizontal)
-            // ✅ 레벨 이미지
+            .padding(.horizontal,9)           // 양옆 여백
+            .padding(.bottom, 5)              // 하단 여백
+
+            // 단계별 이미지 표시
             Image("Digging_Level\(step)")
                 .resizable()
-                .frame(width: 336, height: 60)
-            
-            Spacer()
-            
-            
+                .frame(width: 345, height: 60) // 고정 크기
+                .cornerRadius(9)              // 둥근 테두리
+
+            Spacer()                          // 하단 여백
         }
-        .padding(.vertical, 20)
-        .frame(height: 130)
-        .frame(maxWidth: .infinity)
-//        .background(
-//            RoundedRectangle(cornerRadius: 10)
-//                .fill(Color.white)
-//        )
+        .padding(.vertical, 20)               // 위아래 패딩
+        .frame(height: 130)                   // 고정 높이
+        .frame(maxWidth: .infinity)           // 가로 최대 확장
+//        .padding(.top, 19)
     }
-    
-    // MARK: - Text Info
+        
+
+    // MARK: - 텍스트 정보 계산 프로퍼티
+
     var levelTitle: String {
         switch step {
-            case 1: return "🐚입문자 디깅러"
-            case 2: return "🐟취향 디깅러"
-            case 3: return "🪸탐험 디깅러"
-            case 4: return "🐋심해 디깅러"
-            case 5, 6: return "🌊마스터 브래들러"
+            case 1: return "입문자 디깅러"
+            case 2: return "취향 디깅러"
+            case 3: return "탐험 디깅러"
+            case 4: return "심해 디깅러"
+            case 5, 6: return "마스터 브래들러"
             default: return "디깅러"
         }
     }
-    
+
     var levellength: String {
         switch step {
             case 1: return "0 - 50m"
@@ -87,11 +86,10 @@ struct DiggingStepView: View {
             case 3: return "200 - 800m"
             case 4: return "800 - 1500m"
             case 5, 6: return "1500 - 3000m"
-            default: return "디깅러"
+            default: return "-"
         }
     }
-    
-    
+
     var levelDescription: String {
         switch step {
             case 1: return "얕은 수심에서 디깅을 시작했어요."
@@ -102,6 +100,7 @@ struct DiggingStepView: View {
             default: return "브랜드를 향해 디깅 중이에요."
         }
     }
+
     var levelCount: String {
         switch step {
             case 1: return "0-5개"
@@ -109,11 +108,12 @@ struct DiggingStepView: View {
             case 3: return "11-15개"
             case 4: return "16-20개"
             case 5, 6: return "21개 이상"
-            default: return "브랜드를 향해 디깅 중이에요."
+            default: return "-"
         }
     }
 }
 
+// 프리뷰 - 여러 단계 보기
 #Preview {
     VStack(spacing: 16) {
         DiggingStepView(step: 1, progress: 0.2, diggingDistanceInKM: 0.4)
@@ -123,5 +123,5 @@ struct DiggingStepView: View {
         DiggingStepView(step: 5, progress: 0.8, diggingDistanceInKM: 10.0)
     }
     .padding()
-    .background(Color.gray.opacity(0.05))
+    .background(Color.gray.opacity(1.0)) // 배경 설정
 }

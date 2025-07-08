@@ -1,25 +1,29 @@
 import SwiftUI
 
+// 상품 카드 앞면 뷰
 struct ItemCardFront: View {
-    let item: Product
+    let item: Product // 표시할 상품 정보
 
     var body: some View {
-        Image("level1")
-            .resizable()
-            .scaledToFill()
-            .frame(width: 120, height: 180)  // 원한다면 크기 고정
-            .clipped()
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(radius: 2)
+        // 상품 이미지를 표시
+        Image(item.productImageUrl)
+            .resizable() // 이미지 크기 조정 가능하게 설정
+            .scaledToFill() // 프레임을 꽉 채우도록 비율 유지
+            .frame(width: 120, height: 180) // 카드 크기 지정
+            .clipped() // 프레임 바깥으로 넘치는 부분 잘라냄
+            .clipShape(RoundedRectangle(cornerRadius: 8)) // 모서리 둥글게
+            .shadow(radius: 2) // 그림자 효과
     }
 }
 
-//#Preview {
-//    BrandCardFront(item: BrandItem(
-//        frontImageName: "mockBanner1",
-//        name: "테스트 브랜드",
-//        price: 49000,
-//        category: .top
-//    ))
-//    // 여기서 크기 프레임은 위에서 지정했으니 선택 사항
-//}
+// MARK: - Preview
+
+#Preview {
+    // 미리보기용 테스트 카드
+    ItemCardFront(item: Product(
+        productImageUrl: "item1_1",  // ⚠️ 실제 Assets에 있는 이미지 이름 필요
+        name: "테스트 상품",           // 상품 이름
+        price: 49000,                 // 상품 가격
+        productCategory: .top         // 카테고리
+    ))
+}

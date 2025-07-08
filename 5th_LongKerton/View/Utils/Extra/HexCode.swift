@@ -47,7 +47,12 @@ extension Color {
     static let TabGray = Color(hex: 0x959595)
     
     //modal
-    static let ModalBackground = Color(hex: 0x636160)
+    static let ModalBackground1 = Color(hex: 0xF3F3F3)
+    static let ModalBackground2 = Color(hex: 0xE0E0E0)
+    static let ModalBackground3 = Color(hex: 0xCECECE)
+    static let ContentBackground = Color(hex: 0x506CA6)
+    
+    
     
     //BrandScape
     static let BackgroundBlue = Color(hex: 0x3B55BB)
@@ -67,6 +72,8 @@ extension Color {
     static let Inter = Color(hex: 0x0038FF)
     
     static let Kakao = Color(hex: 0xFDE500)
+    static let BrandGenre = Color(hex: 0x373737)
+    static let BrandFont = Color(hex: 0x868686)
     
     static func interpolateHex(from: Color, to: Color, fraction: CGFloat) -> Color {
         let clampedFraction = min(max(fraction, 0), 1)
