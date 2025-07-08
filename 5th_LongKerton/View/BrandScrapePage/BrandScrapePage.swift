@@ -7,7 +7,10 @@ import SwiftUI
 
 // MARK: - 브랜드 스크랩(디깅함) 메인 페이지
 struct BrandScrapePage: View {
+
     // MARK: - 상태 변수들
+    // 🔹 두 번째 모달(레벨 가이드) 표시 여부
+    @State private var showSecondModal = false
     
     @State private var showSecondModal = false           // "단계 레벨 가이드 보기" 모달 표시 여부
     @State private var offsetY: CGFloat = 0              // 모달 뷰 위치 조정용 오프셋
@@ -32,8 +35,40 @@ struct BrandScrapePage: View {
     
     // MARK: - 본문 UI
     var body: some View {
+
         NavigationStack { // 브랜드 상세 페이지로의 내비게이션을 위해 사용
-            ZStack(alignment: .topTrailing) {
+
+        
+        ZStack(alignment: .topTrailing) {
+            Color.black.edgesIgnoringSafeArea(.all)
+            // 🔸 배경: 상단은 검정, 하단은 블루로 이어지는 그라디언트
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black.opacity(1.0),
+                    Color.BackgroundBlue.opacity(0.9)
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea() // 배경이 SafeArea를 넘어서도록 설정
+            Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
+            
+            // 🔸 배경 이미지: 고래 배경 이미지 + 투명도 + 살짝 오른쪽 이동
+            Image("whaleBackground")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .opacity(0.3)
+                .offset(x: +13)
+                .opacity(0.8)
+            
+            VStack {
+                // 🔸 타이틀 텍스트
+                Text("My Digging List")
+                    .font(.system(size: 16))
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+>
                 
                 // MARK: - 배경 설정
                 Color.black.opacity(0.8).edgesIgnoringSafeArea(.all) // 어두운 배경
@@ -213,9 +248,7 @@ struct BrandScrapePage: View {
                 }
             }
         }
+        
     }
 }
 
-#Preview {
-    BrandScrapePage()
-}
