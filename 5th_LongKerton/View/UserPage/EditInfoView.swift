@@ -76,13 +76,13 @@ struct EditInfoView: View {
                             .foregroundColor(.semiGray)
                             .font(.custom("Pretendard-Medium",size: 15)).opacity(0.15)
                             .padding(.leading, 18)
-                            .padding(.vertical, 30)
+                            .padding(.vertical, 20)
                     }
                     TextField("", text: $nickname)
                         .foregroundColor(.white)
                         .font(.custom("Pretendard-Medium",size: 17))
                         .padding(.horizontal, 18)
-                        .padding(.vertical, 30)
+                        .padding(.vertical, 20)
                 }
                 .background(Color.nickBox)
                 .overlay(

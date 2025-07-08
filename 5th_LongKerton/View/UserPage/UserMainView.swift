@@ -299,13 +299,13 @@ struct UserMainView: View {
                                     .frame(width: 110, height: 124)
                             }
                         }
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 18)
                         .padding(.bottom, 17)
                         Spacer().frame(height: 8)
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.myHomeGray)
@@ -344,13 +344,13 @@ struct UserMainView: View {
                                     .frame(width: 110, height: 124)
                             }
                         }
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 18)
                         .padding(.bottom, 17)
                         Spacer().frame(height: 8)
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.myHomeGray)
@@ -369,6 +369,7 @@ struct UserMainView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                         Spacer()
                     }
+                    .padding(.top, 20)
                 }
                 .padding(.top, 20)
                 .padding(.bottom, 60)
