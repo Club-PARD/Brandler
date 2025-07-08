@@ -35,22 +35,21 @@ struct CircularProgressBar: View {
                 .stroke(Color.EditBox, lineWidth: lineWidth)
             Circle()
                 .trim(from: 0.0, to: progress)
-                .stroke(
-                    Color(white: 0.9),
+                .stroke(Color(white: 0.9),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 3) {
                 Text("디깅 수")
-                    .font(.custom("Pretendard-Medium",size: 18))
+                    .font(.custom("Pretendard-Medium",size: 10))
                     .foregroundColor(.white)
                 HStack(alignment: .firstTextBaseline, spacing: 0) {
                     Text("\(progressSteps)")
-                        .font(.custom("Pretendard-Bold",size: 34))
+                        .font(.custom("Pretendard-SemiBold",size: 20))
                         .foregroundColor(Color.white)
                     Text("/\(totalSteps)")
-                        .font(.custom("Pretendard-Medium",size: 32))
-                        .foregroundColor(Color(.systemGray3))
+                        .font(.custom("Pretendard-SemiBold",size: 20))
+                        .foregroundColor(Color.circleStep)
                         .padding(.leading, 2)
                 }
             }
@@ -91,8 +90,8 @@ struct UserMainView: View {
                     // Top bar
                     ZStack {
                         Text("MY PAGE")
-                            .foregroundColor(Color(white: 0.7))
-                            .font(.custom("Pretendard-Medium",size: 18))
+                            .foregroundColor(Color.levelGray)
+                            .font(.custom("Pretendard-Bold",size: 15))
                         HStack {
                             Spacer()
                             Button {
@@ -125,13 +124,13 @@ struct UserMainView: View {
                                 VStack(alignment: .leading, spacing: 24) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("닉네임")
-                                            .font(.custom("Pretendard-Medium",size: 13))
+                                            .font(.custom("Pretendard-SemiBold",size: 10))
                                             .foregroundColor(.EditTxt)
                                             .frame(width: 70, height: 30)
                                             .background(Color.myDarkGray)
                                             .cornerRadius(10)
                                         Text(nickname)
-                                            .font(.custom("Pretendard-Medium",size: 16))
+                                            .font(.custom("Pretendard-SemiBold",size: 12))
                                             .foregroundColor(Color(.white))
                                             .padding(.leading, 5)
                                     }
@@ -145,13 +144,13 @@ struct UserMainView: View {
 
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("장르")
-                                            .font(.custom("Pretendard-Medium",size: 13))
+                                            .font(.custom("Pretendard-SemiBold",size: 10))
                                             .foregroundColor(.EditTxt)
                                             .frame(width: 70, height: 30)
                                             .background(Color.myDarkGray)
                                             .cornerRadius(10)
                                         Text(genre)
-                                            .font(.custom("Pretendard-Medium",size: 16))
+                                            .font(.custom("Pretendard-SemiBold",size: 12))
                                             .foregroundColor(Color(.white))
                                             .padding(.leading, 5)
                                     }
@@ -166,8 +165,8 @@ struct UserMainView: View {
                             .background(
                                 LinearGradient(
                                     gradient: Gradient(colors: [
-                                        Color.myGradStart,
-                                        Color.myGradEnd
+                                        Color.myGradStart.opacity(0.7),
+                                        Color.myGradEnd.opacity(0.7)
                                     ]),
                                     startPoint: .top,
                                     endPoint: .bottom
@@ -182,73 +181,85 @@ struct UserMainView: View {
                             .frame(height: 220)
                         }
                         .padding(.horizontal, 20)
-                        .padding(.bottom, 19)
+//                        .padding(.bottom, 19)
                     }
 
                     // 디깅 레벨/프로그레스
                     HStack(alignment: .center, spacing: 0) {
-                        VStack(alignment: .leading, spacing: 18) {
-                            Text("\(nickname) 님은 지금")
-                                .font(.custom("Pretendard-Medium",size: 15))                               .foregroundColor(.white)
-                                .padding(.bottom, -8)
+                        VStack(alignment: .leading) {
 
-                            ZStack(alignment: .bottomLeading) {
-                                Rectangle()
-                                    .fill(Color.barBlue)
-                                    .frame(width: 190, height: 7)
-                                    .cornerRadius(3.5)
-                                    .offset(y: 2)
-                                Text(diggingLevel.levelName)
-                                    .font(.custom("Pretendard-Bold",size: 22))
-                                    .foregroundColor(.white)
-                                    .padding(.leading, 4)
+                            VStack {
+                                (
+                                    Text("\(nickname)님")
+                                        .font(.custom("Pretendard-Bold", size: 11)) // Use bold font for nickname님
+                                    +
+                                    Text("은 지금")
+                                        .font(.custom("Pretendard-Medium", size: 11)) // Regular font for the rest
+                                )
+                                .foregroundColor(.white)
+                            }
+                            
+                            
+
+                            VStack {
+                                ZStack(alignment: .bottomLeading) {
+                                    Rectangle()
+                                        .fill(Color.blueUnderline)
+                                        .frame(width: 190, height: 7)
+                                        .cornerRadius(3.5)
+                                        .offset(y: 2)
+                                    Text(diggingLevel.levelName)
+                                        .font(.custom("Pretendard-Bold",size: 20))
+                                        .foregroundColor(.white)
+                                        .padding(.leading, 4)
+                                    
+                                }
+                                .padding(.bottom, 18)
+                                
                             }
 
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("다음 레벨까지 남은 디깅 수: \(5 - diggingLevel.progressSteps)개")
-                                    .frame(width: 170)
-                                    .font(.custom("Pretendard-Medium",size: 13))
+                                    .font(.custom("Pretendard-Medium",size: 12))
                                     .foregroundColor(Color.white)
-                                    .padding(.leading, -3)
-                                
                                     
-
                                 Button {
                                     showSecondModal = true
                                 } label: {
                                     Text("단계 레벨 가이드 보기")
-                                        .font(.custom("Pretendard-Medium",size: 13))
-                                        .foregroundColor(Color(white: 0.7))
+                                        .font(.custom("Pretendard-Light",size: 10))
+                                        .foregroundColor(Color.levelGray)
                                         .underline()
                                         .padding(.top, 10)
                                 }
                                 .buttonStyle(.plain)
                             }
-                            .padding(.top, -14)
+                            .padding(.bottom, 18)
                         }
-                        .padding(.vertical, 32)
                         .padding(.leading, 29)
                         .padding(.trailing, 12)
+                
 
                         Spacer()
 
                         CircularProgressBar(
                             progressSteps: diggingLevel.progressSteps,
                             totalSteps: diggingLevel.totalSteps,
-                            lineWidth: 22,
-                            size: 140
+                            lineWidth: 20,
+                            size: 120
                         )
-                        .padding(.trailing, 33)
-                        .padding(.top, -15)
+                        .padding(.trailing, 43)
+                        .padding(.top, -18)
                     
                     }
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 37)
+                    .padding(.top, 33)
                 }
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
                             Color.BgColor,
-                            Color.myGradEnd2
+                            Color.myGradEnd2.opacity(0.7)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
@@ -263,20 +274,20 @@ struct UserMainView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             Text("MY 디깅함")
-                                .font(.custom("Pretendard-Medium",size: 16))
+                                .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
                             Spacer()
                             Button {
                                 selectedTab = "scrap"
                             } label: {
                                 Text("더보기")
-                                    .font(.custom("Pretendard-Medium",size: 13))
+                                    .font(.custom("Pretendard-Medium",size: 10))
                                     .foregroundColor(Color.myGray)
                                     .padding(.trailing, 7)
                             }
                             .buttonStyle(.plain)
                         }
-                        .padding(.top, 10)
+                        .padding(.top, 15)
                         .padding(.horizontal, 12)
 
                         Spacer().frame(height: 10)
@@ -285,11 +296,11 @@ struct UserMainView: View {
                             ForEach(0..<3) { _ in
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(.systemGray4))
-                                    .frame(width: 110, height: 120)
+                                    .frame(width: 110, height: 124)
                             }
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.bottom, 12)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 17)
                         Spacer().frame(height: 8)
                     }
                     .background(
@@ -309,20 +320,20 @@ struct UserMainView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             Text("최근 본 브랜드")
-                                .font(.custom("Pretendard-Bold",size: 16))
+                                .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
                             Spacer()
                             Button {
                                 showHistoryPage = true
                             } label: {
                                 Text("더보기")
-                                    .font(.custom("Pretendard-Regular",size: 13))
+                                    .font(.custom("Pretendard-Medium",size: 10))
                                     .foregroundColor(Color.myGray)
                                     .padding(.trailing, 7)
                             }
                             .buttonStyle(.plain)
                         }
-                        .padding(.top, 10)
+                        .padding(.top, 15)
                         .padding(.horizontal, 12)
                         Spacer().frame(height: 10)
 
@@ -330,11 +341,11 @@ struct UserMainView: View {
                             ForEach(0..<3) { _ in
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(.systemGray4))
-                                    .frame(width: 110, height: 120)
+                                    .frame(width: 110, height: 124)
                             }
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.bottom, 12)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 17)
                         Spacer().frame(height: 8)
                     }
                     .background(
@@ -387,5 +398,5 @@ struct UserMainView: View {
 
 // 프리뷰용
 #Preview {
-    UserMainView(selectedTab: .constant("home"), scrape: 26)
+    UserMainView(selectedTab: .constant("home"), scrape: 18)
 }

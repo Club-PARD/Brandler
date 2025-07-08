@@ -44,7 +44,7 @@ struct EditInfoView: View {
                     // Title
                     Text("설정")
                         .foregroundColor(Color.white)
-                        .font(.custom("Pretendard-Medium",size: 18))
+                        .font(.custom("Pretendard-Bold",size: 15))
 
                     Spacer()
 
@@ -57,8 +57,8 @@ struct EditInfoView: View {
                         dismiss()
                     }) {
                         Text("확인")
-                            .foregroundColor(Color(white: 0.7))
-                            .font(.custom("Pretendard-Medium",size: 18))
+                            .foregroundColor(Color.NextButton)
+                            .font(.custom("Pretendard-Medium",size: 15))
                     }
                 }
                 .padding(.horizontal, 20)
@@ -68,13 +68,13 @@ struct EditInfoView: View {
                 // Nickname change
                 Text("닉네임 변경")
                     .foregroundColor(.EditBox)
-                    .font(.custom("Pretendard-Medium",size: 15))
+                    .font(.custom("Pretendard-Bold",size: 13))
                     .padding(.horizontal, 20)
                 ZStack(alignment: .leading) {
                     if nickname.isEmpty {
                         Text("닉네임을 입력해주세요")
-                            .foregroundColor(.EditBox)
-                            .font(.custom("Pretendard-Medium",size: 17))
+                            .foregroundColor(.semiGray)
+                            .font(.custom("Pretendard-Medium",size: 15)).opacity(0.15)
                             .padding(.leading, 18)
                             .padding(.vertical, 30)
                     }
@@ -87,15 +87,15 @@ struct EditInfoView: View {
                 .background(Color.nickBox)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.nickBoxStroke, lineWidth: 2.5)
+                        .stroke(Color.nickBoxStroke, lineWidth: 3.5)
                 )
                 .cornerRadius(12)
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
-                Text("기존 닉네임: \(session.userData?.nickname ?? "-")")
+                Text("기존 닉네임 : \(session.userData?.nickname ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.custom("Pretendard-Medium",size: 13))
+                    .font(.custom("Pretendard-Medium",size: 12))
                     .padding(.horizontal, 22)
                     .padding(.top, 6)
                     .padding(.bottom, 36)
@@ -103,7 +103,7 @@ struct EditInfoView: View {
                 // Genre change
                 Text("장르 변경")
                     .foregroundColor(.EditBox)
-                    .font(.custom("Pretendard-Medium",size: 15))
+                    .font(.custom("Pretendard-Medium",size: 13))
                     .padding(.horizontal, 20)
                     .padding(.bottom, 12)
 
@@ -115,15 +115,15 @@ struct EditInfoView: View {
                                     selectedGenre = genre
                                 }) {
                                     Text(genre)
-                                        .font(.system(size: 15, weight: .medium))
+                                        .font(.custom("Pretendard-Medium",size: 12))
                                         .foregroundColor(selectedGenre == genre ? .white : .EditTxt)
                                         .frame(width: 78, height: 38)
                                         .background(
                                             selectedGenre == genre
                                             ? Color.FashBox
-                                            : Color.nickBox
+                                            : Color.myDarkGray
                                         )
-                                        .cornerRadius(18)
+                                        .cornerRadius(10)
                                 }
                             }
                         }
@@ -131,9 +131,9 @@ struct EditInfoView: View {
                 }
                 .padding(.horizontal, 20)
 
-                Text("기존 장르: \(session.userData?.fashionGenre ?? "-")")
+                Text("기존 장르 : \(session.userData?.fashionGenre ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.custom("Pretendard-Medium",size: 13))
+                    .font(.custom("Pretendard-Medium",size: 12))
                     .padding(.horizontal, 22)
                     .padding(.top, 10)
 

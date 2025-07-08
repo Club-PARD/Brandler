@@ -9,7 +9,7 @@ struct OnBoardChooseFashionView: View {
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
-        ["펑크", "테크", "기타"]
+        ["캐주얼", "테크", "기타"]
     ]
     
     var body: some View {
@@ -34,7 +34,7 @@ struct OnBoardChooseFashionView: View {
                 
                 HStack {
                     Text("관심있는 패션 장르를\n선택해주세요")
-                        .font(.custom("Pretendard-Medium",size: 22))
+                        .font(.custom("Pretendard-Regular",size: 22))
                         .foregroundColor(.NickWhite)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -52,12 +52,12 @@ struct OnBoardChooseFashionView: View {
                                     selectedGenre = (selectedGenre == genre) ? "" : genre
                                 }) {
                                     Text(genre)
-                                        .font(.custom("Pretendard-Medium",size: 13))
+                                        .font(.custom("Pretendard-Medium",size: 12))
                                         .foregroundColor(.FashionText)
                                         .frame(maxWidth: .infinity, minHeight: 100)
                                         .background(
                                             selectedGenre == genre
-                                            ? Color.FashBox
+                                            ? Color.barBlue.opacity(0.3)
                                             : Color.nickBox
                                         )
                                         .cornerRadius(12)
@@ -82,12 +82,12 @@ struct OnBoardChooseFashionView: View {
                 Button(action: {
                     goToNext()
                 }) {
-                    Text("디깅하러 고고링")
-                        .font(.custom("Pretendard-Medium",size: 18))
+                    Text("다음으로")
+                        .font(.custom("Pretendard-SemiBold",size: 16))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
                         .background(Color.NextButton)
-                        .cornerRadius(40)
+                        .cornerRadius(100)
                 }
                 .padding(.horizontal, 25)
                 

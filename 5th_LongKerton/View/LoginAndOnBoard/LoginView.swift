@@ -38,16 +38,16 @@ struct LoginView: View {
                     HStack {
                         Image("googleLogo")
                             .font(.title2)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                         Spacer()
                         Text("Google로 로그인")
-                            .font(.custom("Pretendard-Bold",size: 18))
+                            .font(.custom("Pretendard-SemiBold",size: 16))
                             .foregroundColor(.black)
                             .padding(.trailing, 110)
                     }
                     .frame(maxWidth: .infinity, minHeight: 70)
                     .background(Color.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
                     .padding(.horizontal, 20)
                 }
                 .sheet(isPresented: $showGoogleSheet) {
@@ -94,3 +94,7 @@ struct LoginView: View {
 }
 
 
+#Preview{
+    LoginView(currentState: .constant(.login))
+        .environmentObject(UserSessionManager.shared)
+}

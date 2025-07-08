@@ -33,10 +33,10 @@ struct OnBoardLastView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("새로운 브랜드를 찾아 떠나는 탐험,")
-                            .font(.custom("Pretendard-Medium",size: 23))
+                            .font(.custom("Pretendard-Regular",size: 22))
                             .foregroundColor(.NickWhite)
                         Text("디깅러가 되신 걸 환영해요!")
-                            .font(.custom("Pretendard-Medium",size: 23))
+                            .font(.custom("Pretendard-Regular",size: 22))
                             .foregroundColor(.NickWhite)
                     }
                     Spacer()
@@ -58,11 +58,11 @@ struct OnBoardLastView: View {
                 VStack(alignment: .center, spacing: 8) {
                     (
                         Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
-                        + Text("'디깅러'").font(.custom("Pretendard-Bold",size: 13))
+                        + Text("'디깅러'").font(.custom("Pretendard-Bold",size: 16)).foregroundColor(.white)
                         + Text("라고 부릅니다.\n - \n이제, 디깅을 시작할 시간이에요. 🌊")
                     )
-                    .font(.custom("Pretendard-Medium",size: 15))
-                    .foregroundColor(.NickWhite)
+                    .font(.custom("Pretendard-SemiBold",size: 16))
+                    .foregroundColor(.lastTxt)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
                 }
@@ -99,12 +99,12 @@ struct OnBoardLastView: View {
                             .background(Color.lastBox)
                             .cornerRadius(40)
                     } else {
-                        Text("디깅하러 고고링")
-                            .font(.custom("Pretendard-Medium",size: 18))
+                        Text("디깅 시작하기")
+                            .font(.custom("Pretend-SemiBold",size: 16))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 80)
                             .background(Color.lastBox)
-                            .cornerRadius(40)
+                            .cornerRadius(100)
                     }
                 }
                 .padding(.horizontal, 25)
@@ -118,3 +118,12 @@ struct OnBoardLastView: View {
     }
 }
 
+#Preview {
+    OnBoardLastView(
+        finish: {},
+        nickname: "샘플닉네임",
+        selectedGenre: "스트릿",
+        currentStep: 2
+    )
+    .environmentObject(UserSessionManager.shared)
+}
