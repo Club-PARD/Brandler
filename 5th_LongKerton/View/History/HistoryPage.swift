@@ -16,14 +16,14 @@ struct HistoryPage: View {
                         dismiss() // Dismiss the view (go back)
                     }) {
                         Image(systemName: "chevron.left")
-                            .font(.system(size: 18, weight: .medium))
+                            .font(.custom("Pretendard-Medium",size: 18))
                             .foregroundColor(Color(white: 0.9))
                     }
                     
                     Spacer().frame(width: 22)
                     Text("최근 본 브랜드")
-                        .foregroundColor(Color(white: 0.7))
-                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(Color.levelGray)
+                        .font(.custom("Pretendard-Bold",size: 15))
                         .frame(maxWidth: .infinity, alignment: .center)
                     
                     Spacer().frame(width: 8)
@@ -43,7 +43,7 @@ struct HistoryPage: View {
                         Spacer()
                         Text("아직 본 브랜드가 없어요")
                             .foregroundColor(Color(white: 0.5))
-                            .font(.system(size: 16, weight: .regular))
+                            .font(.custom("Pretendard-Regular",size: 14))
                         Spacer()
                     }
                     Spacer()
@@ -56,8 +56,9 @@ struct HistoryPage: View {
                                         Image(history.brandLogoUrl)
                                             .resizable()
                                             .frame(width: 30, height: 30)
-                                            .padding(.trailing, 10)
+                                            .padding(.trailing, 21)
                                         Text(history.name)
+                                            .font(.custom("Pretendard-SemiBold",size: 15))
                                             .foregroundColor(.white)
                                     }
                                 }
