@@ -74,7 +74,7 @@ struct RotatingRectHole: Shape {
         // 이 앵커 포인트를 중심으로 구멍이 회전하게 됩니다.
         let anchor = CGPoint(
             x: holeRect.minX, // 구멍 사각형의 최소 X 좌표 (좌측)
-            y: holeRect.maxY - holeRect.height * 0.125 // 구멍 사각형의 최대 Y 좌표 (하단)에서 높이의 12.5% 위
+            y: holeRect.maxY - holeRect.height * 0.15 // 구멍 사각형의 최대 Y 좌표 (하단)에서 높이의 12.5% 위
         )
 
         // 회전 변환을 생성합니다.

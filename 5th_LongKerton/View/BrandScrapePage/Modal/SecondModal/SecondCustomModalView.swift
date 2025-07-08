@@ -1,5 +1,9 @@
 import SwiftUI
 
+// 디깅러 가이드가 상단으로 부터 19px 내려와 있는데, 너무 크게 아래로 내려와 있는 것 처럼 느껴짐
+// 브랜드 또한 상단으로 부터 떨어트려 놨는데, 너무 길게 느껴짐
+// 모달 차으이 배경 색은 약간 애매한 감이 있음.
+
 // ✅ 단계 가이드 모달 뷰
 struct SecondModalView: View {
     @Binding var isVisible: Bool // 모달 표시 여부를 바인딩
@@ -15,7 +19,7 @@ struct SecondModalView: View {
             let openOffset = screenHeight - maxHeight // 모달이 열릴 위치
             let closeThreshold = screenHeight * 0.6 // 모달이 닫히는 임계값
 
-            ZStack {
+            ZStack(alignment: .center){
                 // ✅ 뒷배경 (모달 표시 시만 나타남)
                 if isVisible {
                     Color.black.opacity(0.6) // 어두운 반투명 배경
@@ -38,13 +42,13 @@ struct SecondModalView: View {
                         }
 
                         // ✅ 모달 타이틀
-                        VStack(spacing: 4) {
+                        VStack(spacing: 0) {
                             Text("단계 가이드")
-                                .font(.title2)
+                                .font(.custom("Pretendard-SemiBold", size:15))
                                 .foregroundColor(.white)
                         }
                         .padding(.bottom, 12)
-
+                        .offset(y: -25)
                         // ✅ 모달 내부 콘텐츠 영역
                         ScrollView {
                             VStack(spacing: 0) {
@@ -57,13 +61,15 @@ struct SecondModalView: View {
                                         selectedTab = 1
                                     }
                                 }
-                                .padding(.horizontal, 25)
+                                .font(.custom("Pretendard-Medium", size:12))
+                                .padding(.horizontal, 19)
                                 .frame(height: 56)
                                 .padding(.top, 20)
-                                .offset(y: -5)
+                                .foregroundColor(Color.white)
+//                                .offset(y: -5)
 
                                 // ✅ 설명 텍스트 + 단계 카드 뷰
-                                VStack(spacing: 16) {
+                                VStack(spacing: 10) {
                                     Spacer()
 
                                     Text(
@@ -71,18 +77,18 @@ struct SecondModalView: View {
                                         "고래를 발견할수록 당신의 바다는 더 깊어집니다. \n 취향의 지도를 확장해 보세요." :
                                         "디깅 수에 따라 고래가 자라납니다."
                                     )
-                                    .font(.system(size: 11))
+                                    .font(.custom("Pretendard-Medium", size:12))
                                     .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
                                     .frame(maxWidth: .infinity)
 
                                     // ✅ 단계 카드
-                                    VStack(spacing: 24) {
+                                    VStack(spacing: 10) {
                                         if selectedTab == 0 {
                                             ForEach(1...5, id: \.self) { step in
                                                 Rectangle()
                                                     .fill(Color.LogBlue)
-                                                    .frame(width: 350, height: 1)
+                                                    .frame(width: 360, height: 1)
                                                 DiggingStepView(
                                                     step: step,
                                                     progress: viewModel.progress(for: step),
@@ -93,11 +99,14 @@ struct SecondModalView: View {
                                             ForEach(1...5, id: \.self) { step in
                                                 Rectangle()
                                                     .fill(Color.LogBlue)
-                                                    .frame(width: 350, height: 1)
+                                                    .frame(width: 360, height: 1)
                                                 BrandStepView(step: step)
                                             }
                                         }
+                                        
                                     }
+//                                    Spacer()
+//                                        .frame(height: 24)
                                 }
                                 .background(Color.ContentBackground.opacity(0.6))
                                 .mask(
@@ -155,9 +164,9 @@ struct SecondModalView: View {
                                     }
                                 )
                                 .frame(maxWidth: .infinity)
-                                .padding(.horizontal, 25)
+                                .padding(.horizontal, 19)
                             }
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, alignment: .center)
 
                             Spacer().frame(height: 150) // 하단 여백
                         }
@@ -165,7 +174,7 @@ struct SecondModalView: View {
 
                         Spacer()
                     }
-                    .frame(width: geometry.size.width - 19, height: maxHeight)
+                    .frame(width: geometry.size.width - 30, height: maxHeight)
                     .background(
                         LinearGradient(
                             gradient: Gradient(colors: [
@@ -180,6 +189,7 @@ struct SecondModalView: View {
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                     .offset(y: offsetY + dragOffset)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .gesture(
                         // ✅ 드래그 제스처 처리
                         DragGesture()
@@ -201,6 +211,7 @@ struct SecondModalView: View {
                     }
                     .transition(.move(edge: .bottom)) // 아래에서 등장
                     .zIndex(10)
+                    //.padding(.horizontal, 20, alignment : .center)
                 }
             }
             .ignoresSafeArea(.container, edges: .bottom)

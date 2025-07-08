@@ -11,7 +11,7 @@ struct ItemCardFront: View {
             .scaledToFill() // 프레임을 꽉 채우도록 비율 유지
             .frame(width: 120, height: 180) // 카드 크기 지정
             .clipped() // 프레임 바깥으로 넘치는 부분 잘라냄
-            .clipShape(RoundedRectangle(cornerRadius: 12)) // 모서리 둥글게
+            .clipShape(RoundedRectangle(cornerRadius: 8)) // 모서리 둥글게
             .shadow(radius: 2) // 그림자 효과
     }
 }
@@ -21,7 +21,7 @@ struct ItemCardFront: View {
 #Preview {
     // 미리보기용 테스트 카드
     ItemCardFront(item: Product(
-        productImageUrl: "level1 1",  // ⚠️ 실제 Assets에 있는 이미지 이름 필요
+        productImageUrl: "item1_1",  // ⚠️ 실제 Assets에 있는 이미지 이름 필요
         name: "테스트 상품",           // 상품 이름
         price: 49000,                 // 상품 가격
         productCategory: .top         // 카테고리

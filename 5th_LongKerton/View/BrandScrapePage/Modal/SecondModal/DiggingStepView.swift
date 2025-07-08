@@ -6,53 +6,55 @@ struct DiggingStepView: View {
     let diggingDistanceInKM: Double         // 디깅 거리 (킬로미터 기준)
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 3) { // stack 간의 여백 3 
             // 상단 텍스트 (레벨명 + 수심 범위)
             HStack {
                 Text(levelTitle)            // 단계 제목
-                    .font(.custom("Pretendard-Regular", size: 15))
+                    .font(.custom("Pretendard-Bold", size: 15))
                     .fontWeight(.bold)
                     .foregroundColor(step == 5 ? Color.GuideFontColor : .white)
 
                 Spacer()
 
                 Text(levellength)           // 수심 범위 텍스트
-                    .font(.custom("Pretendard-Regular", size: 12))
+                    .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
+                    
             }
-            .padding(.horizontal)           // 양옆 여백
+            .padding(.horizontal,9)           // 양옆 여백
             .padding(.top, 10)              // 상단 여백
 
             // 설명 텍스트 + 개수 정보
             HStack {
                 Text(levelDescription)      // 각 단계의 설명
-                    .font(.custom("Pretendard-Regular", size: 12))
+                    .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
 
                 Spacer()
 
                 Text(levelCount)            // 브랜드 수 범위
-                    .font(.custom("Pretendard-Regular", size: 12))
+                    .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
-                    .frame(width: 50, height: 15) // 고정 크기
+                    .frame(width: 61, height: 15) // 고정 크기
                     .background(
-                        RoundedRectangle(cornerRadius: 5)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color.Inter) // 배경색
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 5)
+                        RoundedRectangle(cornerRadius: 12)
                             .stroke(Color.white, lineWidth: 1) // 테두리
                     )
             }
-            .padding(.horizontal)           // 양옆 여백
+            .padding(.horizontal,9)           // 양옆 여백
+            .padding(.bottom, 5)              // 하단 여백
 
             // 단계별 이미지 표시
             Image("Digging_Level\(step)")
                 .resizable()
-                .frame(width: 336, height: 60) // 고정 크기
+                .frame(width: 345, height: 60) // 고정 크기
                 .cornerRadius(9)              // 둥근 테두리
 
             Spacer()                          // 하단 여백
@@ -60,7 +62,9 @@ struct DiggingStepView: View {
         .padding(.vertical, 20)               // 위아래 패딩
         .frame(height: 130)                   // 고정 높이
         .frame(maxWidth: .infinity)           // 가로 최대 확장
+//        .padding(.top, 19)
     }
+        
 
     // MARK: - 텍스트 정보 계산 프로퍼티
 

@@ -72,6 +72,8 @@ extension Color {
     static let Inter = Color(hex: 0x0038FF)
     
     static let Kakao = Color(hex: 0xFDE500)
+    static let BrandGenre = Color(hex: 0x373737)
+    static let BrandFont = Color(hex: 0x868686)
     
     static func interpolateHex(from: Color, to: Color, fraction: CGFloat) -> Color {
         let clampedFraction = min(max(fraction, 0), 1)

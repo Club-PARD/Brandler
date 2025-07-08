@@ -41,7 +41,7 @@ struct BrandInfoOverlayView: View {
                 // 브랜드 이름 텍스트
                 Text(brand.name)
                     // "Pretendard-Regular" 폰트와 35pt 크기를 적용합니다.
-                    .font(.custom("Pretendard-Regular", size: 35))
+                    .font(.custom("Pretendard-Bold", size: 35))
                     .foregroundColor(textColor) // `textColor` (흰색)를 적용합니다.
                     // 텍스트가 줄바꿈되지 않고 한 줄에 표시되도록 설정합니다.
                     .fixedSize(horizontal: true, vertical: false)
@@ -73,7 +73,21 @@ struct BrandInfoOverlayView: View {
                 Spacer()
             }
             .padding(.bottom, 10) // `HStack` 아래쪽에 10pt의 여백을 추가합니다.
-
+            Text(brand.brandGenre)
+                .font(.custom("Prentendard-Medium", size: 10))
+                .foregroundColor(Color.white)
+                .opacity(0.7)
+                .frame(height: 16) // 명시적 높이 지정
+                .frame(minWidth: 48) // 너비 제한(옵션)
+                .background(
+                    RoundedRectangle(cornerRadius: 12) // 배경 둥근 사각형
+                        .fill(Color.BrandGenre) // 배경색 지정
+                )
+                .overlay( // 테두리 덧붙이기
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.BrandFont, lineWidth: 1) // 흰색 외곽선
+                )
+                
             // 🔹 브랜드 설명 텍스트와 쇼핑몰 링크 버튼을 가로로 배치하는 `HStack`
             HStack(alignment: .top, spacing: 8) {
                 // 설명 텍스트 영역 (`더보기/닫기` 토글 기능 포함)
@@ -86,7 +100,7 @@ struct BrandInfoOverlayView: View {
                             + Text("   닫기")          // "닫기" 텍스트를 추가합니다.
                                 .bold()                // "닫기" 텍스트를 굵게 표시합니다.
                                 // "Pretendard-Regular" 폰트와 12pt 크기를 적용합니다.
-                                .font(.custom("Pretendard-Regular", size: 12))
+                                .font(.custom("Pretendard-Light", size: 12))
                         )
                         .font(.system(size: 12))     // 전체 텍스트 블록의 폰트 크기를 12pt로 설정합니다.
                         .foregroundColor(textColor)  // 흰색 텍스트 색상을 적용합니다.
@@ -137,7 +151,7 @@ struct BrandInfoOverlayView: View {
                 .padding(.top, 2)         // 버튼 위쪽에 2pt 여백을 추가합니다.
                 // 설명 텍스트와 쇼핑몰 버튼 사이의 간격을 넓히기 위해 왼쪽 패딩을 추가합니다.
                 // 이 값은 디자인에 따라 조정될 수 있습니다.
-                .padding(.leading, 92)
+                .padding(.leading, 100)
             }
         }
         // `VStack` 전체에 상하좌우 12pt, 16pt의 패딩을 적용합니다.
@@ -162,4 +176,25 @@ struct BrandInfoOverlayView: View {
             return descriptionText
         }
     }
+}
+#Preview {
+    let mockBrand = Brand(
+        id: UUID(),
+        name: "무신사 스탠다드",
+        brandGenre: "스트릿",
+        description: "기본에 충실하면서도 합리적인 가격을 제안하는 브랜드입니다. 다양한 아이템으로 많은 사람들의 선택을 받고 있습니다.",
+        brandBannerUrl: "mockBanner1",
+        brandLogoUrl: "mockLogo1",
+        brandHomePageUrl: "https://musinsastandard.com",
+        brandLevel: 2
+    )
+
+    BrandInfoOverlayView(
+        scrollOffset: 0,
+        bannerHeight: 300,
+        brand: mockBrand
+    )
+    .padding(.horizontal, 20)                  // ✅ 프리뷰에 좌우 여백 적용
+    .background(Color.black)                   // 배경색 설정
+    .previewLayout(.sizeThatFits)              // ✅ 뷰 크기를 컨텐츠에 맞게 자동 조정
 }

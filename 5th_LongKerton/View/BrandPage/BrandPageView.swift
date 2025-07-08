@@ -116,3 +116,23 @@ struct BrandPage: View {
         }
     }
 }
+
+// MARK: - 프리뷰용 Brand 샘플
+extension Brand {
+    static let preview: Brand = Brand(
+        id: UUID(),
+        name: "샘플 브랜드",
+        brandGenre: "캐주얼",
+        description: "이 브랜드는 모던한 감성의 캐주얼 아이템을 선보입니다.",
+        brandBannerUrl: "mockBanner1",
+        brandLogoUrl: "mockLogo1",
+//        isScraped: true,
+        brandHomePageUrl: "https://www.samplebrand.com",
+        brandLevel: 3
+    )
+}
+
+// MARK: - BrandPage 프리뷰
+#Preview {
+    BrandPage(brand: .preview)
+}
