@@ -28,11 +28,17 @@ extension Color {
     static let BgColor = Color(hex: 0x1B191A)
     static let EditBox = Color(hex: 0x6D6D6D)
     static let EditTxt = Color(hex: 0x878787)
+    static let lastTxt = Color(hex: 0x9F9F9F)
+    static let blueUnderline = Color(hex: 0x294DEF)
     
     static let myGray = Color(hex: 0xCECECE)
     static let myDarkGray = Color(hex: 0x3E3E3E)
     static let myUnderline = Color(hex: 0x294DEF)
-
+    
+    static let circleStep = Color(hex: 0x9A9A9A)
+    static let levelGray = Color(hex: 0xC6C6C6)
+    static let semiGray = Color(hex: 0xF8F8F8)
+    
     static let pageDarkBlue = Color(hex: 0x001B66)
     static let pageBlue = Color(hex: 0x496FFF)
     static let myHomeGray = Color(hex: 0x2D2D2D)

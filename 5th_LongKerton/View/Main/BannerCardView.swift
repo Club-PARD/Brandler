@@ -22,9 +22,8 @@ struct BannerCardView: View {
                 .overlay(
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color.black.opacity(0.3),
-                            Color.black.opacity(0.3),
-                            Color.black.opacity(0.8)
+                            Color("CardGradiantblack").opacity(0.3),
+                            Color("CardGradiantblack").opacity(0.8)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
@@ -36,20 +35,21 @@ struct BannerCardView: View {
             HStack(alignment: .bottom){
                 VStack(alignment: .leading) {
                     Text(banner.titleLine1)
+                        .font(.custom("Pretendard-SemiBold",size: 15))
                     Text(banner.titleLine2)
+                        .font(.custom("Pretendard-SemiBold",size: 15))
+
                 }
                 .foregroundColor(Color("BannerTextColor1"))
-                .font(.custom("Pretendard-SemiBold.ttf",size: 15))
                 .padding(.horizontal,7)
                 
                 Spacer()
                 
                 Text("\(index + 1)/\(total)")
-                    .font(.custom("Pretendard-Medium.ttf",size: 10))
+                    .font(.custom("Pretendard-Medium",size: 10))
                     .foregroundColor(Color("MainBannerNumColor"))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.black.opacity(0.3))
+                    .frame(width:33,height:18)
+                    .background(Color("MainBannerNumBackColor").opacity(0.2))
                     .clipShape(Capsule())
                     .padding(.horizontal,9)
             }

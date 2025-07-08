@@ -99,6 +99,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		DAFF7E2A2E19342500B4E293 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAFF7E2B2E19342500B4E293 /* WidgetKit.framework */,
+				DAFF7E2D2E19342500B4E293 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,6 +118,7 @@
 				31554A862E08285700B35D58 /* Sources */,
 				31554A872E08285700B35D58 /* Frameworks */,
 				31554A882E08285700B35D58 /* Resources */,
+				DAFF7E442E19342600B4E293 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -179,7 +189,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					31554A892E08285700B35D58 = {
@@ -409,7 +419,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K8LNTFK55G;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-th-LongKerton-Info.plist";
@@ -423,7 +433,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jeongtaeju.-th-longkerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -453,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jeongtaeju.-th-longkerton";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyengdongstudy.-th-LongKerton";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

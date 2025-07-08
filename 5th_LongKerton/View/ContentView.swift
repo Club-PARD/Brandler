@@ -15,18 +15,18 @@ struct ContentView: View {
     
     var body: some View {
         switch currentState {
-        case .splash:
-            SplashView(currentState: $currentState)
-                .environmentObject(session)
-        case .login:
-            LoginView(currentState: $currentState)
-                .environmentObject(session)
-        case .onboarding:
-            OnboardingFlowView(currentState: $currentState)
-                .environmentObject(session)
-        case .main:
-            KDView()
-                .environmentObject(session)
+            case .splash:
+                SplashView(currentState: $currentState)
+                    .environmentObject(session)
+            case .login:
+                LoginView(currentState: $currentState)
+                    .environmentObject(session)
+            case .onboarding:
+                OnboardingFlowView(currentState: $currentState)
+                    .environmentObject(session)
+            case .main:
+                KDView()
+                    .environmentObject(session)
         }
         
     }
