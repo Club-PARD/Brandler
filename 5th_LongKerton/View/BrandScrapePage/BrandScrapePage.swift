@@ -101,29 +101,28 @@ struct BrandScrapePage: View {
                                                     }
                                                 }
                                                 .frame(width: 99, height: 124)
-            
+//                                                .border(Color.yellow, width: 1) // 카드 하나 하나 뷰
                                             }
 //                                            .padding(.horizontal, 11)
-                                        
-                                            
                                             if row < 2 {
                                                 Rectangle()
                                                     .fill(Color.white.opacity(0.3))
                                                     .frame(height: 1)
                                                     .frame(width: 360)
-                                                    .padding(.top, 20)
-                                                    .padding(.bottom, 16)
+                                                    .padding(.top, 17)
+                                                    .padding(.bottom, 17)
                                             }
                                         }
                                     }
                                     .padding(.vertical, 30) // 값 맞춰주기
+                                    .padding(.top, 30)
                                     .tag(pageIndex)
                                 }
                                 .padding(.top, 0)
+//                                .border(Color.yellow, width: 1) // <------------------------
                             }
                             .tabViewStyle(.page(indexDisplayMode: .never))
-//                            .border(.red,width:1) // 카드의 여백 <----------------------------------------------
-                            
+//                            .border(Color.yellow, width: 1)
                             HStack(spacing: 8) {
                                 ForEach(0..<pagedBrands.count, id: \.self) { index in
                                     Circle()
@@ -131,14 +130,16 @@ struct BrandScrapePage: View {
                                         .frame(width: 8, height: 8)
                                 }
                             }
-                            .padding(.bottom, 6)
+                            
+//                            .padding(.bottom, 6)
                         }
+//                            .border(Color.yellow, width: 1)
                     }
-                    .padding(.bottom, 20)
-                    
+//                    .padding(.top,20)
+                    .padding(.bottom, 50)
+//                    .border(Color.yellow, width: 1) // <-----------------
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-//                            .frame(height: 530)
                             .fill(Color.clear)
                             .overlay(
                                 ZStack {
@@ -173,7 +174,7 @@ struct BrandScrapePage: View {
                     .opacity(0.9)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 40)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 50)
                     
                     Spacer()
                 }

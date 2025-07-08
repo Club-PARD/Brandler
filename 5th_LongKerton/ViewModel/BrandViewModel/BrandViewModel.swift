@@ -1,7 +1,6 @@
 import SwiftUI
 import Foundation
 
-// MARK: - 카테고리 정의
 enum Category: String, CaseIterable, Identifiable {
     case all = "전체"
     case top = "상의"
@@ -11,41 +10,29 @@ enum Category: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-// MARK: - ViewModel
 final class BrandViewModel: ObservableObject {
+    @Published var brands: [Brand] = Brand.sampleData
+    @Published var filteredBrands: [Brand] = []
+    @Published var selectedGenre: String = "전체"
 
-    // MARK: - 브랜드 관련 상태
-    @Published var brands: [Brand] = Brand.sampleData                            // 디깅된 브랜드 전체
-    @Published var filteredBrands: [Brand] = []                    // 선택 장르 기반 필터링 결과
-    @Published var selectedGenre: String = "전체"                  // 현재 선택된 장르
-
-    // MARK: - 카테고리 관련
     @Published var selectedCategory: Category = .all
-    @Published var items: [Product] = Product.brandItems// 현재 선택된 카테고리 (상품 필터용)
+    @Published var items: [Product] = Product.brandItems
 
-    // MARK: - 스크롤 상태
     @Published var scrollOffset: CGFloat = 0
     @Published var debugScrollOffset: CGFloat = 0
     @Published var tabBarScrollOffset: CGFloat = 0
     @Published var categoryTabBarScrollOffset: CGFloat = 0
-    
 
+    @Published var brandNameWidth: CGFloat = 0  // ✅ 추가됨
 
-    // MARK: - 필터링된 상품 리스트 (selectedCategory 기준)
     var filteredItems: [Product] {
-        if selectedCategory == .all {
-            return items
-        } else {
-            return items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
-        }
+        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
     }
 
-    // MARK: - 배너, 구멍 크기 등 UI 관련 상수
     let bannerHeight: CGFloat = 500
     let blurredBannerHeight: CGFloat = 700
     let holeSize = CGSize(width: 131, height: 413)
 
-    // MARK: - 스크롤 진행도에 따른 값 계산
     var scrollProgress: CGFloat {
         min(max(scrollOffset / 300, 0), 1)
     }
@@ -62,7 +49,6 @@ final class BrandViewModel: ObservableObject {
         Color.interpolateHex(from: Color.Inter, to: Color.LogBlue, fraction: scrollProgress)
     }
 
-    // MARK: - 스크롤 오프셋 업데이트
     func updateScrollOffset(_ offset: CGFloat) {
         debugScrollOffset = offset
         scrollOffset = min(offset, 300)
@@ -70,7 +56,6 @@ final class BrandViewModel: ObservableObject {
         categoryTabBarScrollOffset = offset
     }
 
-    // MARK: - 로고 위치 계산 (GeometryProxy 기반)
     func logoPosition(geo: GeometryProxy) -> CGPoint {
         let centerX = geo.size.width / 2 - 70
         let centerY = geo.size.height / 2 + offsetYForScroll - 30
@@ -81,13 +66,8 @@ final class BrandViewModel: ObservableObject {
         return CGPoint(x: logoX, y: logoY + min(scrollOffset, 100))
     }
 
-    // MARK: - 브랜드 필터링 및 삭제
     func filterBrands() {
-        if selectedGenre == "전체" {
-            filteredBrands = brands
-        } else {
-            filteredBrands = brands.filter { $0.brandGenre == selectedGenre }
-        }
+        filteredBrands = selectedGenre == "전체" ? brands : brands.filter { $0.brandGenre == selectedGenre }
     }
 
     func deleteBrand(_ brand: Brand) {
@@ -99,7 +79,6 @@ final class BrandViewModel: ObservableObject {
         brands.isEmpty
     }
 
-    // MARK: - 고래 레벨 및 진행도 계산
     var diggingCount: Int {
         brands.count
     }
@@ -142,7 +121,6 @@ final class BrandViewModel: ObservableObject {
     }
 }
 
-// MARK: - 탭바 위치 전달용 PreferenceKey
 struct TabBarOffsetKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
