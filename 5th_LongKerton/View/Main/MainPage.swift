@@ -61,10 +61,10 @@ struct MainPage: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("디깅러들의 브랜드 픽")
                                 .foregroundColor(.white)
-                                .font(.custom("Pretendard-Bold.ttf",size: 15))
+                                .font(.custom("Pretendard-Bold",size: 15))
                             Text("최근 3주간 급상승한 브랜드에요!")
                                 .foregroundColor(.gray)
-                                .font(.custom("Pretendard-Medium.ttf",size: 11))
+                                .font(.custom("Pretendard-Medium",size: 11))
                         }
                         Spacer()
                     }

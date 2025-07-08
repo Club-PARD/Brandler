@@ -39,13 +39,13 @@ struct BannerCardView: View {
                     Text(banner.titleLine2)
                 }
                 .foregroundColor(Color("BannerTextColor1"))
-                .font(.custom("Pretendard-SemiBold.ttf",size: 15))
+                .font(.custom("Pretendard-SemiBold",size: 15))
                 .padding(.horizontal,7)
                 
                 Spacer()
                 
                 Text("\(index + 1)/\(total)")
-                    .font(.custom("Pretendard-Medium.ttf",size: 10))
+                    .font(.custom("Pretendard-Medium",size: 10))
                     .foregroundColor(Color("MainBannerNumColor"))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
