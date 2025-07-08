@@ -18,7 +18,7 @@ struct BrandFilterView: View{
     }
     
     var body: some View{
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
+        LazyVGrid(columns: Array(repeating: GridItem(.fixed(173)), count: 2), spacing: 10) {
             ForEach(filteredBrands) { brand in
                 NavigationLink(destination: BrandPage(brand: brand)) {
                     ZStack(alignment: .bottom) {
@@ -28,44 +28,39 @@ struct BrandFilterView: View{
                             .background(
                                 LinearGradient(
                                     gradient: Gradient(colors: [
-                                        Color.black.opacity(0),
-                                        Color.blue.opacity(0.1),
-                                        Color.blue.opacity(0.7)
+                                        Color("CardGradiantblack").opacity(0),
+                                        Color("CardGradiant").opacity(0.7)
                                     ]),
                                     startPoint: .top,
                                     endPoint: .bottom
                                 )
                             )
                             .background(
-                                    Image(brand.brandBannerUrl)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
+                                Image(brand.brandBannerUrl)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 173, height: 252)
                             )
                             .cornerRadius(12)
-                        HStack{
+                        HStack(spacing:0){
                             Image(brand.brandLogoUrl)
                                 .resizable()
-                                .frame(width: 14, height: 14)
+                                .frame(width: 24, height: 24)
                                 .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(.white.opacity(0.3), lineWidth: 1)
-                                )
+                                .padding(.leading,3)
                             VStack(alignment:.center){
                                 Text(brand.name)
-                                    .font(.custom("Pretendard-Medium", size: 10))
+                                    .font(.custom("Pretendard-Medium", size: 17))
                                     .foregroundColor(Color("BrandNameColor"))
+                                    .lineLimit(1)
                             }
-                            .frame(maxWidth:.infinity)
+                            .frame(width:112)
                         }
-                        .frame(width: 140, height: 16, alignment: .leading)
+                        .frame(width: 147, height: 31, alignment: .leading)
                         .background(
-                            RoundedRectangle(cornerRadius: 12)
+                            RoundedRectangle(cornerRadius: 20)
                                 .fill(Color("BrandGroupColor"))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color("BrandNameColor"), lineWidth: 1)
+                                .stroke(Color("BrandNameColor"), lineWidth: 2)
                         )
                         .padding(.bottom, 8)
                         
@@ -73,6 +68,7 @@ struct BrandFilterView: View{
                 }
             }
         }
+        .padding(0)
     }
 }
 

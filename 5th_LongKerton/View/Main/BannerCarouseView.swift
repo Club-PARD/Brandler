@@ -36,7 +36,7 @@ struct BannerCarouselView: View {
                 }
                 .padding(.leading, 20)
                 
-                SwiftUI.TabView(selection: $currentIndex) {
+                TabView(selection: $currentIndex) {
                     ForEach(Array(loopedBanners.enumerated()), id: \.offset) { index, banner in
                         BannerCardView(
                             banner: banner,

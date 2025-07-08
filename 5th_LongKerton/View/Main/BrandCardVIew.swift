@@ -18,7 +18,7 @@ struct BrandCardVIew:View {
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color("CardGradiantBlack").opacity(0),
+                            Color("CardGradiantblack").opacity(0),
                             Color("CardGradiant").opacity(0.7)
                         ]),
                         startPoint: .top,
@@ -46,6 +46,7 @@ struct BrandCardVIew:View {
                     .font(.custom("Pretendard-Medium", size: 10))
                     .foregroundColor(Color("BrandNameColor"))
                     .frame(minWidth: 64, maxWidth: 64, maxHeight: .infinity, alignment: .leading)
+                    .lineLimit(1)
             }
             .frame(width: 81, height: 16, alignment: .leading)
             .background(
@@ -64,5 +65,5 @@ struct BrandCardVIew:View {
 }
 
 #Preview{
-    BrandCardVIew(brand: .sampleData[0])
+    BrandCardVIew(brand: .sampleData[1])
 }
