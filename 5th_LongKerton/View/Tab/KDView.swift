@@ -15,6 +15,7 @@ enum Tab {
 
 struct KDView:View{
     @State var selectedTab: String = "main"
+    @State var scrape: Int = 8
     var body:some View{
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -24,7 +25,7 @@ struct KDView:View{
                 case "scrap":
                     BrandScrapePage()
                 case "my":
-                    UserMainView(selectedTab: $selectedTab)
+                    UserMainView(selectedTab: $selectedTab, scrape: scrape)
                 default:
                     MainPage()
                 }

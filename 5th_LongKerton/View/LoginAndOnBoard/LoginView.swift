@@ -20,11 +20,12 @@ struct LoginView: View {
                         .cornerRadius(8)
                     (
                         Text("패션 러버들을 위한 ") +
-                        Text("브랜드 디깅 플랫폼").bold() +
+                        Text("브랜드 디깅 플랫폼")
+                            .font(.custom("Pretendard-Bold", size: 13)) +
                         Text(", 브랜들러")
                     )
                     .foregroundColor(.white)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 13))
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
             }
@@ -37,17 +38,16 @@ struct LoginView: View {
                     HStack {
                         Image("googleLogo")
                             .font(.title2)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                         Spacer()
                         Text("Google로 로그인")
-                            .font(.body)
-                            .fontWeight(.medium)
+                            .font(.custom("Pretendard-SemiBold",size: 16))
                             .foregroundColor(.black)
                             .padding(.trailing, 110)
                     }
                     .frame(maxWidth: .infinity, minHeight: 70)
                     .background(Color.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
                     .padding(.horizontal, 20)
                 }
                 .sheet(isPresented: $showGoogleSheet) {
@@ -94,3 +94,7 @@ struct LoginView: View {
 }
 
 
+#Preview{
+    LoginView(currentState: .constant(.login))
+        .environmentObject(UserSessionManager.shared)
+}
