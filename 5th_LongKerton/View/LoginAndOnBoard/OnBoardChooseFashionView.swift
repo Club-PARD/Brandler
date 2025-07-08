@@ -34,7 +34,7 @@ struct OnBoardChooseFashionView: View {
                 
                 HStack {
                     Text("관심있는 패션 장르를\n선택해주세요")
-                        .font(.system(size: 22, weight: .medium))
+                        .font(.custom("Pretendard-Medium",size: 22))
                         .foregroundColor(.NickWhite)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -52,7 +52,7 @@ struct OnBoardChooseFashionView: View {
                                     selectedGenre = (selectedGenre == genre) ? "" : genre
                                 }) {
                                     Text(genre)
-                                        .font(.system(size: 13, weight: .medium))
+                                        .font(.custom("Pretendard-Medium",size: 13))
                                         .foregroundColor(.FashionText)
                                         .frame(maxWidth: .infinity, minHeight: 100)
                                         .background(
@@ -83,7 +83,7 @@ struct OnBoardChooseFashionView: View {
                     goToNext()
                 }) {
                     Text("디깅하러 고고링")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.custom("Pretendard-Medium",size: 18))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
                         .background(Color.NextButton)

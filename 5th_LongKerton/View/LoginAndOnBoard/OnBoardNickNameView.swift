@@ -26,15 +26,15 @@ struct OnBoardNickNameView: View {
                 
                 HStack {
                     Text("닉네임을 설정해주세요")
-                        .font(.system(size: 22, weight: .medium))
+                        .font(.custom("Pretendard-Medium",size: 22))
                         .foregroundColor(.NickWhite)
                     Spacer()
                 }
                 .padding(.leading, 24)
-                .padding(.bottom, 40)
+                .padding(.bottom, 36)
                 HStack {
                     Text("닉네임")
-                        .font(.system(size: 15))
+                        .font(.custom("Pretendard-Medium",size: 15))
                         .foregroundColor(.EditBox)
                     Spacer()
                 }
@@ -46,12 +46,12 @@ struct OnBoardNickNameView: View {
                         if nickname.isEmpty {
                             Text("닉네임을 입력해주세요")
                                 .foregroundColor(Color.EditBox)
-                                .font(.system(size: 13))
+                                .font(.custom("Pretendard-Medium",size: 13))
                                 .padding(.leading, 24)
                         }
                         TextField("", text: $nickname)
                             .foregroundColor(.white)
-                            .font(.system(size: 17))
+                            .font(.custom("Pretendard-Medium",size: 17))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 30)
                     }
@@ -69,7 +69,7 @@ struct OnBoardNickNameView: View {
                     goToNext()
                 }) {
                     Text("다음으로")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.custom("Pretendard-Medium",size: 18))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
                         .background(Color.NextButton)

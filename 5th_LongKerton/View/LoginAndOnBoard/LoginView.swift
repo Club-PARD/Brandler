@@ -20,11 +20,12 @@ struct LoginView: View {
                         .cornerRadius(8)
                     (
                         Text("패션 러버들을 위한 ") +
-                        Text("브랜드 디깅 플랫폼").bold() +
+                        Text("브랜드 디깅 플랫폼")
+                            .font(.custom("Pretendard-Bold", size: 13)) +
                         Text(", 브랜들러")
                     )
                     .foregroundColor(.white)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 13))
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
             }
@@ -40,8 +41,7 @@ struct LoginView: View {
                             .padding(.horizontal, 20)
                         Spacer()
                         Text("Google로 로그인")
-                            .font(.body)
-                            .fontWeight(.medium)
+                            .font(.custom("Pretendard-Bold",size: 18))
                             .foregroundColor(.black)
                             .padding(.trailing, 110)
                     }

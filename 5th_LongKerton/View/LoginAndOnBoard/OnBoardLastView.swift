@@ -33,10 +33,10 @@ struct OnBoardLastView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("새로운 브랜드를 찾아 떠나는 탐험,")
-                            .font(.system(size: 23, weight: .medium))
+                            .font(.custom("Pretendard-Medium",size: 23))
                             .foregroundColor(.NickWhite)
                         Text("디깅러가 되신 걸 환영해요!")
-                            .font(.system(size: 23, weight: .medium))
+                            .font(.custom("Pretendard-Medium",size: 23))
                             .foregroundColor(.NickWhite)
                     }
                     Spacer()
@@ -58,10 +58,10 @@ struct OnBoardLastView: View {
                 VStack(alignment: .center, spacing: 8) {
                     (
                         Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
-                        + Text("'디깅러'").bold()
+                        + Text("'디깅러'").font(.custom("Pretendard-Bold",size: 13))
                         + Text("라고 부릅니다.\n - \n이제, 디깅을 시작할 시간이에요. 🌊")
                     )
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom("Pretendard-Medium",size: 15))
                     .foregroundColor(.NickWhite)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
@@ -100,7 +100,7 @@ struct OnBoardLastView: View {
                             .cornerRadius(40)
                     } else {
                         Text("디깅하러 고고링")
-                            .font(.system(size: 18, weight: .medium))
+                            .font(.custom("Pretendard-Medium",size: 18))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 80)
                             .background(Color.lastBox)
@@ -117,3 +117,4 @@ struct OnBoardLastView: View {
         }
     }
 }
+

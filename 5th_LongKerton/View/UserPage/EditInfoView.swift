@@ -36,6 +36,7 @@ struct EditInfoView: View {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(Color(white: 0.9))
+                            .padding(.leading, 6)
                     }
 
                     Spacer()
@@ -43,7 +44,7 @@ struct EditInfoView: View {
                     // Title
                     Text("설정")
                         .foregroundColor(Color.white)
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.custom("Pretendard-Medium",size: 18))
 
                     Spacer()
 
@@ -57,7 +58,7 @@ struct EditInfoView: View {
                     }) {
                         Text("확인")
                             .foregroundColor(Color(white: 0.7))
-                            .font(.system(size: 18, weight: .medium))
+                            .font(.custom("Pretendard-Medium",size: 18))
                     }
                 }
                 .padding(.horizontal, 20)
@@ -67,42 +68,42 @@ struct EditInfoView: View {
                 // Nickname change
                 Text("닉네임 변경")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom("Pretendard-Medium",size: 15))
                     .padding(.horizontal, 20)
                 ZStack(alignment: .leading) {
                     if nickname.isEmpty {
                         Text("닉네임을 입력해주세요")
                             .foregroundColor(.EditBox)
-                            .font(.system(size: 17))
+                            .font(.custom("Pretendard-Medium",size: 17))
                             .padding(.leading, 18)
                             .padding(.vertical, 30)
                     }
                     TextField("", text: $nickname)
                         .foregroundColor(.white)
-                        .font(.system(size: 17))
+                        .font(.custom("Pretendard-Medium",size: 17))
                         .padding(.horizontal, 18)
                         .padding(.vertical, 30)
                 }
                 .background(Color.nickBox)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.nickBoxStroke, lineWidth: 2.5)
                 )
-                .cornerRadius(10)
+                .cornerRadius(12)
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
                 Text("기존 닉네임: \(session.userData?.nickname ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 13))
                     .padding(.horizontal, 22)
                     .padding(.top, 6)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 36)
 
                 // Genre change
                 Text("장르 변경")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom("Pretendard-Medium",size: 15))
                     .padding(.horizontal, 20)
                     .padding(.bottom, 12)
 
@@ -132,7 +133,7 @@ struct EditInfoView: View {
 
                 Text("기존 장르: \(session.userData?.fashionGenre ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 13))
                     .padding(.horizontal, 22)
                     .padding(.top, 10)
 
@@ -143,9 +144,11 @@ struct EditInfoView: View {
                     if let userData = session.userData {
                         Text("로그인 이메일: \(userData.email)")
                             .foregroundColor(.EditBox)
-                            .font(.system(size: 13))
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Text("환영합니다, \(userData.nickname)님!")
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Text("선호 장르: \(userData.fashionGenre)")
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Button("Reset Data (Logout)") {
                             session.logout()
                         }
