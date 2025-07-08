@@ -1,59 +1,35 @@
 import SwiftUI
 
+// 상품 카드의 뒷면 뷰
 struct ItemCardBack: View {
-    let item: Product
-    let onDelete: () -> Void
+    let item: Product // 상품 정보
+    let onDelete: () -> Void // 삭제 동작을 위한 클로저
 
-    @State private var showDeleteAlert = false
+    @State private var showDeleteAlert = false // 삭제 알림창 표시 여부 상태
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            Color.gray.opacity(0.8)
+            // 배경 색상 (반투명 회색)
+            Color.gray.opacity(0.3)
 
             VStack(spacing: 8) {
-                Spacer()
-                Text(item.name)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                Text("\(item.price)원")
-                    .font(.subheadline)
-                    .foregroundColor(.white)
-                Spacer()
-            }
-            .padding()
+                Spacer() // 위쪽 여백
 
-//            Button(action: {
-//                showDeleteAlert = true
-//            }) {
-//                Image(systemName: "xmark")
-//                    .foregroundColor(.white)
-//                    .frame(width: 24, height: 24)
-//                    .background(Color.black.opacity(0.6))
-//                    .clipShape(Circle())
-//            }
-//            .padding(8)
-//            .alert("정말 삭제하시겠습니까?", isPresented: $showDeleteAlert) {
-//                Button("삭제", role: .destructive) {
-//                    onDelete()
-//                }
-//                Button("취소", role: .cancel) {}
-//            }
+                // 상품 이름
+                Text(item.name)
+                    .font(.custom("Pretendard-Regular", size: 12))
+                    .foregroundColor(.white)
+
+                // 상품 가격
+                Text("\(item.price)원")
+                    .font(.custom("Pretendard-Regular", size: 12))
+                    .foregroundColor(.white)
+
+                Spacer() // 아래쪽 여백
+            }
+            .padding() // 전체 내용에 패딩 적용
         }
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(radius: 2)
+        .clipShape(RoundedRectangle(cornerRadius: 8)) // 카드 모서리를 둥글게
+        .shadow(radius: 2) // 그림자 효과
     }
 }
-
-//#Preview {
-//    BrandCardBack(
-//        item: BrandItem(
-//            frontImageName: "mockBanner2",
-//            name: "테스트 아이템",
-//            price: 69000,
-//            category: .bottom
-//        ),
-//        onDelete: { print("삭제") }
-//    )
-//    .frame(width: 120, height: 180)
-//    .background(Color.gray)
-//}

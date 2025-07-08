@@ -1,28 +1,33 @@
 import SwiftUI
-// ✅ 메인 모달 뷰
+
+// 디깅러 가이드가 상단으로 부터 19px 내려와 있는데, 너무 크게 아래로 내려와 있는 것 처럼 느껴짐
+// 브랜드 또한 상단으로 부터 떨어트려 놨는데, 너무 길게 느껴짐
+// 모달 차으이 배경 색은 약간 애매한 감이 있음.
+
+// ✅ 단계 가이드 모달 뷰
 struct SecondModalView: View {
-    @Binding var isVisible: Bool // 모달 표시 여부
-    @GestureState private var dragOffset: CGFloat = 0 // 드래그 실시간 변화량
-    @State private var offsetY: CGFloat = UIScreen.main.bounds.height // 현재 위치 상태
-    @State private var selectedTab = 0 // 선택된 탭 인덱스
-    @StateObject private var viewModel = BrandViewModel() // 브랜드 데이터
-    
+    @Binding var isVisible: Bool // 모달 표시 여부를 바인딩
+    @GestureState private var dragOffset: CGFloat = 0 // 드래그 변화 감지용 상태
+    @State private var offsetY: CGFloat = UIScreen.main.bounds.height // 현재 Y 위치 (초기엔 화면 아래)
+    @State private var selectedTab = 0 // 선택된 탭 인덱스 (0: 디깅러, 1: 브랜드)
+    @StateObject private var viewModel = BrandViewModel() // 브랜드 데이터 상태 관리
+
     var body: some View {
-        GeometryReader { geometry in
-            let screenHeight = geometry.size.height
+        GeometryReader { geometry in // 화면 크기 측정을 위한 GeometryReader
+            let screenHeight = geometry.size.height // 전체 화면 높이
             let maxHeight = screenHeight * 0.95 // 모달 최대 높이
-            let openOffset = screenHeight - maxHeight // 최상단 위치
-            let closeThreshold = screenHeight * 0.6 // 드래그로 닫히는 기준
-            
-            ZStack {
-                // ✅ 반투명 뒷배경
+            let openOffset = screenHeight - maxHeight // 모달이 열릴 위치
+            let closeThreshold = screenHeight * 0.6 // 모달이 닫히는 임계값
+
+            ZStack(alignment: .center){
+                // ✅ 뒷배경 (모달 표시 시만 나타남)
                 if isVisible {
-                    Color.black.opacity(0.6)
+                    Color.black.opacity(0.6) // 어두운 반투명 배경
                         .ignoresSafeArea()
                         .onTapGesture {
-                            slideDownAndClose(to: screenHeight)
+                            slideDownAndClose(to: screenHeight) // 배경 탭하면 닫힘
                         }
-                    
+
                     VStack(spacing: 0) {
                         // ✅ 상단 닫기 버튼
                         HStack {
@@ -35,48 +40,55 @@ struct SecondModalView: View {
                             }
                             Spacer()
                         }
-                        
-                        // ✅ 타이틀 영역
-                        VStack(spacing: 4) {
+
+                        // ✅ 모달 타이틀
+                        VStack(spacing: 0) {
                             Text("단계 가이드")
-                                .font(.title2)
+                                .font(.custom("Pretendard-SemiBold", size:15))
                                 .foregroundColor(.white)
                         }
                         .padding(.bottom, 12)
-                        
-                        // ✅ 콘텐츠 영역
+                        .offset(y: -25)
+                        // ✅ 모달 내부 콘텐츠 영역
                         ScrollView {
                             VStack(spacing: 0) {
-                                // ✅ 탭 버튼
-                                HStack(spacing: 8) {
+                                // ✅ 탭 버튼 (디깅러 / 브랜드)
+                                HStack(alignment: .top, spacing: 8) {
                                     TabButton(title: "디깅러", selected: selectedTab == 0) {
                                         selectedTab = 0
                                     }
-                                    
                                     TabButton(title: "브랜드", selected: selectedTab == 1) {
                                         selectedTab = 1
                                     }
                                 }
-                                .padding(.horizontal, 25)
+                                .font(.custom("Pretendard-Medium", size:12))
+                                .padding(.horizontal, 19)
                                 .frame(height: 56)
                                 .padding(.top, 20)
-                                // ✅ 콘텐츠 설명 + 단계 카드
-                                VStack(spacing: 16) {
+                                .foregroundColor(Color.white)
+//                                .offset(y: -5)
+
+                                // ✅ 설명 텍스트 + 단계 카드 뷰
+                                VStack(spacing: 10) {
                                     Spacer()
-                                    Text(selectedTab == 0 ?
-                                         "고래를 발견할수록 당신의 바다는 더 깊어집니다. \n 취향의 지도를 확장해 보세요." :
-                                            "디깅 수에 따라 고래가 자라납니다.")
-                                    .font(.system(size: 11))
+
+                                    Text(
+                                        selectedTab == 0 ?
+                                        "고래를 발견할수록 당신의 바다는 더 깊어집니다. \n 취향의 지도를 확장해 보세요." :
+                                        "디깅 수에 따라 고래가 자라납니다."
+                                    )
+                                    .font(.custom("Pretendard-Medium", size:12))
                                     .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
                                     .frame(maxWidth: .infinity)
-                                    
-                                    VStack(spacing: 24) {
+
+                                    // ✅ 단계 카드
+                                    VStack(spacing: 10) {
                                         if selectedTab == 0 {
                                             ForEach(1...5, id: \.self) { step in
                                                 Rectangle()
                                                     .fill(Color.LogBlue)
-                                                    .frame(width: 350, height: 1)
+                                                    .frame(width: 360, height: 1)
                                                 DiggingStepView(
                                                     step: step,
                                                     progress: viewModel.progress(for: step),
@@ -87,15 +99,18 @@ struct SecondModalView: View {
                                             ForEach(1...5, id: \.self) { step in
                                                 Rectangle()
                                                     .fill(Color.LogBlue)
-                                                    .frame(width: 350, height: 1)
+                                                    .frame(width: 360, height: 1)
                                                 BrandStepView(step: step)
                                             }
                                         }
+                                        
                                     }
-
+//                                    Spacer()
+//                                        .frame(height: 24)
                                 }
-                                .background(Color.LogBlue.opacity(0.6))
+                                .background(Color.ContentBackground.opacity(0.6))
                                 .mask(
+                                    // ✅ 둥근 마스크 (탭에 따라 다르게)
                                     CustomRoundedCorner(
                                         radius: 16,
                                         corners: {
@@ -110,25 +125,26 @@ struct SecondModalView: View {
                                     )
                                 )
                                 .overlay(
+                                    // ✅ 테두리 라인 - 탭 영역 gap 제외하고 그림
                                     GeometryReader { geo in
                                         let tabWidth: CGFloat = 160
                                         let tabPadding: CGFloat = 25
-                                        
+
                                         let gapStartX: CGFloat
                                         let gapEndX: CGFloat
-                                        
+
                                         let diggerOffset: CGFloat = -4
                                         let brandOffset: CGFloat = 6
-                                        
+
                                         if selectedTab == 0 {
                                             gapStartX = tabPadding + diggerOffset - 20
-                                            gapEndX = tabPadding + tabWidth + diggerOffset
+                                            gapEndX = tabPadding + tabWidth + diggerOffset - 5
                                         } else {
-                                            gapStartX = geo.size.width - tabPadding - tabWidth + brandOffset
+                                            gapStartX = geo.size.width - tabPadding - tabWidth + brandOffset + 5
                                             gapEndX = geo.size.width - tabPadding + brandOffset + 19
                                         }
-                                        
-                                        return AnyView( // ✅ 이 부분이 핵심입니다
+
+                                        return AnyView(
                                             CustomRoundedCornerWithFixedGap(
                                                 radius: 16,
                                                 corners: {
@@ -148,18 +164,34 @@ struct SecondModalView: View {
                                     }
                                 )
                                 .frame(maxWidth: .infinity)
-                                    .padding(.horizontal, 25)
+                                .padding(.horizontal, 19)
                             }
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, alignment: .center)
+
+                            Spacer().frame(height: 150) // 하단 여백
                         }
                         .ignoresSafeArea(.container, edges: .bottom)
+
                         Spacer()
                     }
-                    .frame(width: geometry.size.width - 19, height: maxHeight) // ✅ 크기 지정
-                    .background(Color.ModalBackground.opacity(0.6)) // ✅ 배경색
-                    .clipShape(RoundedRectangle(cornerRadius: 30)) // ✅ 모서리 둥글게
-                    .offset(y: offsetY + dragOffset) // ✅ 애니메이션 위치
+                    .frame(width: geometry.size.width - 30, height: maxHeight)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.ModalBackground1,
+                                Color.ModalBackground2,
+                                Color.ModalBackground3
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .opacity(0.2)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .offset(y: offsetY + dragOffset)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .gesture(
+                        // ✅ 드래그 제스처 처리
                         DragGesture()
                             .updating($dragOffset) { value, state, _ in
                                 state = value.translation.height
@@ -174,17 +206,19 @@ struct SecondModalView: View {
                             }
                     )
                     .onAppear {
-                        withAnimation { offsetY = openOffset } // 열릴 때 애니메이션
+                        // ✅ 처음 등장 시 애니메이션으로 등장
+                        withAnimation { offsetY = openOffset }
                     }
-                    .transition(.move(edge: .bottom))
+                    .transition(.move(edge: .bottom)) // 아래에서 등장
                     .zIndex(10)
+                    //.padding(.horizontal, 20, alignment : .center)
                 }
             }
             .ignoresSafeArea(.container, edges: .bottom)
         }
     }
-    
-    // ✅ 닫는 함수
+
+    // ✅ 모달을 닫는 함수 (애니메이션 + isVisible false)
     private func slideDownAndClose(to screenHeight: CGFloat) {
         withAnimation { offsetY = screenHeight }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -193,48 +227,24 @@ struct SecondModalView: View {
     }
 }
 
-
-// ✅ 진행률 바 (ZStack 사용 안 함)
-struct ProgressBarView: View {
-    var progress: Double // 0.0 ~ 1.0
-    
-    var body: some View {
-        GeometryReader { geo in
-            let totalWidth = geo.size.width
-            let filledWidth = totalWidth * progress
-            
-            HStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color.black)
-                    .frame(width: filledWidth)
-                Spacer(minLength: 0)
-            }
-            .frame(height: 8)
-            .background(Color.NickWhite)
-            .cornerRadius(4)
-        }
-        .frame(height: 8)
-        .padding(.horizontal, 10)
-    }
-}
-
-// ✅ 프리뷰용 Wrapper
+// ✅ 프리뷰 테스트용 뷰 (배경 포함)
 struct SecondModalPreviewWrapper: View {
     @State private var isVisible = true
-    
+
     var body: some View {
         ZStack {
-            Color.black.opacity(0.6).ignoresSafeArea()
-            Image("ScrapeBackground")
+            Image("whaleBackground")
+                .resizable()
+                .scaledToFit()
                 .edgesIgnoringSafeArea(.all)
-            
+
             Button("모달 열기") {
                 isVisible = true
             }
             .padding()
             .background(Color.white)
             .cornerRadius(10)
-            
+
             SecondModalView(isVisible: $isVisible)
         }
     }
