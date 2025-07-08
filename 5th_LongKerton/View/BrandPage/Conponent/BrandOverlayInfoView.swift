@@ -72,7 +72,7 @@ struct BrandInfoOverlayView: View {
                 // 남은 공간을 모두 채워 버튼을 오른쪽 끝으로 밀어냅니다.
                 Spacer()
             }
-            .padding(.bottom, 10) // `HStack` 아래쪽에 10pt의 여백을 추가합니다.
+            .padding(.bottom, 5) // `HStack` 아래쪽에 10pt의 여백을 추가합니다.
             
             Text(brand.brandGenre)
                 .font(.custom("Prentendard-Medium", size: 10))
@@ -134,6 +134,7 @@ struct BrandInfoOverlayView: View {
                 }
                 // 설명 텍스트 영역의 최대 너비를 220pt로 제한하고, 텍스트를 왼쪽으로 정렬합니다.
                 .frame(maxWidth: 220, alignment: .leading)
+                .padding(.top,12)
 
                 // 🔹 쇼핑몰 열기 버튼 (카트 아이콘)
                 Button(action: {
@@ -178,24 +179,27 @@ struct BrandInfoOverlayView: View {
         }
     }
 }
+
 #Preview {
     let mockBrand = Brand(
         id: UUID(),
-        name: "무신사 스탠다드",
+        name: "샘플 브랜드",
         brandGenre: "스트릿",
-        description: "기본에 충실하면서도 합리적인 가격을 제안하는 브랜드입니다. 다양한 아이템으로 많은 사람들의 선택을 받고 있습니다.",
-        brandBannerUrl: "mockBanner1",
-        brandLogoUrl: "mockLogo1",
-        brandHomePageUrl: "https://musinsastandard.com",
-        brandLevel: 2
+        description: "이 브랜드는 세련된 디자인과 감각적인 제품으로 유명합니다. 개성 있고 유니크한 브랜드 스토리를 가지고 있으며, 많은 셀럽들이 착용한 이력이 있습니다.",
+        brandBannerUrl: "brandBanner",
+        brandLogoUrl: "brandLogo",
+//        isScraped: false,
+        brandHomePageUrl: "https://www.example.com",
+        brandLevel: 1
     )
-
-    BrandInfoOverlayView(
-        scrollOffset: 0,
-        bannerHeight: 300,
-        brand: mockBrand
-    )
-    .padding(.horizontal, 20)                  // ✅ 프리뷰에 좌우 여백 적용
-    .background(Color.black)                   // 배경색 설정
-    .previewLayout(.sizeThatFits)              // ✅ 뷰 크기를 컨텐츠에 맞게 자동 조정
+    
+     ZStack {
+        Color.black // 배경 확인용
+        BrandInfoOverlayView(
+            scrollOffset: 0,
+            bannerHeight: 300,
+            brand: mockBrand
+        )
+    }
+    .frame(height: 250)
 }
