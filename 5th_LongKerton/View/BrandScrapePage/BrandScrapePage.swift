@@ -6,7 +6,7 @@ struct BrandScrapePage: View {
     @GestureState private var dragOffset: CGFloat = 0
     
     @StateObject private var viewModel = BrandViewModel()
-    @State private var flippedID: Int? = nil // <--- Int?로 변경
+    @State private var flippedID: Int? = nil
     @State private var currentPage: Int = 0
     
     @State private var selectedBrand: Brand? = nil
@@ -14,10 +14,11 @@ struct BrandScrapePage: View {
     
     private let itemsPerPage = 9
     
-    // MARK: - 3x3 그리드 포맷을 유지한 페이지 분할
+    // 3x3 그리드 포맷을 유지한 페이지 분할 (isScraped == true만)
     var pagedBrands: [[Brand?]] {
-        stride(from: 0, to: viewModel.brands.count, by: itemsPerPage).map { start in
-            var slice = Array(viewModel.brands[start..<min(start + itemsPerPage, viewModel.brands.count)]).map { Optional($0) }
+        let scrapedBrands = viewModel.brands.filter { $0.isScraped }
+        return stride(from: 0, to: scrapedBrands.count, by: itemsPerPage).map { start in
+            var slice = Array(scrapedBrands[start..<min(start + itemsPerPage, scrapedBrands.count)]).map { Optional($0) }
             while slice.count < itemsPerPage {
                 slice.append(nil)
             }
@@ -63,6 +64,7 @@ struct BrandScrapePage: View {
                     }
                     .padding(.bottom, 10)
                     .padding(.leading, 230)
+                    
                     VStack {
                         if viewModel.hasNoScrapedBrands {
                             ZStack {
@@ -85,9 +87,12 @@ struct BrandScrapePage: View {
                                                     if let brand = brands[index] {
                                                         BrandFlipCardView(
                                                             brand: brand,
-                                                            flippedID: $flippedID, // <--- Int?로 전달
+                                                            flippedID: $flippedID,
                                                             onDelete: {
-                                                                viewModel.deleteBrand(brand)
+                                                                Task {
+                                                                    let userEmail = UserSessionManager.shared.emailString ?? ""
+                                                                    await viewModel.unsrapeAndSync(brand: brand, email: userEmail)
+                                                                }
                                                             },
                                                             onShop: {
                                                                 selectedBrand = brand
@@ -174,6 +179,10 @@ struct BrandScrapePage: View {
             }
             .onAppear {
                 offsetY = UIScreen.main.bounds.height - 100
+                Task {
+                    let userEmail = UserSessionManager.shared.emailString ?? ""
+                    await viewModel.fetchScrapedBrandsFromServer(email: userEmail)
+                }
             }
             .navigationDestination(isPresented: $showBrandPage) {
                 if let brand = selectedBrand {
