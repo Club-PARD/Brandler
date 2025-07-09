@@ -60,6 +60,11 @@ extension Color {
     
     
     
+    //SearchPage
+    static let ProductBackGround = Color(hex: 0xE5E5E5)
+    static let EmptyFontColor = Color(hex: 0x6D6D6D)
+    
+    
     //BrandScape
     static let BackgroundBlue = Color(hex: 0x3B55BB)
     static let Gradient1 = Color(hex: 0xF8F8F8)
