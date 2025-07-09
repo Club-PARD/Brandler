@@ -5,7 +5,6 @@
 //  Created by Kim Kyengdong on 7/9/25.
 //
 
-import SwiftUI
 
 import SwiftUI
 
@@ -50,11 +49,3 @@ struct SearchSelectView: View {
     }
 }
 
-//#Preview {
-//    ZStack {
-//        Color.black.ignoresSafeArea()
-//        SearchSelectView(selectedType: .constant(.brand))
-//            .padding()
-//    }
-//    .previewLayout(.sizeThatFits)
-//}
