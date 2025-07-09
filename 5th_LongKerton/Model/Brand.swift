@@ -1,3 +1,4 @@
+
 import Foundation // Foundation 프레임워크를 가져옵니다. 기본적인 데이터 타입과 컬렉션 등을 제공합니다.
 /// `Brand` 구조체는 패션 브랜드의 상세 정보를 나타내는 데이터 모델입니다.
 ///
@@ -51,6 +52,7 @@ struct Brand: Identifiable, Hashable, Codable {
             self.isScraped = isScraped
         }
 }
+
 
 
 extension Brand {
