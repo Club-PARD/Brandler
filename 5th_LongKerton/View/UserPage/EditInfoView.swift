@@ -162,27 +162,24 @@ struct EditInfoView: View {
 
                 Spacer()
 
-                // 계정 정보 및 로그아웃
-                VStack(alignment: .leading, spacing: 6) {
+
+                //로그아웃
+                VStack(alignment: .center, spacing: 6) {
                     if let userData = session.userData {
-                        Text("로그인 이메일: \(userData.email)")
-                            .foregroundColor(.EditBox)
-                            .font(.custom("Pretendard-Medium",size: 13))
-                        Text("환영합니다, \(userData.nickname)님!")
-                            .font(.custom("Pretendard-Medium",size: 13))
-                        Text("선호 장르: \(userData.fashionGenre)")
-                            .font(.custom("Pretendard-Medium",size: 13))
-                        Button("Reset Data (Logout)") {
+                        Button(action: {
                             session.logout()
                             currentState = .login
-                            
+                        }) {
+                            Text("로그아웃")
+                                .underline() // 밑줄 추가
+                                .foregroundColor(.EditBox)
+                                .font(.custom("Pretendard-Medium", size: 15))
                         }
                     }
                 }
-                .foregroundColor(.LogBlue)
-                .font(.system(size: 15, weight: .medium))
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .padding(.bottom, 57)
+
             }
         }
         .onAppear {
