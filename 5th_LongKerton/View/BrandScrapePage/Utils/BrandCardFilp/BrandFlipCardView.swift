@@ -22,14 +22,14 @@
 import SwiftUI
 
 struct BrandFlipCardView: View {
-    let brand: Brand
+    let brand: BrandCard
     @Binding var flippedID: Int?
     let onDelete: () -> Void
     let onShop: () -> Void
     @State private var rotation: Double = 0
 
     var isFlipped: Bool {
-        flippedID == brand.id
+        flippedID == brand.brandId
     }
 
     var body: some View {
@@ -51,13 +51,13 @@ struct BrandFlipCardView: View {
                 }
             } else {
                 withAnimation {
-                    flippedID = brand.id
+                    flippedID = brand.brandId
                     rotation = 180
                 }
             }
         }
         .onChange(of: flippedID) { _, newValue in
-            if newValue != brand.id {
+            if newValue != brand.brandId {
                 withAnimation {
                     rotation = 0
                 }

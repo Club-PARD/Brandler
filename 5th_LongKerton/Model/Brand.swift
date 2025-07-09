@@ -19,7 +19,7 @@ struct BrandInfo: Hashable, Codable {
 }
 
 struct Brand: Identifiable, Hashable, Codable {
-    let id: Int
+        let id: Int
         let name: String
         let brandGenre: String
         let description: String

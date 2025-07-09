@@ -72,7 +72,7 @@ struct BrandInfoOverlayView: View {
                         }
                     )
 
-                Image("Level\(brand.brandLevel)")
+                Image("Level\(2)")
                     .resizable()
                     .frame(width: 27, height: 27)
 
