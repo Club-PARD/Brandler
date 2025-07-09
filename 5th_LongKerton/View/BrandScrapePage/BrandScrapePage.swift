@@ -4,28 +4,29 @@
 //    @State private var showSecondModal = false
 //    @State private var offsetY: CGFloat = 0
 //    @GestureState private var dragOffset: CGFloat = 0
-//    
 //    @StateObject private var viewModel = BrandViewModel()
+//
+//    @StateObject private var scrapeAPI = ScrapeServerAPI()
+//    @State private var scrapedBrandList: [BrandCard] = []
 //    @State private var flippedID: Int? = nil
 //    @State private var currentPage: Int = 0
-//    
-//    @State private var selectedBrand: Brand? = nil
+//
+//    @State private var selectedBrand: BrandCard? = nil
 //    @State private var showBrandPage: Bool = false
-//    
+//
 //    private let itemsPerPage = 9
-//    
-//    // 3x3 그리드 포맷을 유지한 페이지 분할 (isScraped == true만)
-//    var pagedBrands: [[Brand?]] {
-//        let scrapedBrands = viewModel.brands.filter { $0.isScraped }
-//        return stride(from: 0, to: scrapedBrands.count, by: itemsPerPage).map { start in
-//            var slice = Array(scrapedBrands[start..<min(start + itemsPerPage, scrapedBrands.count)]).map { Optional($0) }
+//
+//    // 3x3 그리드 포맷을 유지한 페이지 분할
+//    var pagedBrands: [[BrandCard?]] {
+//        stride(from: 0, to: scrapedBrandList.count, by: itemsPerPage).map { start in
+//            var slice = Array(scrapedBrandList[start..<min(start + itemsPerPage, scrapedBrandList.count)]).map { Optional($0) }
 //            while slice.count < itemsPerPage {
 //                slice.append(nil)
 //            }
 //            return slice
 //        }
 //    }
-//    
+//
 //    var body: some View {
 //        NavigationStack {
 //            ZStack(alignment: .topTrailing) {
@@ -36,7 +37,7 @@
 //                    .ignoresSafeArea()
 //                    .opacity(0.8)
 //                    .offset(x: 13)
-//                
+//
 //                LinearGradient(
 //                    gradient: Gradient(colors: [
 //                        Color.BackgroundBlue.opacity(0.8),
@@ -45,15 +46,15 @@
 //                    startPoint: .top,
 //                    endPoint: .bottom
 //                ).ignoresSafeArea()
-//                
+//
 //                VStack {
 //                    Text("My 디깅함")
 //                        .font(.custom("Pretendard-Bold", size: 15))
 //                        .foregroundColor(.white)
 //                        .padding(.top, 20)
-//                    
+//
 //                    Spacer().frame(height: 63)
-//                    
+//
 //                    Button(action: {
 //                        showSecondModal = true
 //                    }) {
@@ -64,9 +65,9 @@
 //                    }
 //                    .padding(.bottom, 10)
 //                    .padding(.leading, 230)
-//                    
+//
 //                    VStack {
-//                        if viewModel.hasNoScrapedBrands {
+//                        if scrapedBrandList.isEmpty {
 //                            ZStack {
 //                                Color.clear
 //                                Text("아직 스크랩한 브랜드가 없어요.")
@@ -85,14 +86,16 @@
 //                                                ForEach(0..<3, id: \.self) { col in
 //                                                    let index = row * 3 + col
 //                                                    if let brand = brands[index] {
+//                                                        // BrandCardVIew로 카드 표시
 //                                                        BrandFlipCardView(
 //                                                            brand: brand,
 //                                                            flippedID: $flippedID,
 //                                                            onDelete: {
 //                                                                Task {
-//                                                                    let userEmail = UserSessionManager.shared.emailString ?? ""
-//                                                                    await viewModel.unsrapeAndSync(brand: brand, email: userEmail)
-//                                                                }
+//                                                                        let email = UserSessionManager.shared.emailString ?? ""
+//                                                                        let updatedList = await viewModel.unsrapeAndRefresh(email: email, brand: brand)
+//                                                                        scrapedBrandList = updatedList // UI 갱신
+//                                                                    }
 //                                                            },
 //                                                            onShop: {
 //                                                                selectedBrand = brand
@@ -150,7 +153,7 @@
 //                                    )
 //                                    .opacity(0.5)
 //                                    .blur(radius: 0.3)
-//                                    
+//
 //                                    Color.white.opacity(0.24)
 //                                }
 //                                .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -169,10 +172,10 @@
 //                    .frame(maxWidth: .infinity)
 //                    .padding(.horizontal, 40)
 //                    .padding(.bottom, 50)
-//                    
+//
 //                    Spacer()
 //                }
-//                
+//
 //                if showSecondModal {
 //                    SecondModalView(isVisible: $showSecondModal)
 //                }
@@ -181,14 +184,19 @@
 //                offsetY = UIScreen.main.bounds.height - 100
 //                Task {
 //                    let userEmail = UserSessionManager.shared.emailString ?? ""
-//                    await viewModel.fetchScrapedBrandsFromServer(email: userEmail)
+//                    do {
+//                        scrapedBrandList = try await scrapeAPI.fetchScrapedBrands(email: userEmail)
+//                    } catch {
+//                        print("스크랩 브랜드 불러오기 실패: \(error)")
+//                    }
 //                }
 //            }
-//            .navigationDestination(isPresented: $showBrandPage) {
-//                if let brand = selectedBrand {
-//                    BrandPage(brand: brand)
-//                }
-//            }
+//            // 상세 페이지 등 필요시 아래처럼 사용
+//            // .navigationDestination(isPresented: $showBrandPage) {
+//            //     if let brand = selectedBrand {
+//            //         BrandPage(brand: brand)
+//            //     }
+//            // }
 //        }
 //    }
 //}
@@ -196,6 +204,7 @@
 //#Preview {
 //    BrandScrapePage()
 //}
+
 import SwiftUI
 
 struct BrandScrapePage: View {
@@ -222,6 +231,26 @@ struct BrandScrapePage: View {
                 slice.append(nil)
             }
             return slice
+        }
+    }
+
+    // 삭제 및 서버 최신화 함수
+    func deleteBrandCard(_ brand: BrandCard) {
+        guard let userEmail = UserSessionManager.shared.emailString else { return }
+        scrapeAPI.patchLike(email: userEmail, brandId: brand.brandId, isScraped: false) {
+            DispatchQueue.main.async {
+                scrapedBrandList.removeAll { $0.brandId == brand.brandId }
+            }
+            Task {
+                do {
+                    let newList = try await scrapeAPI.fetchScrapedBrands(email: userEmail)
+                    DispatchQueue.main.async {
+                        scrapedBrandList = newList
+                    }
+                } catch {
+                    print("스크랩 목록 재로딩 실패: \(error)")
+                }
+            }
         }
     }
 
@@ -284,15 +313,11 @@ struct BrandScrapePage: View {
                                                 ForEach(0..<3, id: \.self) { col in
                                                     let index = row * 3 + col
                                                     if let brand = brands[index] {
-                                                        // BrandCardVIew로 카드 표시
                                                         BrandFlipCardView(
                                                             brand: brand,
                                                             flippedID: $flippedID,
                                                             onDelete: {
-                                                                Task {
-                                                                    let userEmail = UserSessionManager.shared.emailString ?? ""
-                                                                    await viewModel.unsrapeAndSync(brand: brand, email: userEmail)
-                                                                }
+                                                                deleteBrandCard(brand)
                                                             },
                                                             onShop: {
                                                                 selectedBrand = brand
