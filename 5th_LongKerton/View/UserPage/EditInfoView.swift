@@ -7,7 +7,9 @@ struct EditInfoView: View {
     @State private var nickname: String = ""
     @State private var selectedGenre: String = ""
     @Environment(\.dismiss) var dismiss
+    @Binding var currentState: AppState
 
+   
     // Genre list
     let genres = [
         ["아메카지", "스트릿", "히피", "빈티지"],
@@ -36,6 +38,7 @@ struct EditInfoView: View {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(Color(white: 0.9))
+                            .padding(.leading, 6)
                     }
 
                     Spacer()
@@ -43,22 +46,43 @@ struct EditInfoView: View {
                     // Title
                     Text("설정")
                         .foregroundColor(Color.white)
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.custom("Pretendard-Bold",size: 15))
 
                     Spacer()
 
                     // Confirm Button
                     Button(action: {
-                        // Only update if email is available
                         if let email = session.userData?.email {
-                            session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+                            UserServerAPI.patchUserInfo(email: email, nickname: nickname, genre: selectedGenre) { success in
+                                DispatchQueue.main.async {
+                                    if success {
+                                        // PATCH 성공 시 세션 정보도 업데이트
+                                        session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+                                        dismiss()
+                                    } else {
+                                        // 실패 시 에러 알림 등 처리
+                                        // 예: alert 띄우기
+                                    }
+                                }
+                            }
                         }
-                        dismiss()
                     }) {
                         Text("확인")
-                            .foregroundColor(Color(white: 0.7))
-                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(Color.NextButton)
+                            .font(.custom("Pretendard-Medium",size: 15))
                     }
+
+//                    Button(action: {
+//                        // Only update if email is available
+//                        if let email = session.userData?.email {
+//                            session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+//                        }
+//                        dismiss()
+//                    }) {
+//                        Text("확인")
+//                            .foregroundColor(Color.NextButton)
+//                            .font(.custom("Pretendard-Medium",size: 15))
+//                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 18)
@@ -67,42 +91,42 @@ struct EditInfoView: View {
                 // Nickname change
                 Text("닉네임 변경")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom("Pretendard-Bold",size: 13))
                     .padding(.horizontal, 20)
                 ZStack(alignment: .leading) {
                     if nickname.isEmpty {
                         Text("닉네임을 입력해주세요")
-                            .foregroundColor(.EditBox)
-                            .font(.system(size: 17))
+                            .foregroundColor(.semiGray)
+                            .font(.custom("Pretendard-Medium",size: 15)).opacity(0.15)
                             .padding(.leading, 18)
-                            .padding(.vertical, 30)
+                            .padding(.vertical, 20)
                     }
                     TextField("", text: $nickname)
                         .foregroundColor(.white)
-                        .font(.system(size: 17))
+                        .font(.custom("Pretendard-Medium",size: 17))
                         .padding(.horizontal, 18)
-                        .padding(.vertical, 30)
+                        .padding(.vertical, 20)
                 }
                 .background(Color.nickBox)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.nickBoxStroke, lineWidth: 2.5)
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.nickBoxStroke, lineWidth: 3.5)
                 )
-                .cornerRadius(10)
+                .cornerRadius(12)
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
-                Text("기존 닉네임: \(session.userData?.nickname ?? "-")")
+                Text("기존 닉네임 : \(session.userData?.nickname ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 12))
                     .padding(.horizontal, 22)
                     .padding(.top, 6)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 36)
 
                 // Genre change
                 Text("장르 변경")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom("Pretendard-Medium",size: 13))
                     .padding(.horizontal, 20)
                     .padding(.bottom, 12)
 
@@ -114,15 +138,15 @@ struct EditInfoView: View {
                                     selectedGenre = genre
                                 }) {
                                     Text(genre)
-                                        .font(.system(size: 15, weight: .medium))
+                                        .font(.custom("Pretendard-Medium",size: 12))
                                         .foregroundColor(selectedGenre == genre ? .white : .EditTxt)
                                         .frame(width: 78, height: 38)
                                         .background(
                                             selectedGenre == genre
                                             ? Color.FashBox
-                                            : Color.nickBox
+                                            : Color.myDarkGray
                                         )
-                                        .cornerRadius(18)
+                                        .cornerRadius(10)
                                 }
                             }
                         }
@@ -130,9 +154,9 @@ struct EditInfoView: View {
                 }
                 .padding(.horizontal, 20)
 
-                Text("기존 장르: \(session.userData?.fashionGenre ?? "-")")
+                Text("기존 장르 : \(session.userData?.fashionGenre ?? "-")")
                     .foregroundColor(.EditBox)
-                    .font(.system(size: 13))
+                    .font(.custom("Pretendard-Medium",size: 12))
                     .padding(.horizontal, 22)
                     .padding(.top, 10)
 
@@ -143,11 +167,15 @@ struct EditInfoView: View {
                     if let userData = session.userData {
                         Text("로그인 이메일: \(userData.email)")
                             .foregroundColor(.EditBox)
-                            .font(.system(size: 13))
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Text("환영합니다, \(userData.nickname)님!")
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Text("선호 장르: \(userData.fashionGenre)")
+                            .font(.custom("Pretendard-Medium",size: 13))
                         Button("Reset Data (Logout)") {
                             session.logout()
+                            currentState = .login
+                            
                         }
                     }
                 }
@@ -165,6 +193,6 @@ struct EditInfoView: View {
 }
 
 #Preview {
-    EditInfoView()
+    EditInfoView(currentState: .constant(.main))
         .environmentObject(UserSessionManager.shared)
 }

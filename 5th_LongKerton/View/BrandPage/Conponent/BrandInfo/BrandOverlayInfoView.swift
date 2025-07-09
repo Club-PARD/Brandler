@@ -53,7 +53,7 @@ struct BrandInfoOverlayView: View {
                     .resizable()
                     .frame(width: 27, height: 27)
 
-                Spacer(minLength: 270 - brandNameWidth)
+                Spacer(minLength: 250 - brandNameWidth)
 
                 Button(action: {
                     withAnimation { isLiked.toggle() }

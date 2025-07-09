@@ -5,13 +5,14 @@ struct OnBoardChooseFashionView: View {
     @Binding var selectedGenre: String
     var currentStep: Int = 1 // 0, 1, 2 중 현재 단계
 
-    
+    @EnvironmentObject var session: UserSessionManager
+
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
-        ["펑크", "테크", "기타"]
+        ["캐주얼", "테크", "기타"]
     ]
-    
+
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
@@ -34,7 +35,7 @@ struct OnBoardChooseFashionView: View {
                 
                 HStack {
                     Text("관심있는 패션 장르를\n선택해주세요")
-                        .font(.system(size: 22, weight: .medium))
+                        .font(.custom("Pretendard-Regular",size: 22))
                         .foregroundColor(.NickWhite)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -52,12 +53,12 @@ struct OnBoardChooseFashionView: View {
                                     selectedGenre = (selectedGenre == genre) ? "" : genre
                                 }) {
                                     Text(genre)
-                                        .font(.system(size: 13, weight: .medium))
+                                        .font(.custom("Pretendard-Medium",size: 12))
                                         .foregroundColor(.FashionText)
                                         .frame(maxWidth: .infinity, minHeight: 100)
                                         .background(
                                             selectedGenre == genre
-                                            ? Color.FashBox
+                                            ? Color.barBlue.opacity(0.3)
                                             : Color.nickBox
                                         )
                                         .cornerRadius(12)
@@ -80,14 +81,16 @@ struct OnBoardChooseFashionView: View {
                 Spacer()
                 
                 Button(action: {
+                    // 장르 저장
+                    session.updateGenre(selectedGenre)
                     goToNext()
                 }) {
-                    Text("디깅하러 고고링")
-                        .font(.system(size: 18, weight: .medium))
+                    Text("다음으로")
+                        .font(.custom("Pretendard-SemiBold",size: 16))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
                         .background(Color.NextButton)
-                        .cornerRadius(40)
+                        .cornerRadius(100)
                 }
                 .padding(.horizontal, 25)
                 
@@ -99,5 +102,5 @@ struct OnBoardChooseFashionView: View {
 
 #Preview {
     OnBoardChooseFashionView(goToNext: {}, selectedGenre: .constant(""))
+        .environmentObject(UserSessionManager.shared)
 }
-

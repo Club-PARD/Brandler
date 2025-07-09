@@ -4,6 +4,12 @@
 //
 //  Created by 정태주 on 6/29/25.
 //
+//
+//  SearchViewModel.swift
+//  SearchBar
+//
+//  Created by 정태주 on 6/29/25.
+//
 
 import Foundation
 
@@ -12,10 +18,11 @@ class SearchViewModel: ObservableObject {
     @Published var recentSearches: [String] = []
     @Published var isFocused: Bool = false
 
-    var allItems: [Product] = Product.brandItems
+    // ✅ 전체 상품 리스트 (Search 전용 mock data)
+    var allItems: [SearchProduct] = SearchProduct.brandItems
 
-    // ✅ 필터된 브랜드 리스트
-    var filteredItems: [Product] {
+    // ✅ 필터된 상품 리스트
+    var filteredItems: [SearchProduct] {
         if searchText.isEmpty {
             return []
         }
@@ -24,6 +31,7 @@ class SearchViewModel: ObservableObject {
         }
     }
 
+    // ✅ 최근 검색어에 추가
     func addToRecent(_ term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
@@ -31,7 +39,7 @@ class SearchViewModel: ObservableObject {
         recentSearches.removeAll { $0 == trimmed }
         recentSearches.insert(trimmed, at: 0)
 
-        if recentSearches.count > 10 {
+        if recentSearches.count > 6 {
             recentSearches.removeLast()
         }
     }

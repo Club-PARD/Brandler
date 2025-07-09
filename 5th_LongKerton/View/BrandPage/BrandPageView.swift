@@ -85,7 +85,7 @@ struct BrandPage: View {
                     print("뒤로가기 탭됨")
                 }
             )
-            .offset(y: -15)
+            .offset(y: -10)
             .zIndex(1000)
 
             ScrollToTopButton(

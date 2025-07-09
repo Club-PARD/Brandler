@@ -29,11 +29,11 @@ struct SplashView: View {
 
                             (
                                 Text("패션 러버들을 위한 ") +
-                                Text("브랜드 디깅 플랫폼").bold() +
+                                Text("브랜드 디깅 플랫폼").font(.custom("Pretendard-Bold",size: 13)) +
                                 Text(", 브랜들러")
                             )
                             .foregroundColor(.white)
-                            .font(.system(size: 13))
+                            .font(.custom("Pretendard-Medium",size: 13))
                         }
                         .frame(maxHeight: .infinity, alignment: .center) // 세로 중앙 정렬
 

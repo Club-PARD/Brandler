@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct OnBoardLastView: View {
@@ -33,10 +32,10 @@ struct OnBoardLastView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("새로운 브랜드를 찾아 떠나는 탐험,")
-                            .font(.system(size: 23, weight: .medium))
+                            .font(.custom("Pretendard-Regular",size: 22))
                             .foregroundColor(.NickWhite)
                         Text("디깅러가 되신 걸 환영해요!")
-                            .font(.system(size: 23, weight: .medium))
+                            .font(.custom("Pretendard-Regular",size: 22))
                             .foregroundColor(.NickWhite)
                     }
                     Spacer()
@@ -58,11 +57,11 @@ struct OnBoardLastView: View {
                 VStack(alignment: .center, spacing: 8) {
                     (
                         Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
-                        + Text("'디깅러'").bold()
+                        + Text("'디깅러'").font(.custom("Pretendard-Bold",size: 16)).foregroundColor(.white)
                         + Text("라고 부릅니다.\n - \n이제, 디깅을 시작할 시간이에요. 🌊")
                     )
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.NickWhite)
+                    .font(.custom("Pretendard-SemiBold",size: 16))
+                    .foregroundColor(.lastTxt)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
                 }
@@ -73,7 +72,8 @@ struct OnBoardLastView: View {
                 
                 // 완료 버튼
                 Button(action: {
-                    guard let email = session.userData?.email else {
+                    // email은 구글 로그인 후 세션에만 임시 저장되어 있다고 가정
+                    guard let email = session.userData?.email, !nickname.isEmpty, !selectedGenre.isEmpty else {
                         showError = true
                         return
                     }
@@ -86,8 +86,11 @@ struct OnBoardLastView: View {
                         DispatchQueue.main.async {
                             isUploading = false
                             if success {
+                                // POST 성공 시에만 세션 저장
+                                session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
                                 finish()
                             } else {
+                                // 실패 시 세션 저장하지 않음
                                 showError = true
                             }
                         }
@@ -99,12 +102,12 @@ struct OnBoardLastView: View {
                             .background(Color.lastBox)
                             .cornerRadius(40)
                     } else {
-                        Text("디깅하러 고고링")
-                            .font(.system(size: 18, weight: .medium))
+                        Text("디깅 시작하기")
+                            .font(.custom("Pretend-SemiBold",size: 16))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 80)
                             .background(Color.lastBox)
-                            .cornerRadius(40)
+                            .cornerRadius(100)
                     }
                 }
                 .padding(.horizontal, 25)
@@ -116,4 +119,14 @@ struct OnBoardLastView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
+}
+
+#Preview {
+    OnBoardLastView(
+        finish: {},
+        nickname: "샘플닉네임",
+        selectedGenre: "스트릿",
+        currentStep: 2
+    )
+    .environmentObject(UserSessionManager.shared)
 }
