@@ -11,14 +11,37 @@ struct BrandInfoOverlayView: View {
     let scrollOffset: CGFloat
     let bannerHeight: CGFloat
     let brand: Brand
+    let brandId: Int
+    @Binding var isScraped: Bool // ⭐️ @Binding으로 직접 연결
 
     var onDescriptionHeightChange: (CGFloat) -> Void = { _ in }
-    var onBrandNameWidthChange: (CGFloat) -> Void = { _ in }  // ✅ 추가
+    var onBrandNameWidthChange: (CGFloat) -> Void = { _ in }
 
     @State private var showFullText = false
-    @State private var isLiked = false
     @State private var descriptionHeight: CGFloat = 0
     @State private var brandNameWidth: CGFloat = 0
+
+    @StateObject private var scrapeAPI: ScrapeServerAPI
+    @EnvironmentObject var session: UserSessionManager
+
+    init(
+        scrollOffset: CGFloat,
+        bannerHeight: CGFloat,
+        brand: Brand,
+        brandId: Int,
+        isScraped: Binding<Bool>,
+        onDescriptionHeightChange: @escaping (CGFloat) -> Void = { _ in },
+        onBrandNameWidthChange: @escaping (CGFloat) -> Void = { _ in }
+    ) {
+        self.scrollOffset = scrollOffset
+        self.bannerHeight = bannerHeight
+        self.brand = brand
+        self.brandId = brandId
+        self._isScraped = isScraped
+        self.onDescriptionHeightChange = onDescriptionHeightChange
+        self.onBrandNameWidthChange = onBrandNameWidthChange
+        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI(brand: brand))
+    }
 
     var descriptionText: String {
         brand.description
@@ -44,7 +67,7 @@ struct BrandInfoOverlayView: View {
                             Color.clear
                                 .onAppear {
                                     brandNameWidth = geo.size.width
-                                    onBrandNameWidthChange(brandNameWidth) // ✅ 전달
+                                    onBrandNameWidthChange(brandNameWidth)
                                 }
                         }
                     )
@@ -56,11 +79,16 @@ struct BrandInfoOverlayView: View {
                 Spacer(minLength: 250 - brandNameWidth)
 
                 Button(action: {
-                    withAnimation { isLiked.toggle() }
+                    withAnimation {
+                        isScraped.toggle()
+//                        if let email = session.userData?.email {
+//                            scrapeAPI.patchLike(email: email, brandId: brandId, isScraped: isScraped)
+//                        }
+                    }
                 }) {
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                    Image(systemName: isScraped ? "heart.fill" : "heart")
                         .font(.system(size: 24))
-                        .foregroundColor(isLiked ? .blue : .white)
+                        .foregroundColor(isScraped ? .blue : .white)
                 }
                 .offset(x: -10)
             }
@@ -154,30 +182,4 @@ struct BrandInfoOverlayView: View {
         ? String(descriptionText.prefix(60))
         : descriptionText
     }
-}
-
-#Preview {
-    let mockBrand = Brand(
-        id: UUID(),
-        name: "샘플 브랜드",
-        brandGenre: "스트릿",
-        description: "이 브랜드는 세련된 디자인과 감각적인 제품으로 유명합니다. 개성 있고 유니크한 브랜드 스토리를 가지고 있으며, 많은 셀럽들이 착용한 이력이 있습니다.",
-        brandBannerUrl: "brandBanner",
-        brandLogoUrl: "brandLogo",
-        brandHomePageUrl: "https://www.example.com",
-        brandLevel: 1
-    )
-    
-    ZStack {
-        Color.black
-        BrandInfoOverlayView(
-            scrollOffset: 0,
-            bannerHeight: 300,
-            brand: mockBrand,
-            onDescriptionHeightChange: { height in
-                print("설명 텍스트 높이: \(height)")
-            }
-        )
-    }
-    .frame(height: 250)
 }

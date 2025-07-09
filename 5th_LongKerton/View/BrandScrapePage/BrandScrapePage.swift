@@ -6,7 +6,7 @@ struct BrandScrapePage: View {
     @GestureState private var dragOffset: CGFloat = 0
     
     @StateObject private var viewModel = BrandViewModel()
-    @State private var flippedID: UUID? = nil
+    @State private var flippedID: Int? = nil // <--- Int?로 변경
     @State private var currentPage: Int = 0
     
     @State private var selectedBrand: Brand? = nil
@@ -40,7 +40,6 @@ struct BrandScrapePage: View {
                     gradient: Gradient(colors: [
                         Color.BackgroundBlue.opacity(0.8),
                         Color.black.opacity(0.8)
-                        
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
@@ -74,7 +73,6 @@ struct BrandScrapePage: View {
                                     .multilineTextAlignment(.center)
                             }
                             .frame(height: 440)
-//                            .border(Color.yellow, width: 1)
                         } else {
                             TabView(selection: $currentPage) {
                                 ForEach(0..<pagedBrands.count, id: \.self) { pageIndex in
@@ -87,7 +85,7 @@ struct BrandScrapePage: View {
                                                     if let brand = brands[index] {
                                                         BrandFlipCardView(
                                                             brand: brand,
-                                                            flippedID: $flippedID,
+                                                            flippedID: $flippedID, // <--- Int?로 전달
                                                             onDelete: {
                                                                 viewModel.deleteBrand(brand)
                                                             },
@@ -101,9 +99,7 @@ struct BrandScrapePage: View {
                                                     }
                                                 }
                                                 .frame(width: 99, height: 124)
-//                                                .border(Color.yellow, width: 1) // 카드 하나 하나 뷰
                                             }
-//                                            .padding(.horizontal, 11)
                                             if row < 2 {
                                                 Rectangle()
                                                     .fill(Color.white.opacity(0.3))
@@ -114,15 +110,13 @@ struct BrandScrapePage: View {
                                             }
                                         }
                                     }
-                                    .padding(.vertical, 30) // 값 맞춰주기
+                                    .padding(.vertical, 30)
                                     .padding(.top, 30)
                                     .tag(pageIndex)
                                 }
                                 .padding(.top, 0)
-//                                .border(Color.yellow, width: 1) // <------------------------
                             }
                             .tabViewStyle(.page(indexDisplayMode: .never))
-//                            .border(Color.yellow, width: 1)
                             HStack(spacing: 8) {
                                 ForEach(0..<pagedBrands.count, id: \.self) { index in
                                     Circle()
@@ -130,14 +124,9 @@ struct BrandScrapePage: View {
                                         .frame(width: 8, height: 8)
                                 }
                             }
-                            
-//                            .padding(.bottom, 6)
                         }
-//                            .border(Color.yellow, width: 1)
                     }
-//                    .padding(.top,20)
                     .padding(.bottom, 50)
-//                    .border(Color.yellow, width: 1) // <-----------------
                     .background(
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.clear)
@@ -159,7 +148,7 @@ struct BrandScrapePage: View {
                                     
                                     Color.white.opacity(0.24)
                                 }
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                             )
                     )
                     .overlay(

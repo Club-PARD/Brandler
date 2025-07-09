@@ -9,7 +9,7 @@ struct BrandBannerView: View {
             ZStack {
                 let holeWidth = viewModel.holeSize.width
                 let holeHeight = viewModel.holeSize.height
-                let nameWidthAdjustment = min(max(viewModel.brandNameWidth - 220, 0), 60) // ✅ 조정
+                let nameWidthAdjustment = min(max(viewModel.brandNameWidth - 220, 0), 60)
                 let offsetX = -geo.size.width / 2 + 61 + holeWidth / 2 - 75 - nameWidthAdjustment / 2
                 let offsetY = viewModel.offsetYForScroll
 
@@ -62,12 +62,12 @@ struct BrandBannerView: View {
 
 #Preview {
     let mockBrand = Brand(
-        id: UUID(),
+        id: 1, // Int 타입
         name: "프리뷰 브랜드",
         brandGenre: "모던",
         description: "강렬한 컬러로 존재감을 드러내는 브랜드입니다.",
-        brandBannerUrl: "brandBanner",   // 실제 이미지 이름에 맞게 바꿔주세요
-        brandLogoUrl: "brandLogo",       // 실제 이미지 이름에 맞게 바꿔주세요
+        brandBannerUrl: "brandBanner",
+        brandLogoUrl: "brandLogo",
         brandHomePageUrl: "https://www.example.com",
         brandLevel: 2
     )

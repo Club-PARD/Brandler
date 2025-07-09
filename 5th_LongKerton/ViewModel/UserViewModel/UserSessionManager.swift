@@ -25,7 +25,10 @@ class UserSessionManager: ObservableObject {
     }
     
     private let userDataKey = "userData"
-    
+
+    var emailString :String? {
+        userData?.email
+    }
     private init() {
         // UserDefaults에서 로그인 상태와 유저 정보 복원
         self.isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
