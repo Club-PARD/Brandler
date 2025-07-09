@@ -9,7 +9,7 @@ import Foundation
 
 struct BrandCard: Hashable, Codable{
     var brandId : Int
-    let brnandName: String
+    let brandName: String
     let brandLogo: String
     let brandBanner: String
     let slogan : String

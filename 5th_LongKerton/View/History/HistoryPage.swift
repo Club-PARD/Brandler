@@ -2,8 +2,13 @@
 import SwiftUI
 
 struct HistoryPage: View {
-    var History: [Brand] = Brand.sampleData
+    @ObservedObject private var session = UserSessionManager.shared
+    @StateObject private var getViewModel = GetBrandListViewModel()
+    @State private var historyList: [BrandCard] = []
     @Environment(\.dismiss) var dismiss
+    private var userEmail :String {
+        session.userData?.email ?? "22200843@handong.ac.kr"
+    }
 
 
     var body: some View {
@@ -37,7 +42,7 @@ struct HistoryPage: View {
                 
 
                 // 브랜드 리스트 또는 빈 상태 메시지
-                if History.isEmpty {
+                if historyList.isEmpty {
                     Spacer()
                     HStack {
                         Spacer()
@@ -50,18 +55,18 @@ struct HistoryPage: View {
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
-                            ForEach(History) { history in
-                                NavigationLink(destination: BrandPage(brand: history)){
+                            ForEach(historyList, id:\.brandId) { history in
+//                                Navigation/Link(destination: BrandPage(brand: history)){
                                     HStack {
-                                        Image(history.brandLogoUrl)
+                                        Image(history.brandLogo)
                                             .resizable()
                                             .frame(width: 30, height: 30)
                                             .padding(.trailing, 21)
-                                        Text(history.name)
+                                        Text(history.brandName)
                                             .font(.custom("Pretendard-SemiBold",size: 15))
                                             .foregroundColor(.white)
                                     }
-                                }
+//                                }
                             }
                         }
                         .padding(.horizontal, 20)
@@ -69,6 +74,13 @@ struct HistoryPage: View {
                     }
                     .scrollIndicators(.hidden)
                     Spacer()
+                }
+            }
+            .task{
+                do{
+                    historyList = try await getViewModel.getRecentList(userEmail)
+                } catch {
+                    print("❌ Get Error: \(error)")
                 }
             }
         }

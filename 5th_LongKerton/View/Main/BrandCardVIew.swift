@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BrandCardVIew:View {
-    var brand: Brand
+    var brand: BrandCard
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -26,14 +26,14 @@ struct BrandCardVIew:View {
                     )
                 )
                 .background(
-                    Image(brand.brandBannerUrl)
+                    Image(brand.brandBanner)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 99, height: 124)
                 )
                 .cornerRadius(12)
             HStack{
-                Image(brand.brandLogoUrl)
+                Image(brand.brandLogo)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)
@@ -42,7 +42,7 @@ struct BrandCardVIew:View {
                         Circle()
                             .stroke(.white.opacity(0.3), lineWidth: 1)
                     )
-                Text(brand.name)
+                Text(brand.brandName)
                     .font(.custom("Pretendard-Medium", size: 10))
                     .foregroundColor(Color("BrandNameColor"))
                     .frame(minWidth: 64, maxWidth: 64, maxHeight: .infinity, alignment: .leading)
@@ -63,7 +63,7 @@ struct BrandCardVIew:View {
     }
     
 }
-
-#Preview{
-    BrandCardVIew(brand: .sampleData[1])
-}
+//
+//#Preview{
+//    BrandCardVIew(brand: .sampleData[1])
+//}

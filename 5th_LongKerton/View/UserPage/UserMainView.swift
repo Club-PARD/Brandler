@@ -60,11 +60,9 @@ struct CircularProgressBar: View {
 
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
+    @StateObject private var getViewModel = GetBrandListViewModel()
     @Binding var selectedTab: String
     @Binding var currentState: AppState // 추가
-
-    // 실제 scrape 값을 여기에 전달
-    let scrape: Int
 
     @State private var showEditInfo: Bool = false
     @State private var showHistoryPage: Bool = false
@@ -78,7 +76,12 @@ struct UserMainView: View {
     var genre: String {
         session.userData?.fashionGenre ?? "장르 없음"
     }
-
+    var email: String {
+        session.userData?.email ?? "22200843@handong.ac.kr"
+    }
+    
+    // 실제 scrape 값을 여기에 전달
+    let scrape: Int
     var diggingLevel: DiggingLevel {
         getDiggingLevel(scrape: scrape)
     }
@@ -374,6 +377,7 @@ struct UserMainView: View {
                 }
                 .padding(.top, 20)
                 .padding(.bottom, 60)
+                
             }
 
             // SecondModalView를 조건부로 표시
@@ -395,10 +399,11 @@ struct UserMainView: View {
         .navigationDestination(isPresented: $showScrapePage) {
             BrandScrapePage()
         }
+            
     }
 }
-
-// 프리뷰용
-#Preview {
-    UserMainView(selectedTab: .constant("home"), currentState: .constant(.main), scrape: 18)
-}
+//
+//// 프리뷰용
+//#Preview {
+//    UserMainView(selectedTab: .constant("home"), currentState: .constant(.main))
+//}
