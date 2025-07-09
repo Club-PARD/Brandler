@@ -12,7 +12,7 @@ struct ItemGridView: View {
     // `@State` 프로퍼티 래퍼를 사용하여 현재 뒤집힌 카드의 고유 ID를 관리합니다.
     // `UUID?` 타입으로, 어떤 카드도 뒤집히지 않았을 때는 `nil`이 됩니다.
     @State private var flippedID: UUID? = nil
-    let item : Product1
+    let items : [Product1]
     // `LazyVGrid`에 사용할 열(column) 레이아웃을 정의합니다.
     // `.flexible()`은 각 열이 사용 가능한 공간을 유연하게 나누어 갖도록 합니다.
     // 여기서는 3개의 유연한 열을 정의하여 아이템이 3개씩 가로로 배치되도록 합니다.
@@ -26,7 +26,7 @@ struct ItemGridView: View {
 
     var body: some View {
         // 뷰모델의 `filteredItems` 배열이 비어있는지 확인합니다.
-        if viewModel.filteredItems.isEmpty {
+        if items.isEmpty {
             // 아이템이 없을 경우 표시할 대체 콘텐츠입니다.
             VStack(spacing: 12) { // 수직으로 요소를 정렬하고 12pt 간격을 둡니다.
                 // 상단에 150pt의 공간을 추가하여 텍스트를 중앙에 가깝게 배치합니다.
@@ -49,7 +49,7 @@ struct ItemGridView: View {
             LazyVGrid(columns: columns, spacing: 20) { // 정의된 `columns` 레이아웃을 사용하고, 행/열 간 간격을 20pt로 설정합니다.
                 // `viewModel.filteredItems` 배열의 각 아이템에 대해 반복하여 `FlipCardItemView`를 생성합니다.
                 // `ForEach`는 `Identifiable` 프로토콜을 준수하는 아이템에 최적화되어 있습니다.
-                ForEach(viewModel.filteredItems) { item in
+                ForEach(items, id:\.productImageName) { (item:Product1) in
                     // 각 아이템에 대한 `FlipCardItemView`를 인스턴스화합니다.
                     FlipCardItemView(
                         item: item, // 표시할 아이템 데이터
@@ -57,11 +57,6 @@ struct ItemGridView: View {
                         // 어떤 카드가 현재 뒤집혔는지 전역적으로 인지하고 제어할 수 있도록 합니다.
                         // 이를 통해 한 번에 하나의 카드만 뒤집히도록 구현할 수 있습니다.
                         flippedID: $flippedID,
-                        // `onDelete` 클로저를 전달합니다. 아이템이 삭제될 때 호출될 액션을 정의합니다.
-                        // 현재는 콘솔에 메시지를 출력하는 단순한 로직입니다.
-                        onDelete: {
-                            print("\(item.name) 삭제")
-                        }
                     )
                     .frame(height: 180) // 각 `FlipCardItemView`의 높이를 180pt로 고정합니다.
                 }

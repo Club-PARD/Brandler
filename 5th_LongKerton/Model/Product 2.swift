@@ -1,6 +1,7 @@
 import Foundation
 
 struct Product1: Hashable, Codable{
+    let productID: Int
     let productName: String
     let productImageName: String
     let productCategory: String

@@ -64,7 +64,7 @@ struct BrandPage: View {
                                     .background(Color.BgColor)
                                     .padding(.horizontal, 15)
 
-                                ItemGridView()
+                                ItemGridView(items:productList)
                                     .padding(.bottom, 50)
                                     .padding(.horizontal, 10)
 
