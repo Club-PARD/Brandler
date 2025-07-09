@@ -1,18 +1,9 @@
-//
-//  FloatingTabBarView.swift
-//  5th_LongKerton
-//
-//  Created by Yehyuck Chi on 7/3/25.
-//
 
-import Foundation
 import SwiftUI
 
 struct FloatingTabBarView: View {
     @Binding var selectedTab: String
-    
 
-    
     var body: some View {
         HStack(spacing: 16) {
             Button {
@@ -30,9 +21,15 @@ struct FloatingTabBarView: View {
             Button {
                 selectedTab = "scrap"
             } label: {
-                Circle()
-                    .fill(selectedTab == "scrap" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 40, height: 40)
+                ZStack {
+                    Circle()
+                        .fill(selectedTab == "scrap" ? Color.pageDarkBlue:Color.myHomeGray)
+                        .frame(width: 54, height: 54)
+                    Image(selectedTab == "scrap" ? "scrapButtonPressed" : "scrapButton")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 54, height: 54)
+                }
             }
             Button{
                 selectedTab = "my"
@@ -47,23 +44,17 @@ struct FloatingTabBarView: View {
                     )
             }
         }
-        
-        
         .padding(.horizontal, 35)
         .padding(.vertical, 12)
-        // Glassmorphism background
         .background(
             .ultraThinMaterial,
             in: RoundedRectangle(cornerRadius: 32, style: .continuous)
         )
-        // Glassy border
         .overlay(
             RoundedRectangle(cornerRadius: 32, style: .continuous)
                 .stroke(Color.white.opacity(0.25), lineWidth: 1)
         )
-        // Soft shadow for floating effect
         .shadow(color: Color.black.opacity(0.10), radius: 8, y: 2)
         .padding(.bottom, 8)
     }
 }
-

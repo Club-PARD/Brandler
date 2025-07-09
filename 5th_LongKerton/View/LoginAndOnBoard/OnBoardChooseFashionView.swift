@@ -89,7 +89,7 @@ struct OnBoardChooseFashionView: View {
                         .font(.custom("Pretendard-SemiBold",size: 16))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
-                        .background(Color.NextButton)
+                        .background(selectedGenre.isEmpty ? Color.NextButton : Color.lastBox)
                         .cornerRadius(100)
                 }
                 .padding(.horizontal, 25)
