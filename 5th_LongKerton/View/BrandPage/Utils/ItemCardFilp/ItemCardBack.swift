@@ -2,8 +2,7 @@ import SwiftUI
 
 // 상품 카드의 뒷면 뷰
 struct ItemCardBack: View {
-    let item: Product1 // 상품 정보
-    let onDelete: () -> Void // 삭제 동작을 위한 클로저
+    let item: Product // 상품 정보
     
     @State private var showDeleteAlert = false // 삭제 알림창 표시 여부 상태
     

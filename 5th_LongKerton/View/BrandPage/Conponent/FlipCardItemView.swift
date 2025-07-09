@@ -9,11 +9,11 @@ import SwiftUI
 
 struct FlipCardItemView: View {
     // 브랜드 아이템 데이터 (frontImageName, name, price, category 등) - 읽기 전용
-    let item: Product1
+    let item: Product
     
     // 현재 뒤집힌 카드의 UUID를 바인딩으로 받아서 상태를 공유
     // 여러 카드 중에서 어떤 카드가 뒤집혔는지 구분하는 데 사용
-    @Binding var flippedID: UUID?
+    @Binding var flippedID: Int?
     
 
     var body: some View {

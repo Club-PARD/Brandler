@@ -19,16 +19,16 @@ final class BrandViewModel: ObservableObject {
     //@Published var filteredBrands: [BrandInfo] = []
     @Published var selectedGenre: String = "전체"
     @Published var selectedCategory: Category = .all
-    @Published var items: [Product] = Product.brandItems
+//    @Published var items: [Product1] = Product.brandItems
     @Published var scrollOffset: CGFloat = 0
     @Published var debugScrollOffset: CGFloat = 0
     @Published var tabBarScrollOffset: CGFloat = 0
     @Published var categoryTabBarScrollOffset: CGFloat = 0
     @Published var brandNameWidth: CGFloat = 0
 
-    var filteredItems: [Product] {
-        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
-    }
+//    var filteredItems: [Product] {
+//        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
+//    }
 
     let bannerHeight: CGFloat = 500
     let blurredBannerHeight: CGFloat = 700

@@ -115,9 +115,10 @@ final class GetBrandListViewModel: ObservableObject {
         }
     }
     
-    public func getProductInfo(_ brandId: Int) async throws -> Product1 {
+    public func getProductInfo(_ brandId: Int) async throws -> [Product] {
         let urlString = BaseURL.baseUrl.rawValue
         guard let url = URL(string: "\(urlString)/products/\(brandId)") else {
+            print("\(urlString)/products/\(brandId)")
             throw ErrorType.invalidURL
         }
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -128,10 +129,12 @@ final class GetBrandListViewModel: ObservableObject {
         }
         
         do{
-            let data = try JSONDecoder().decode(Product1.self,from:data)
-            print("✅ connet server BrandInfo")
+            let data = try JSONDecoder().decode([Product].self,from:data)
+            print("✅ connet server ProductInfo\n\(data)")
             return(data)
         } catch {
+            print("❌ 디코딩 실패: \(error.localizedDescription)")
+            print("❌ 받은 raw JSON:\n" + (String(data: data, encoding: .utf8) ?? "nil"))
             throw ErrorType.networkError
         }
     }

@@ -11,8 +11,8 @@ struct ItemGridView: View {
     
     // `@State` 프로퍼티 래퍼를 사용하여 현재 뒤집힌 카드의 고유 ID를 관리합니다.
     // `UUID?` 타입으로, 어떤 카드도 뒤집히지 않았을 때는 `nil`이 됩니다.
-    @State private var flippedID: UUID? = nil
-    let items : [Product1]
+    @State private var flippedID: Int? = nil
+    let items : [Product]
     // `LazyVGrid`에 사용할 열(column) 레이아웃을 정의합니다.
     // `.flexible()`은 각 열이 사용 가능한 공간을 유연하게 나누어 갖도록 합니다.
     // 여기서는 3개의 유연한 열을 정의하여 아이템이 3개씩 가로로 배치되도록 합니다.
@@ -49,7 +49,7 @@ struct ItemGridView: View {
             LazyVGrid(columns: columns, spacing: 20) { // 정의된 `columns` 레이아웃을 사용하고, 행/열 간 간격을 20pt로 설정합니다.
                 // `viewModel.filteredItems` 배열의 각 아이템에 대해 반복하여 `FlipCardItemView`를 생성합니다.
                 // `ForEach`는 `Identifiable` 프로토콜을 준수하는 아이템에 최적화되어 있습니다.
-                ForEach(items, id:\.productImageName) { (item:Product1) in
+                ForEach(items, id:\.productImageName) { (item:Product) in
                     // 각 아이템에 대한 `FlipCardItemView`를 인스턴스화합니다.
                     FlipCardItemView(
                         item: item, // 표시할 아이템 데이터

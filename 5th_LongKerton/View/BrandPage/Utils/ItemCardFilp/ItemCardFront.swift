@@ -2,7 +2,7 @@ import SwiftUI
 
 // 상품 카드 앞면 뷰
 struct ItemCardFront: View {
-    let item: Product1 // 표시할 상품 정보
+    let item: Product // 표시할 상품 정보
 
     var body: some View {
         // 상품 이미지를 표시

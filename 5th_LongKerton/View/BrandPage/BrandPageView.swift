@@ -3,7 +3,7 @@ import SwiftUI
 struct BrandPage: View {
     let brandId: Int
     @State private var brandInfo: BrandInfo?
-    @State private var productList: [Product1] = []
+    @State private var productList: [Product] = []
     
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
@@ -113,7 +113,9 @@ struct BrandPage: View {
                         let fetched = try await getViewModel.getBrandInfo(email, brandId)
                         self.brandInfo = fetched
                         
-                        let productList = try await getViewModel.getProductInfo(brandId)
+                        let products = try await getViewModel.getProductInfo(brandId)
+                        self.productList = products
+                        
                         scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
                             DispatchQueue.main.async {
                                 self.isScraped = result ?? false
