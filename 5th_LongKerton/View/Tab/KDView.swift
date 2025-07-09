@@ -25,6 +25,7 @@ struct KDView: View {
                     MainPage()
                 }
                 FloatingTabBarView(selectedTab: $selectedTab)
+                    .padding(.horizontal, 20)
             }
         }
     }
