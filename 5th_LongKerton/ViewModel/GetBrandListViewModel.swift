@@ -115,4 +115,25 @@ final class GetBrandListViewModel: ObservableObject {
         }
     }
     
+    public func getProductInfo(_ brandId: Int) async throws -> Product1 {
+        let urlString = BaseURL.baseUrl.rawValue
+        guard let url = URL(string: "\(urlString)/products/\(brandId)") else {
+            throw ErrorType.invalidURL
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
+            print(response)
+            throw ErrorType.invalidResponse
+        }
+        
+        do{
+            let data = try JSONDecoder().decode(Product1.self,from:data)
+            print("✅ connet server BrandInfo")
+            return(data)
+        } catch {
+            throw ErrorType.networkError
+        }
+    }
+    
 }

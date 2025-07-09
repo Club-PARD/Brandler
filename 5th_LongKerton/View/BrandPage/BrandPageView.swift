@@ -3,6 +3,7 @@ import SwiftUI
 struct BrandPage: View {
     let brandId: Int
     @State private var brandInfo: BrandInfo?
+    @State private var productList: [Product1] = []
     
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
@@ -12,7 +13,7 @@ struct BrandPage: View {
     @StateObject private var scrapeAPI: ScrapeServerAPI
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
-    @Environment(\.scenePhase) private var scenePhase // ⭐️ scenePhase 감지
+    @Environment(\.scenePhase) private var scenePhase
     
     init(brandId: Int) {
         self.brandId = brandId
@@ -112,11 +113,10 @@ struct BrandPage: View {
             Task {
                 if let email = session.userData?.email {
                     do {
-                        // ⭐️ async-await 비동기 호출
                         let fetched = try await getViewModel.getBrandInfo(email, brandId)
                         self.brandInfo = fetched
                         
-                        // 동시에 좋아요 상태도 비동기로 처리
+                        let productList = try await getViewModel.getProductInfo(brandId)
                         scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
                             DispatchQueue.main.async {
                                 if let isScraped = result {
