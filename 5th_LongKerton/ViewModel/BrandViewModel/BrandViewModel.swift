@@ -268,7 +268,7 @@ final class BrandViewModel: ObservableObject {
 
     // 서버에서 스크랩 브랜드 GET 후 Brand에 매핑
     func fetchScrapedBrandsFromServer(email: String) async {
-        let api = ScrapeServerAPI(brand: Brand.sampleData.first!)
+        let api = ScrapeServerAPI()
         do {
             let scrapedBrandCards = try await api.fetchScrapedBrands(email: email)
             var updatedBrands = Brand.sampleData.map { brand in
@@ -293,7 +293,7 @@ final class BrandViewModel: ObservableObject {
         if let idx = brands.firstIndex(where: { $0.id == brand.id }) {
             brands[idx].isScraped = false
         }
-        let api = ScrapeServerAPI(brand: brand)
+        let api = ScrapeServerAPI()
         await withCheckedContinuation { continuation in
             api.patchLike(email: email, brandId: brand.id, isScraped: false) {
                 continuation.resume()
