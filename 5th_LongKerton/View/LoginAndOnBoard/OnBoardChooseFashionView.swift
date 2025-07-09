@@ -10,7 +10,7 @@ struct OnBoardChooseFashionView: View {
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
-        ["캐주얼", "테크", "기타"]
+        ["캐주얼", "테크웨어", "기타"]
     ]
 
     var body: some View {

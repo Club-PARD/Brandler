@@ -20,7 +20,7 @@ struct BrandFilterView: View{
     var body: some View{
         LazyVGrid(columns: Array(repeating: GridItem(.fixed(173)), count: 2), spacing: 10) {
             ForEach(filteredBrands, id:\.brandId) { (brand:GenreBrandCard) in
-//                NavigationLink(destination: BrandPage(brand: brand)) {
+                NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
                     ZStack(alignment: .bottom) {
                         Rectangle()
                             .foregroundColor(.clear)
@@ -65,7 +65,7 @@ struct BrandFilterView: View{
                         .padding(.bottom, 8)
                         
                     }
-//                }
+                }
             }
         }
         .padding(0)

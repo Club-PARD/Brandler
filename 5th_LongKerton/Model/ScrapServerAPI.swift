@@ -1,14 +1,6 @@
 import Foundation
 
 class ScrapeServerAPI: ObservableObject {
-
-//    @Published var brand: Brand
-//    @Published var scrapedBrands: [BrandCard] = []
-//
-//    init(brand: Brand) {
-//        self.brand = brand
-//    }
-
     
     func patchLike(email: String, brandId: Int, isScraped: Bool, completion: (() -> Void)? = nil) {
         guard let url = URL(string: "https://brandler.shop/scrap/\(email)/\(brandId)") else { return }

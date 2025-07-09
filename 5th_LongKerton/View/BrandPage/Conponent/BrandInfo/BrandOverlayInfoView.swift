@@ -72,9 +72,9 @@ struct BrandInfoOverlayView: View {
                         }
                     )
 
-//                Image("Level\(brand.brandLevel)")
-//                    .resizable()
-//                    .frame(width: 27, height: 27)
+                Image("Level\(2)")
+                    .resizable()
+                    .frame(width: 27, height: 27)
 
                 Spacer(minLength: 250 - brandNameWidth)
 

@@ -109,9 +109,6 @@ struct SecondModalView: View {
                                         }
                                         
                                     }
-//                                    .border(.red,width:1) // 위의 부분을 제외한 컨텐츠 영역
-//                                    Spacer()
-//                                        .frame(height: 24)
                                 }
                                 .background(Color.ContentBackground.opacity(0.6))
                                 .mask(
