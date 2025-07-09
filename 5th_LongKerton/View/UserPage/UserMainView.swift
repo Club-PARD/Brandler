@@ -61,6 +61,7 @@ struct CircularProgressBar: View {
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
     @Binding var selectedTab: String
+    @Binding var currentState: AppState // 추가
 
     // 실제 scrape 값을 여기에 전달
     let scrape: Int
@@ -383,7 +384,7 @@ struct UserMainView: View {
         }
         .animation(.easeInOut, value: showSecondModal)
         .navigationDestination(isPresented: $showEditInfo) {
-            EditInfoView()
+            EditInfoView(currentState: $currentState)
         }
         .navigationDestination(isPresented: $showHistoryPage) {
             HistoryPage()
@@ -399,5 +400,5 @@ struct UserMainView: View {
 
 // 프리뷰용
 #Preview {
-    UserMainView(selectedTab: .constant("home"), scrape: 18)
+    UserMainView(selectedTab: .constant("home"), currentState: .constant(.main), scrape: 18)
 }
