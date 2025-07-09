@@ -3,26 +3,24 @@ import SwiftUI
 struct BrandPage: View {
     let brandId: Int
     @State private var brandInfo: BrandInfo?
-    
+
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
     @Environment(\.dismiss) var dismiss
     @State private var descriptionTextHeight: CGFloat = 0
-    @StateObject private var scrapeAPI: ScrapeServerAPI
+
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
-    @Environment(\.scenePhase) private var scenePhase // ⭐️ scenePhase 감지
-    
-    init(brandId: Int) {
-        self.brandId = brandId
-        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI())
-    }
-    
+    @Environment(\.scenePhase) private var scenePhase
+
+    // ✅ 일반 인스턴스로 생성
+    private let scrapeAPI = ScrapeServerAPI()
+
     var body: some View {
         ZStack(alignment: .top) {
             Color.BgColor.ignoresSafeArea()
-            
+
             if let brandInfo = brandInfo {
                 ScrollViewReader { proxy in
                     ScrollView {
@@ -37,14 +35,12 @@ struct BrandPage: View {
                                             value: -geo.frame(in: .named("scroll")).minY
                                         )
                                     )
-                                
                             }
                             .frame(height: viewModel.bannerHeight)
                             .onPreferenceChange(ScrollOffsetKey.self) { offset in
                                 viewModel.updateScrollOffset(offset)
                             }
-                            
-                            // ⭐️ isScraped를 @Binding으로 전달
+
                             BrandInfoOverlayView(
                                 scrollOffset: viewModel.scrollOffset,
                                 bannerHeight: viewModel.bannerHeight,
@@ -55,13 +51,11 @@ struct BrandPage: View {
                                     descriptionTextHeight = height
                                 }
                             )
-                            .offset(x: 10,y: overlayOffset + 250)
+                            .offset(x: 10, y: overlayOffset + 250)
                             .padding(.top, -viewModel.bannerHeight + 40)
                             .animation(.easeInOut(duration: 0.25), value: overlayOffset)
                             .padding(.bottom, 15)
-                            //                        .padding(.horizontal, 20)
-                            
-                            
+
                             VStack(spacing: 0) {
                                 CategoryTabBarView(selected: $viewModel.selectedCategory)
                                     .padding(.vertical, 12)
@@ -69,14 +63,16 @@ struct BrandPage: View {
                                     .frame(maxWidth: .infinity)
                                     .background(Color.BgColor)
                                     .padding(.horizontal, 15)
-                                
-                                ItemGridView().padding(.bottom, 50).padding(.horizontal, 10)
-                                
+
+                                ItemGridView()
+                                    .padding(.bottom, 50)
+                                    .padding(.horizontal, 10)
+
                                 Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
                                     .font(.custom("Pretendard-Regular", size: 12))
                                     .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
-                                
+
                                 Spacer(minLength: 200)
                             }
                             .offset(y: tabGroupOffset + descriptionTextHeight - 38)
@@ -85,22 +81,24 @@ struct BrandPage: View {
                         }
                     }
                     .coordinateSpace(name: "scroll")
-                    .onAppear { scrollProxy = proxy }
+                    .onAppear {
+                        scrollProxy = proxy
+                    }
                 }
-                
+
                 TopTabBarView(
                     tabBarScrollOffset: viewModel.tabBarScrollOffset,
-                    brandName: brandInfo.brandName,
+                    brandName: brandInfo.brandName
                 )
                 .offset(y: -10)
                 .zIndex(1000)
-                
+
                 ScrollToTopButton(
                     proxy: scrollProxy,
                     visible: viewModel.scrollOffset > 200
                 )
                 .offset(y: -70)
-            } else{
+            } else {
                 ProgressView("브랜드 정보를 불러오는 중...")
                     .foregroundColor(.gray)
             }
@@ -112,20 +110,16 @@ struct BrandPage: View {
             Task {
                 if let email = session.userData?.email {
                     do {
-                        // ⭐️ async-await 비동기 호출
                         let fetched = try await getViewModel.getBrandInfo(email, brandId)
                         self.brandInfo = fetched
-                        
-                        // 동시에 좋아요 상태도 비동기로 처리
+
                         scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
                             DispatchQueue.main.async {
-                                if let isScraped = result {
-                                    self.isScraped = isScraped
-                                }
+                                self.isScraped = result ?? false
                             }
                         }
                     } catch {
-                        print("❌ 브랜드 정보를 불러오는 데 실패했습니다: \(error)")
+                        print("❌ 브랜드 정보 로딩 실패: \(error)")
                     }
                 }
             }
@@ -136,7 +130,7 @@ struct BrandPage: View {
                 scrapeAPI.patchLike(email: email, brandId: brandInfo.id, isScraped: isScraped)
             }
         }
-        .onChange(of: scenePhase) { old, new in
+        .onChange(of: scenePhase) { _, new in
             if new == .background || new == .inactive {
                 if let email = session.userData?.email,
                    let brandInfo = brandInfo {
@@ -144,13 +138,12 @@ struct BrandPage: View {
                 }
             }
         }
-        
     }
-    
+
     var overlayOffset: CGFloat {
         min(viewModel.scrollOffset, 170)
     }
-    
+
     var tabGroupOffset: CGFloat {
         min(viewModel.scrollOffset, 170)
     }
