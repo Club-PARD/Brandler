@@ -85,7 +85,7 @@ struct UserServerAPI {
                 }
             }
             if let error = error {
-                print("Network Error: \(error.localizedDescription)")
+                print("Network User Error: \(error.localizedDescription)")
                 completion(nil)
                 return
             }
