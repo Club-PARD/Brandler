@@ -3,14 +3,13 @@ import SwiftUI
 // 상품 카드의 뒷면 뷰
 struct ItemCardBack: View {
     let item: Product // 상품 정보
-    let onDelete: () -> Void // 삭제 동작을 위한 클로저
     
     @State private var showDeleteAlert = false // 삭제 알림창 표시 여부 상태
     
     var body: some View {
         ZStack {
             // 배경 이미지
-            Image(item.productImageUrl)
+            Image(item.productImageName)
                 .resizable()
                 .scaledToFill()
 
@@ -27,7 +26,7 @@ struct ItemCardBack: View {
 
             // 중앙 텍스트
             VStack(spacing: 8) {
-                Text(item.name)
+                Text(item.productName)
                     .font(.custom("Pretendard-Regular", size: 12))
                     .foregroundColor(.white)
                     .background(
@@ -53,14 +52,14 @@ struct ItemCardBack: View {
         .shadow(radius: 2)
     }
 }
-
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea() // 어두운 배경 설정
-        ItemCardBack(item: Product.brandItems.first!) {
-            print("🗑️ 삭제 실행됨")
-        }
-        .frame(width: 160, height: 240) // 카드 크기
-        .padding()
-    }
-}
+//
+//#Preview {
+//    ZStack {
+//        Color.black.ignoresSafeArea() // 어두운 배경 설정
+//        ItemCardBack(item: Product1.brandItems.first!) {
+//            print("🗑️ 삭제 실행됨")
+//        }
+//        .frame(width: 160, height: 240) // 카드 크기
+//        .padding()
+//    }
+//}

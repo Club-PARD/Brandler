@@ -3,7 +3,8 @@ import SwiftUI
 struct BrandPage: View {
     let brandId: Int
     @State private var brandInfo: BrandInfo?
-
+    @State private var productList: [Product] = []
+    
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
@@ -13,7 +14,6 @@ struct BrandPage: View {
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
     @Environment(\.scenePhase) private var scenePhase
-
     // ✅ 일반 인스턴스로 생성
     private let scrapeAPI = ScrapeServerAPI()
 
@@ -64,7 +64,7 @@ struct BrandPage: View {
                                     .background(Color.BgColor)
                                     .padding(.horizontal, 15)
 
-                                ItemGridView()
+                                ItemGridView(items:productList)
                                     .padding(.bottom, 50)
                                     .padding(.horizontal, 10)
 
@@ -112,7 +112,10 @@ struct BrandPage: View {
                     do {
                         let fetched = try await getViewModel.getBrandInfo(email, brandId)
                         self.brandInfo = fetched
-
+                        
+                        let products = try await getViewModel.getProductInfo(brandId)
+                        self.productList = products
+                        
                         scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
                             DispatchQueue.main.async {
                                 self.isScraped = result ?? false
