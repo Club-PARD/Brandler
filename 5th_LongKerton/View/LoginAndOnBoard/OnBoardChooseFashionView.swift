@@ -5,13 +5,14 @@ struct OnBoardChooseFashionView: View {
     @Binding var selectedGenre: String
     var currentStep: Int = 1 // 0, 1, 2 중 현재 단계
 
-    
+    @EnvironmentObject var session: UserSessionManager
+
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
         ["캐주얼", "테크", "기타"]
     ]
-    
+
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
@@ -80,6 +81,8 @@ struct OnBoardChooseFashionView: View {
                 Spacer()
                 
                 Button(action: {
+                    // 장르 저장
+                    session.updateGenre(selectedGenre)
                     goToNext()
                 }) {
                     Text("다음으로")
@@ -99,5 +102,5 @@ struct OnBoardChooseFashionView: View {
 
 #Preview {
     OnBoardChooseFashionView(goToNext: {}, selectedGenre: .constant(""))
+        .environmentObject(UserSessionManager.shared)
 }
-

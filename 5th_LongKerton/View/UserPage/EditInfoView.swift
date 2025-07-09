@@ -7,7 +7,9 @@ struct EditInfoView: View {
     @State private var nickname: String = ""
     @State private var selectedGenre: String = ""
     @Environment(\.dismiss) var dismiss
+    @Binding var currentState: AppState
 
+   
     // Genre list
     let genres = [
         ["아메카지", "스트릿", "히피", "빈티지"],
@@ -50,16 +52,37 @@ struct EditInfoView: View {
 
                     // Confirm Button
                     Button(action: {
-                        // Only update if email is available
                         if let email = session.userData?.email {
-                            session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+                            UserServerAPI.patchUserInfo(email: email, nickname: nickname, genre: selectedGenre) { success in
+                                DispatchQueue.main.async {
+                                    if success {
+                                        // PATCH 성공 시 세션 정보도 업데이트
+                                        session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+                                        dismiss()
+                                    } else {
+                                        // 실패 시 에러 알림 등 처리
+                                        // 예: alert 띄우기
+                                    }
+                                }
+                            }
                         }
-                        dismiss()
                     }) {
                         Text("확인")
                             .foregroundColor(Color.NextButton)
                             .font(.custom("Pretendard-Medium",size: 15))
                     }
+
+//                    Button(action: {
+//                        // Only update if email is available
+//                        if let email = session.userData?.email {
+//                            session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
+//                        }
+//                        dismiss()
+//                    }) {
+//                        Text("확인")
+//                            .foregroundColor(Color.NextButton)
+//                            .font(.custom("Pretendard-Medium",size: 15))
+//                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 18)
@@ -151,6 +174,8 @@ struct EditInfoView: View {
                             .font(.custom("Pretendard-Medium",size: 13))
                         Button("Reset Data (Logout)") {
                             session.logout()
+                            currentState = .login
+                            
                         }
                     }
                 }
@@ -168,6 +193,6 @@ struct EditInfoView: View {
 }
 
 #Preview {
-    EditInfoView()
+    EditInfoView(currentState: .constant(.main))
         .environmentObject(UserSessionManager.shared)
 }

@@ -197,7 +197,7 @@ struct BrandScrapePage: View {
     }
 }
 
-//// 🔸 미리보기
-//#Preview {
-//    BrandScrapePage()
-//}
+
+#Preview {
+    BrandScrapePage()
+}

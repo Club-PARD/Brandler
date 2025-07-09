@@ -25,7 +25,8 @@ struct ContentView: View {
             OnboardingFlowView(currentState: $currentState)
                 .environmentObject(session)
         case .main:
-            KDView()
+            KDView(currentState: $currentState)
+            //KDView()
                 .environmentObject(session)
         }
         

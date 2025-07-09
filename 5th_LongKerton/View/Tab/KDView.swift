@@ -1,10 +1,3 @@
-//
-//  TabView.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 7/1/25.
-//
-
 import SwiftUI
 
 enum Tab {
@@ -13,10 +6,12 @@ enum Tab {
     case my
 }
 
-struct KDView:View{
+struct KDView: View {
+    @Binding var currentState: AppState
     @State var selectedTab: String = "main"
     @State var scrape: Int = 8
-    var body:some View{
+
+    var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 switch selectedTab {
@@ -25,7 +20,7 @@ struct KDView:View{
                 case "scrap":
                     BrandScrapePage()
                 case "my":
-                    UserMainView(selectedTab: $selectedTab, scrape: scrape)
+                    UserMainView(selectedTab: $selectedTab, currentState: $currentState, scrape: scrape)
                 default:
                     MainPage()
                 }
@@ -35,7 +30,6 @@ struct KDView:View{
     }
 }
 
-#Preview{
-    KDView()
+#Preview {
+    KDView(currentState: .constant(.main))
 }
-
