@@ -153,18 +153,18 @@ struct EditInfoView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-
+                
                 Text("기존 장르 : \(session.userData?.fashionGenre ?? "-")")
                     .foregroundColor(.EditBox)
                     .font(.custom("Pretendard-Medium",size: 12))
                     .padding(.horizontal, 22)
                     .padding(.top, 10)
-
-                Spacer()
-
-
-                //로그아웃
-                VStack(alignment: .center, spacing: 6) {
+                
+                Spacer() // 이 Spacer가 로그아웃 버튼을 아래로 밀어줌
+                
+                // 로그아웃 버튼을 화면 아래 중앙에 고정
+                HStack {
+                    Spacer()
                     if session.userData != nil {
                         Button(action: {
                             session.logout()
@@ -176,10 +176,9 @@ struct EditInfoView: View {
                                 .font(.custom("Pretendard-Medium", size: 15))
                         }
                     }
+                    Spacer()
                 }
-                .padding(.horizontal, 20)
                 .padding(.bottom, 57)
-
             }
         }
         .onAppear {
@@ -193,3 +192,4 @@ struct EditInfoView: View {
     EditInfoView(currentState: .constant(.main))
         .environmentObject(UserSessionManager.shared)
 }
+   
