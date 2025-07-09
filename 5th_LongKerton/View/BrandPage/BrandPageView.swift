@@ -128,7 +128,7 @@ import SwiftUI
 struct BrandPage: View {
     @StateObject private var viewModel = BrandViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
-
+    @Environment(\.dismiss) var dismiss
     var brand: Brand
 
     @State private var descriptionTextHeight: CGFloat = 0
@@ -149,7 +149,6 @@ struct BrandPage: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         Color.clear.frame(height: 0).id("top")
-
                         GeometryReader { geo in
                             BrandBannerView(brand: brand)
                                 .frame(height: viewModel.bannerHeight)

@@ -77,11 +77,11 @@ struct MainPage: View {
                         // MARK: - Brand Grid Placeholder
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
-                                ForEach(viewModel.brands/*top10List*/) { brand in
-                                    NavigationLink(destination: BrandPage(brand: brand)) {
+                                ForEach(top10List, id:\.brandId){ brand in
+//브랜드 페이지 ID로 접근                                    NavigationLink(destination: BrandPage(brand: brand)) {
                                         BrandCardVIew(brand: brand)
                                     }
-                                }
+//                                }
                             }
                         }
                         .padding(.leading, 20)
