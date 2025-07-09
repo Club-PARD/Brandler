@@ -165,13 +165,13 @@ struct EditInfoView: View {
 
                 //로그아웃
                 VStack(alignment: .center, spacing: 6) {
-                    if let userData = session.userData {
+                    if session.userData != nil {
                         Button(action: {
                             session.logout()
                             currentState = .login
                         }) {
-                            Text("로그아웃")
-                                .underline() // 밑줄 추가
+                            Text("Reset Data (Logout)")
+                                .underline()
                                 .foregroundColor(.EditBox)
                                 .font(.custom("Pretendard-Medium", size: 15))
                         }
