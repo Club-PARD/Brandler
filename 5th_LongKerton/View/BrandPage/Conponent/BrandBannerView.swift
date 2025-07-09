@@ -13,13 +13,13 @@ struct BrandBannerView: View {
                 let offsetX = -geo.size.width / 2 + 61 + holeWidth / 2 - 75 - nameWidthAdjustment / 2
                 let offsetY = viewModel.offsetYForScroll
 
-                Image(brand.brandBannerUrl)
+                Image(brand.brandBanner)
                     .resizable()
                     .scaledToFill()
                     .frame(height: viewModel.bannerHeight)
                     .clipped()
 
-                Image(brand.brandBannerUrl)
+                Image(brand.brandBanner)
                     .resizable()
                     .scaledToFill()
                     .frame(height: viewModel.blurredBannerHeight)
@@ -60,26 +60,26 @@ struct BrandBannerView: View {
     }
 }
 
-#Preview {
-    let mockBrand = Brand(
-        id: 1, // Int 타입
-        name: "프리뷰 브랜드",
-        brandGenre: "모던",
-        description: "강렬한 컬러로 존재감을 드러내는 브랜드입니다.",
-        brandBannerUrl: "brandBanner",
-        brandLogoUrl: "brandLogo",
-        brandHomePageUrl: "https://www.example.com",
-        brandLevel: 2
-    )
-
-    let mockViewModel = BrandViewModel()
-    mockViewModel.scrollOffset = 50
-    mockViewModel.updateScrollOffset(50)
-
-    return ZStack {
-        Color.black.ignoresSafeArea()
-        BrandBannerView(brand: mockBrand)
-            .environmentObject(mockViewModel)
-    }
-    .frame(height: 300)
-}
+//#Preview {
+//    let mockBrand = Brand(
+//        id: 1, // Int 타입
+//        name: "프리뷰 브랜드",
+//        brandGenre: "모던",
+//        description: "강렬한 컬러로 존재감을 드러내는 브랜드입니다.",
+//        brandBannerUrl: "brandBanner",
+//        brandLogoUrl: "brandLogo",
+//        brandHomePageUrl: "https://www.example.com",
+//        brandLevel: 2
+//    )
+//
+//    let mockViewModel = BrandViewModel()
+//    mockViewModel.scrollOffset = 50
+//    mockViewModel.updateScrollOffset(50)
+//
+//    return ZStack {
+//        Color.black.ignoresSafeArea()
+//        BrandBannerView(brand: mockBrand)
+//            .environmentObject(mockViewModel)
+//    }
+//    .frame(height: 300)
+//}

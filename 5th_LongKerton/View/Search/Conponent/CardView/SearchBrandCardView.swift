@@ -64,11 +64,11 @@ struct SearchBrandCardView: View {
 }
 
 
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-        
-        SearchBrandCardView(brand: SearchBrand.sampleData[0])
-    }
-    .previewLayout(.sizeThatFits)
-}
+//#Preview {
+//    ZStack {
+//        Color.black.ignoresSafeArea()
+//        
+//        SearchBrandCardView(brand: SearchBrand.sampleData[0])
+//    }
+//    .previewLayout(.sizeThatFits)
+//}

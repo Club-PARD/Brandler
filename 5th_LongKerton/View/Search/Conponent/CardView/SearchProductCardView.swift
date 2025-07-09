@@ -72,11 +72,11 @@ struct SearchProductCardView: View {
     }
 }
 
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-
-        SearchProductCardView(product: SearchProduct.brandItems[0])
-    }
-    .previewLayout(.sizeThatFits)
-}
+//#Preview {
+//    ZStack {
+//        Color.black.ignoresSafeArea()
+//
+//        SearchProductCardView(product: SearchProduct.brandItems[0])
+//    }
+//    .previewLayout(.sizeThatFits)
+//}
