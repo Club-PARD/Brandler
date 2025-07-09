@@ -14,7 +14,9 @@ enum Category: String, CaseIterable, Identifiable {
 final class BrandViewModel: ObservableObject {
     @Published var brandCards: [BrandCard]?
     @Published var brandInfos: [BrandInfo]?
-    @Published var filteredBrands: [BrandInfo] = []
+    @Published var brands: [Brand] = Brand.sampleData
+    @Published var filteredBrands: [Brand] = []
+    //@Published var filteredBrands: [BrandInfo] = []
     @Published var selectedGenre: String = "전체"
     @Published var selectedCategory: Category = .all
     @Published var items: [Product] = Product.brandItems
@@ -64,60 +66,60 @@ final class BrandViewModel: ObservableObject {
         let logoY = rectBottom - holeSize.height * 0.25
         return CGPoint(x: logoX, y: logoY + min(scrollOffset, 100))
     }
-//
-//    func filterBrands() {
-//        filteredBrands = selectedGenre == "전체" ? brandInfos : brandInfos.filter { $0.genre == selectedGenre }
-//    }
 
-//    func deleteBrand(_ brand: Brand) {
-//        brandInfos.removeAll { $0.brandId == brand.brandId }
-//        filterBrands()
-//    }
+    func filterBrands() {
+        filteredBrands = selectedGenre == "전체" ? brands : brands.filter { $0.brandGenre == selectedGenre }
+    }
 
-//    var hasNoScrapedBrands: Bool {
-//        brandInfos.filter { $0.isScraped }.isEmpty
-//    }
+    func deleteBrand(_ brand: Brand) {
+            brands.removeAll { $0.id == brand.id }
+            filterBrands()
+        }
 
-//    var diggingCount: Int {
-//        brands.filter { $0.isScraped }.count
-//    }
+    var hasNoScrapedBrands: Bool {
+        brands.filter { $0.isScraped }.isEmpty
+    }
 
-//    var diggingDistanceInKM: Double {
-//        Double(diggingCount) * 0.1
-//    }
+    var diggingCount: Int {
+        brands.filter { $0.isScraped }.count
+    }
 
-//    var remainingDistance: Double {
-//        max(0, 10.0 - diggingDistanceInKM)
-//    }
-//
-//    var whaleLevel: Int {
-//        switch diggingDistanceInKM {
-//        case 0..<2.0: return 0
-//        case 2.0..<4.0: return 1
-//        case 4.0..<6.0: return 2
-//        case 6.0..<8.0: return 3
-//        case 8.0..<10.0: return 4
-//        default: return 5
-//        }
-//    }
-//
-//    var whaleImageName: String {
-//        "level\(whaleLevel)"
-//    }
-//
-//    func progress(for step: Int) -> Double {
-//        let lower = Double((step - 1) * 2)
-//        let upper = Double(step * 2)
-//        let distance = diggingDistanceInKM
-//
-//        if distance >= upper {
-//            return 1.0
-//        } else if distance <= lower {
-//            return 0.0
-//        } else {
-//            return (distance - lower) / 2.0
-//        }
-//    }
+    var diggingDistanceInKM: Double {
+        Double(diggingCount) * 0.1
+    }
+
+    var remainingDistance: Double {
+        max(0, 10.0 - diggingDistanceInKM)
+    }
+
+    var whaleLevel: Int {
+        switch diggingDistanceInKM {
+        case 0..<2.0: return 0
+        case 2.0..<4.0: return 1
+        case 4.0..<6.0: return 2
+        case 6.0..<8.0: return 3
+        case 8.0..<10.0: return 4
+        default: return 5
+        }
+    }
+
+    var whaleImageName: String {
+        "level\(whaleLevel)"
+    }
+
+    func progress(for step: Int) -> Double {
+        let lower = Double((step - 1) * 2)
+        let upper = Double(step * 2)
+        let distance = diggingDistanceInKM
+
+        if distance >= upper {
+            return 1.0
+        } else if distance <= lower {
+            return 0.0
+        } else {
+            return (distance - lower) / 2.0
+        }
+    }
 
     // 서버에서 스크랩 브랜드 GET 후 Brand에 매핑
     func fetchScrapedBrandsFromServer(email: String) async {
