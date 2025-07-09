@@ -53,7 +53,7 @@ struct BrandInfoOverlayView: View {
                     .resizable()
                     .frame(width: 27, height: 27)
 
-                Spacer(minLength: 273 - brandNameWidth)
+                Spacer(minLength: 270 - brandNameWidth)
 
                 Button(action: {
                     withAnimation { isLiked.toggle() }
@@ -62,6 +62,7 @@ struct BrandInfoOverlayView: View {
                         .font(.system(size: 24))
                         .foregroundColor(isLiked ? .blue : .white)
                 }
+                .offset(x: -10)
             }
             .padding(.bottom, 5)
 
