@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 import GoogleSignIn
 
@@ -53,17 +51,43 @@ struct LoginView: View {
                 .sheet(isPresented: $showGoogleSheet) {
                     GoogleSignInView { success, email in
                         showGoogleSheet = false
-                        if success {
-                            // 온보딩 정보가 있으면 바로 메인, 없으면 온보딩
-                            if let userData = session.userData,
-                               !userData.nickname.isEmpty,
-                               !userData.fashionGenre.isEmpty {
-                                goToMain()
-                            } else {
-                                goToOnboarding()
+                        if success, let email = email {
+                            // 서버에 email로 회원정보 조회
+                            UserServerAPI.fetchUserInfo(email: email) { userData in
+                                DispatchQueue.main.async {
+                                    if let userData = userData,
+                                       !userData.nickname.isEmpty,
+                                       !userData.fashionGenre.isEmpty {
+                                        // 서버에 정보가 있으면 바로 저장 후 메인
+                                        session.saveUserData(email: userData.email, nickname: userData.nickname, genre: userData.fashionGenre)
+                                        goToMain()
+                                    } else {
+                                        // 없으면 email만 저장하고 온보딩으로
+                                        session.saveUserData(email: email, nickname: "", genre: "")
+                                        goToOnboarding()
+                                    }
+                                }
                             }
                         }
                     }
+
+//                    GoogleSignInView { success, email in
+//                        showGoogleSheet = false
+//                        if success, let email = email {
+//                            // email만 저장, nickname/genre는 빈 값
+//                            session.saveUserData(email: email, nickname: "", genre: "")
+//                            // 온보딩 정보가 있으면 바로 메인, 없으면 온보딩
+//                            if let userData = session.userData,
+//                               !userData.nickname.isEmpty,
+//                               !userData.fashionGenre.isEmpty {
+//                                goToMain()
+//                            } else {
+//                                goToOnboarding()
+//                            }
+//                        }
+//                    }
+                    
+                    
                 }
             }
             .padding(.bottom, 24)
@@ -92,7 +116,6 @@ struct LoginView: View {
         }
     }
 }
-
 
 #Preview{
     LoginView(currentState: .constant(.login))

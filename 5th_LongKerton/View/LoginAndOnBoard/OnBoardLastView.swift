@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct OnBoardLastView: View {
@@ -73,7 +72,8 @@ struct OnBoardLastView: View {
                 
                 // 완료 버튼
                 Button(action: {
-                    guard let email = session.userData?.email else {
+                    // email은 구글 로그인 후 세션에만 임시 저장되어 있다고 가정
+                    guard let email = session.userData?.email, !nickname.isEmpty, !selectedGenre.isEmpty else {
                         showError = true
                         return
                     }
@@ -86,8 +86,11 @@ struct OnBoardLastView: View {
                         DispatchQueue.main.async {
                             isUploading = false
                             if success {
+                                // POST 성공 시에만 세션 저장
+                                session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
                                 finish()
                             } else {
+                                // 실패 시 세션 저장하지 않음
                                 showError = true
                             }
                         }

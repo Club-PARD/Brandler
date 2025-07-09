@@ -11,8 +11,8 @@ struct MainPage: View {
     @ObservedObject private var session = UserSessionManager.shared
     
     @StateObject private var viewModel = BrandViewModel()
-    
-    
+    @StateObject private var getViewModel = GetBrandListViewModel()
+    @State private var top10List: [BrandCard] = []
     
     ////    @StateObject private var brandModel = BrandViewModel()
     //@State public var selectedGenre: String = "빈티지"
@@ -77,7 +77,7 @@ struct MainPage: View {
                         // MARK: - Brand Grid Placeholder
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
-                                ForEach(viewModel.brands) { brand in
+                                ForEach(viewModel.brands/*top10List*/) { brand in
                                     NavigationLink(destination: BrandPage(brand: brand)) {
                                         BrandCardVIew(brand: brand)
                                     }
@@ -146,6 +146,13 @@ struct MainPage: View {
                         }
                     }
                     .padding(.bottom, 80)
+                }
+            }
+            .task{
+                do{
+                    top10List = try await getViewModel.getTop10List()
+                } catch {
+                    print("❌ Get Error: \(error)")
                 }
             }
         }

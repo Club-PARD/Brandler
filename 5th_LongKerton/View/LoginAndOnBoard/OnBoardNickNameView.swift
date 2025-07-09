@@ -1,10 +1,11 @@
-
 import SwiftUI
 
 struct OnBoardNickNameView: View {
     let goToNext: () -> Void
     @Binding var nickname: String
     var currentStep: Int = 0 // 0, 1, 2 중 현재 단계
+
+    @EnvironmentObject var session: UserSessionManager
 
     var body: some View {
         ZStack {
@@ -66,6 +67,8 @@ struct OnBoardNickNameView: View {
                 .padding(.bottom, 0)
                 Spacer()
                 Button(action: {
+                    // 닉네임 저장
+                    session.updateNickname(nickname)
                     goToNext()
                 }) {
                     Text("다음으로")
@@ -82,10 +85,7 @@ struct OnBoardNickNameView: View {
     }
 }
 
-
-
 #Preview {
     OnBoardNickNameView(goToNext: {}, nickname: .constant(""))
+        .environmentObject(UserSessionManager.shared)
 }
-
-
