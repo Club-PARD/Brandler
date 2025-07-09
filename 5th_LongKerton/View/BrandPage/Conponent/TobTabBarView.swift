@@ -12,10 +12,6 @@ struct TopTabBarView: View {
     // 탭바 중앙에 표시될 브랜드 이름 문자열입니다.
     let brandName: String
     
-    // 뒤로 가기 버튼이 탭될 때 실행될 선택적인 클로저입니다.
-    // 만약 이 클로저가 제공되면, 기본 `dismiss` 액션 대신 호출됩니다.
-    var backAction: (() -> Void)?
-    
     // `@Environment(\.dismiss)`는 현재 뷰를 닫는 데 사용되는 환경 값을 가져옵니다.
     // 주로 Sheet 또는 NavigationStack의 push된 뷰를 닫을 때 사용됩니다.
     @Environment(\.dismiss) var dismiss
@@ -38,14 +34,7 @@ struct TopTabBarView: View {
             HStack {
                 // 뒤로 가기 버튼을 정의합니다.
                 Button(action: {
-                    // `backAction` 클로저가 nil이 아니면 해당 클로저를 실행합니다.
-                    // 이는 커스텀 뒤로 가기 로직을 주입할 수 있게 합니다.
-                    if let backAction = backAction {
-                        backAction()
-                    } else {
-                        // `backAction`이 nil인 경우, 기본 `dismiss` 액션을 호출하여 현재 뷰를 닫습니다.
-                        dismiss()
-                    }
+                    dismiss()
                 }) {
                     // 뒤로 가기 버튼의 아이콘으로 시스템 이미지 "chevron.left"를 사용합니다.
                     Image(systemName: "chevron.left")

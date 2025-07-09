@@ -208,9 +208,6 @@ struct BrandPage: View {
             TopTabBarView(
                 tabBarScrollOffset: viewModel.tabBarScrollOffset,
                 brandName: brand.name,
-                backAction: {
-                    print("뒤로가기 탭됨")
-                }
             )
             .offset(y: -85)
             .zIndex(1000)
