@@ -26,8 +26,14 @@ struct ContentView: View {
                 .environmentObject(session)
         case .main:
             KDView(currentState: $currentState)
-            //KDView()
                 .environmentObject(session)
         }
     }
+}
+
+
+
+#Preview {
+    ContentView()
+        .environmentObject(UserSessionManager.shared)
 }
