@@ -40,7 +40,7 @@ struct BrandInfoOverlayView: View {
         self._isScraped = isScraped
         self.onDescriptionHeightChange = onDescriptionHeightChange
         self.onBrandNameWidthChange = onBrandNameWidthChange
-        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI(brand: brand))
+        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI())
     }
 
     var descriptionText: String {
