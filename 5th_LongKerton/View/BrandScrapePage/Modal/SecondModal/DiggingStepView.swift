@@ -24,6 +24,7 @@ struct DiggingStepView: View {
             }
             .padding(.horizontal,9)           // 양옆 여백
             .padding(.top, 10)              // 상단 여백
+//            .border(.red,width:1)         // 제목 & 깊이 frame
 
             // 설명 텍스트 + 개수 정보
             HStack {
@@ -50,6 +51,7 @@ struct DiggingStepView: View {
             }
             .padding(.horizontal,9)           // 양옆 여백
             .padding(.bottom, 5)              // 하단 여백
+//            .border(.red,width:1) // 설명 & 횟수
 
             // 단계별 이미지 표시
             Image("Digging_Level\(step)")
@@ -62,6 +64,7 @@ struct DiggingStepView: View {
         .padding(.vertical, 20)               // 위아래 패딩
         .frame(height: 130)                   // 고정 높이
         .frame(maxWidth: .infinity)           // 가로 최대 확장
+//        .border(.red,width:1)// 단계별 frame
 //        .padding(.top, 19)
     }
         
