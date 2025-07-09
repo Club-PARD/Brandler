@@ -2,10 +2,11 @@ import SwiftUI
 
 struct BrandPage: View {
     @StateObject private var viewModel = BrandViewModel()
+    @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
     @Environment(\.dismiss) var dismiss
     var brand: Brand
-
+//    var brandI: BrandInfo
     @State private var descriptionTextHeight: CGFloat = 0
     @StateObject private var scrapeAPI: ScrapeServerAPI
     @EnvironmentObject var session: UserSessionManager
@@ -14,7 +15,7 @@ struct BrandPage: View {
 
     init(brand: Brand) {
         self.brand = brand
-        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI(brand: brand))
+        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI())
     }
 
     var body: some View {
@@ -107,6 +108,7 @@ struct BrandPage: View {
                         }
                     }
                 }
+//                brand = getViewModel.getBrandInfo(email, <#T##brandId: Int##Int#>)
             }
         }
         .onDisappear {
@@ -149,7 +151,7 @@ extension Brand {
 }
 
 // MARK: - BrandPage 프리뷰
-#Preview {
-    BrandPage(brand: .preview)
-        .environmentObject(UserSessionManager.shared)
-}
+//#Preview {
+//    BrandPage(brand: .preview)
+//        .environmentObject(UserSessionManager.shared)
+//}
