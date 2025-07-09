@@ -202,6 +202,7 @@ struct BrandScrapePage: View {
     @State private var showSecondModal = false
     @State private var offsetY: CGFloat = 0
     @GestureState private var dragOffset: CGFloat = 0
+    @StateObject private var viewModel = BrandViewModel()
 
     @StateObject private var scrapeAPI = ScrapeServerAPI()
     @State private var scrapedBrandList: [BrandCard] = []
@@ -284,12 +285,20 @@ struct BrandScrapePage: View {
                                                     let index = row * 3 + col
                                                     if let brand = brands[index] {
                                                         // BrandCardVIew로 카드 표시
-                                                        BrandCardVIew(brand: brand)
-                                                        // 상세 페이지 등 필요시 아래처럼 사용
-                                                        // .onTapGesture {
-                                                        //     selectedBrand = brand
-                                                        //     showBrandPage = true
-                                                        // }
+                                                        BrandFlipCardView(
+                                                            brand: brand,
+                                                            flippedID: $flippedID,
+                                                            onDelete: {
+                                                                Task {
+                                                                    let userEmail = UserSessionManager.shared.emailString ?? ""
+                                                                    await viewModel.unsrapeAndSync(brand: brand, email: userEmail)
+                                                                }
+                                                            },
+                                                            onShop: {
+                                                                selectedBrand = brand
+                                                                showBrandPage = true
+                                                            }
+                                                        )
                                                     } else {
                                                         Color.clear
                                                     }

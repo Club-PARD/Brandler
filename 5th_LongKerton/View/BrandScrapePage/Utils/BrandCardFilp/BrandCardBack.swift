@@ -13,6 +13,7 @@ struct BrandCardBack: View {
             Image(brand.brandBanner) // 브랜드 배너 이미지 표시
                 .resizable() // 크기 조정 가능
                 .scaledToFill() // 프레임을 채우도록 비율 유지
+                .frame(width: 99, height: 124) // 고정 크기
                 .opacity(0.5) // 반투명 처리
                 .clipped() // 프레임 밖은 잘라냄
 

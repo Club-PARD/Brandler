@@ -80,10 +80,10 @@ struct MainPage: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 ForEach(top10List, id:\.brandId){ brand in
-//브랜드 페이지 ID로 접근                                    NavigationLink(destination: BrandPage(brand: brand)) {
+                                    NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
                                         BrandCardVIew(brand: brand)
                                     }
-//                                }
+                                }
                             }
                         }
                         .padding(.leading, 20)
