@@ -236,30 +236,30 @@ struct SecondModalView: View {
         }
     }
 }
-
-// ✅ 프리뷰 테스트용 뷰 (배경 포함)
-struct SecondModalPreviewWrapper: View {
-    @State private var isVisible = true
-
-    var body: some View {
-        ZStack {
-            Image("whaleBackground")
-                .resizable()
-                .scaledToFit()
-                .edgesIgnoringSafeArea(.all)
-
-            Button("모달 열기") {
-                isVisible = true
-            }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(10)
-
-            SecondModalView(isVisible: $isVisible)
-        }
-    }
-}
-
-#Preview {
-    SecondModalPreviewWrapper()
-}
+//
+//// ✅ 프리뷰 테스트용 뷰 (배경 포함)
+//struct SecondModalPreviewWrapper: View {
+//    @State private var isVisible = true
+//
+//    var body: some View {
+//        ZStack {
+//            Image("whaleBackground")
+//                .resizable()
+//                .scaledToFit()
+//                .edgesIgnoringSafeArea(.all)
+//
+//            Button("모달 열기") {
+//                isVisible = true
+//            }
+//            .padding()
+//            .background(Color.white)
+//            .cornerRadius(10)
+//
+//            SecondModalView(isVisible: $isVisible)
+//        }
+//    }
+//}
+//
+//#Preview {
+//    SecondModalPreviewWrapper()
+//}
