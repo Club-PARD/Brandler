@@ -46,3 +46,13 @@ struct SearchSelectView: View {
         
     }
 }
+
+
+#Preview {
+    ZStack {
+        Color.black.ignoresSafeArea() // 배경색 설정 (원하는 색상으로 변경 가능)
+        SearchSelectView()
+            .padding()
+    }
+    .previewLayout(.sizeThatFits)
+}

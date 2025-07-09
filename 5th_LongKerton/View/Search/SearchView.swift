@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @Environment(\.dismiss) var dismiss
@@ -18,10 +17,10 @@ struct SearchView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Button(action: {
-                        dismiss() // Dismiss the view (go back)
+                        dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .font(.custom("Pretendard-Medium",size: 18))
+                            .font(.custom("Pretendard-Medium", size: 18))
                             .foregroundColor(Color(white: 0.9))
                     }
                     
@@ -32,8 +31,9 @@ struct SearchView: View {
                 
                 SearchBarView(
                     searchText: $viewModel.searchText,
-                    isSearch:$isSearching,
+                    isSearch: $isSearching,
                     recentSearches: $viewModel.recentSearches,
+                    isFocused: $viewModel.isFocused, // 추가됨
                     onCommit: {
                         viewModel.addToRecent(viewModel.searchText)
                         viewModel.isFocused = false
@@ -41,23 +41,31 @@ struct SearchView: View {
                 )
                 
                 // 🔍 검색 결과 리스트
-                VStack(alignment: .leading){
-                    Text(isSearching ? "최근 검색어" : "검색 결과")
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 20)
-                    if !viewModel.searchText.isEmpty {
-                        if !viewModel.filteredItems.isEmpty {
-                            List(viewModel.filteredItems) { item in
-                                Text(item.name)
+                if viewModel.isFocused {
+                    // 포커스 중일 때 최근 검색어만 표시 (이건 SearchBarView 내부에서 따로 처리하므로 필요 없을 수도 있음)
+                    EmptyView()
+                } else {
+                    VStack(alignment: .leading) {
+                        Text("검색 결과")
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 27)
+                        
+                        if !viewModel.searchText.isEmpty {
+                            if !viewModel.filteredItems.isEmpty {
+                                List(viewModel.filteredItems) { item in
+                                    Text(item.name)
+                                }
+                                .listStyle(.plain)
+                            } else {
+                                Text("검색 결과가 없습니다.")
+                                    .foregroundColor(.gray)
+                                    .padding()
                             }
-                            .listStyle(.plain)
-                        } else {
-                            Text("검색 결과가 없습니다.")
-                                .foregroundColor(.gray)
-                                .padding()
                         }
                     }
                 }
+                
                 Spacer()
             }
             .onTapGesture {
