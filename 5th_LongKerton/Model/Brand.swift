@@ -55,6 +55,7 @@ struct Brand: Identifiable, Hashable, Codable {
 
 extension Brand {
     static let sampleData: [Brand] = [
+
         Brand(id: 1, name: "NukeStreet", brandGenre: "스트릿", description: "강렬한 컬러로 존재감을 드러내는 브랜드는, 단순한 색의 선택을 넘어 브랜드의 정체성과 감성을 강하게 전달하는 전략을 추구합니다. 선명하고 대담한 컬러 팔레트는 단번에 시선을 사로잡으며, 브랜드가 가진 개성과 독창성을 강조합니다. 이는 브랜드가 경쟁이 치열한 시장 속에서도 뚜렷한 인상을 남기고, 소비자들의 기억에 오랫동안 남을 수 있도록 도와줍니다.", brandBannerUrl: "mockBanner1", brandLogoUrl: "mockLogo1", brandHomePageUrl: "https://example.com/nukestreet", brandLevel: 1),
         Brand(id: 2, name: "VoidNest", brandGenre: "테크", description: "공허 속 기능미를 담은 감성적 아우터", brandBannerUrl: "mockBanner2", brandLogoUrl: "mockLogo2", brandHomePageUrl: "https://example.com/voidnest", brandLevel: 2),
         Brand(id: 3, name: "GreySyntax", brandGenre: "포멀", description: "간결한 실루엣 속에서 묵직한 분위기를 표현", brandBannerUrl: "mockBanner1", brandLogoUrl: "mockLogo2", brandHomePageUrl: "https://example.com/greysyntax", brandLevel: 3),
@@ -75,6 +76,7 @@ extension Brand {
         Brand(id: 18, name: "BrickHaus", brandGenre: "아메카지", description: "거칠지만 세련된 도시적 무드", brandBannerUrl: "mockBanner2", brandLogoUrl: "mockLogo1", brandHomePageUrl: "https://example.com/brickhaus", brandLevel: 2),
         Brand(id: 19, name: "ArtCore", brandGenre: "히피", description: "아트워크 기반의 창의적 감성", brandBannerUrl: "mockBanner1", brandLogoUrl: "mockLogo2", brandHomePageUrl: "https://example.com/artcore", brandLevel: 3),
         Brand(id: 20, name: "EchoCraft", brandGenre: "스트릿", description: "새로운 시대의 복고풍 믹스", brandBannerUrl: "mockBanner2", brandLogoUrl: "mockLogo1", brandHomePageUrl: "https://example.com/echocraft", brandLevel: 1)
+
     ]
 }
 
