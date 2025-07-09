@@ -59,7 +59,7 @@ struct CircularProgressBar: View {
 
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
-    @StateObject private var scrapeAPI = ScrapeServerAPI(brand: Brand.sampleData.first!)
+    @StateObject private var scrapeAPI = ScrapeServerAPI()
     @State private var scrapedBrandList: [BrandCard] = []
     
     @Binding var selectedTab: String

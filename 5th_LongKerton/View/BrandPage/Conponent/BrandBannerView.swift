@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BrandBannerView: View {
     @EnvironmentObject var viewModel: BrandViewModel
-    let brand: Brand
+    let brand: BrandInfo
 
     var body: some View {
         GeometryReader { geo in

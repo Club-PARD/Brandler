@@ -1,20 +1,21 @@
 import SwiftUI
 
 struct BrandPage: View {
+    let brandId: Int
+    @State private var brandInfo: BrandInfo?
+    
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
     @Environment(\.dismiss) var dismiss
-    var brand: Brand
-//    var brandI: BrandInfo
     @State private var descriptionTextHeight: CGFloat = 0
     @StateObject private var scrapeAPI: ScrapeServerAPI
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
     @Environment(\.scenePhase) private var scenePhase // ⭐️ scenePhase 감지
 
-    init(brand: Brand) {
-        self.brand = brand
+    init(brandId: Int) {
+        self.brandId = brandId
         _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI())
     }
 
@@ -27,7 +28,7 @@ struct BrandPage: View {
                     VStack(spacing: 0) {
                         Color.clear.frame(height: 0).id("top")
                         GeometryReader { geo in
-                            BrandBannerView(brand: brand)
+                            BrandBannerView(brand: brandInfo)
                                 .frame(height: viewModel.bannerHeight)
                                 .background(
                                     Color.clear.preference(
@@ -45,8 +46,8 @@ struct BrandPage: View {
                         BrandInfoOverlayView(
                             scrollOffset: viewModel.scrollOffset,
                             bannerHeight: viewModel.bannerHeight,
-                            brand: brand,
-                            brandId: brand.id,
+                            brand: brandInfo,
+                            brandId: brandInfo.id,
                             isScraped: $isScraped,
                             onDescriptionHeightChange: { height in
                                 descriptionTextHeight = height
@@ -86,7 +87,7 @@ struct BrandPage: View {
 
             TopTabBarView(
                 tabBarScrollOffset: viewModel.tabBarScrollOffset,
-                brandName: brand.name,
+                brandName: brandInfo.brandName,
             )
             .offset(y: -10)
             .zIndex(1000)
@@ -103,14 +104,18 @@ struct BrandPage: View {
         .onAppear {
             // ⭐️ 서버에서 좋아요 상태 GET
             if let email = session.userData?.email {
-                scrapeAPI.fetchIsScraped(email: email, brandId: brand.id) { result in
+                scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
                     DispatchQueue.main.async {
                         if let isScraped = result {
                             self.isScraped = isScraped
                         }
                     }
                 }
-//                brand = getViewModel.getBrandInfo(email, <#T##brandId: Int##Int#>)
+                getViewModel.getBrandInfo(email: email, brandId: brandId) { fetchedBrand in
+                    DispatchQueue.main.async {
+                        self.brandInfo = fetchedBrand
+                    }
+                }
             }
         }
         .onDisappear {
