@@ -1,8 +1,18 @@
 import Foundation
 
+enum BaseURL : String {
+    case baseUrl = "https://brandler.shop"
+}
+
+enum ErrorType : Error {
+    case invalidURL
+    case invalidResponse
+    case networkError
+}
+
 struct UserServerAPI {
     static func uploadUserInfo(name: String, email: String, genre: String, completion: @escaping (Bool) -> Void) {
-        guard let url = URL(string: "https://pardaws.store/user") else {
+        guard let url = URL(string: "https://brandler.shop/user") else {
             completion(false)
             return
         }

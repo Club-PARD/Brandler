@@ -9,33 +9,55 @@ import SwiftUI
 
 struct SearchBarView: View {
     @Binding var searchText: String
+    @Binding var isSearch: Bool
     @Binding var recentSearches: [String]
     var onCommit: () -> Void
-
+    
     @FocusState private var isSearchFocused: Bool
-
+    
     var body: some View {
         VStack(alignment: .leading) {
-            // 🔍 검색 입력창
-            TextField("Search...", text: $searchText, onCommit: onCommit)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .focused($isSearchFocused)
+            HStack {
+                ZStack(alignment: .leading) {
+                        if searchText.isEmpty {
+                            Text("브랜드를 검색해보세요.")
+                                .foregroundColor(Color.nickBoxStroke)
+                                .font(.custom("Pretendard-Medium", size: 12))
+                                .padding(.leading, 11)
+                        }
 
+                        TextField("", text: $searchText, onCommit: onCommit)
+                            .font(.custom("Pretendard-Medium", size: 12))
+                            .padding(.leading, 11)
+                            .foregroundColor(Color.nickBoxStroke)
+                            .focused($isSearchFocused)
+                    }
+                
+                Button(action:{
+                    isSearch = true
+                }){
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(Color.nickBoxStroke)
+                        .padding(.trailing, 16)
+                }
+            }
+            .frame(height: 34)
+            .background(Color.nickBox)
+            .clipShape(Rectangle())
+            .cornerRadius(15)
+            .padding(.horizontal, 20)
             // 🕓 최근 검색어 (최대 6개)
+            
             if !recentSearches.isEmpty {
-                Text("Recent Searches")
-                    .font(.headline)
-                    .padding(.top)
-
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 3), spacing: 8) {
                     ForEach(recentSearches.prefix(6), id: \.self) { item in
                         HStack(spacing: 4) {
                             Text(item)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-
+                            
                             Spacer(minLength: 4)
-
+                            
                             Button(action: {
                                 recentSearches.removeAll { $0 == item }
                             }) {
@@ -55,8 +77,10 @@ struct SearchBarView: View {
                 }
                 .padding(.top, 4)
             }
+            else {
+                Text("최근 검색이 없습니다.")
+            }
         }
-        .padding()
     }
 }
 
