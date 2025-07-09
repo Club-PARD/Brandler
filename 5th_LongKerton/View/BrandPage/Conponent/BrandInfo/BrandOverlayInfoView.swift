@@ -62,6 +62,7 @@ struct BrandInfoOverlayView: View {
                         .font(.system(size: 24))
                         .foregroundColor(isLiked ? .blue : .white)
                 }
+                .offset(x: -10)
             }
             .padding(.bottom, 5)
 
