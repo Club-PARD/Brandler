@@ -20,7 +20,7 @@ struct KDView: View {
                 case "scrap":
                     BrandScrapePage()
                 case "my":
-                    UserMainView(selectedTab: $selectedTab, currentState: $currentState, scrape: scrape)
+                    UserMainView(selectedTab: $selectedTab, currentState: $currentState)
                 default:
                     MainPage()
                 }

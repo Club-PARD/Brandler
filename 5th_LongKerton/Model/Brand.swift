@@ -1,5 +1,4 @@
 import Foundation // Foundation 프레임워크를 가져옵니다. 기본적인 데이터 타입과 컬렉션 등을 제공합니다.
-
 /// `Brand` 구조체는 패션 브랜드의 상세 정보를 나타내는 데이터 모델입니다.
 ///
 /// - `Identifiable`: SwiftUI의 `ForEach` 등에서 고유한 식별자로 사용될 수 있도록 합니다.
@@ -29,7 +28,7 @@ struct Brand: Identifiable, Hashable, Codable {
         var isScraped: Bool = false // 기본값 false
         let brandHomePageUrl: String
         let brandLevel: Int
-//    }
+
     init(
             id: Int,
             name: String,
@@ -52,6 +51,7 @@ struct Brand: Identifiable, Hashable, Codable {
             self.isScraped = isScraped
         }
 }
+
 
 extension Brand {
     static let sampleData: [Brand] = [
