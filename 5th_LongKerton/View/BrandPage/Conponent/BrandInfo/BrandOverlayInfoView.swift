@@ -10,7 +10,7 @@ struct DescriptionHeightPreferenceKey: PreferenceKey {
 struct BrandInfoOverlayView: View {
     let scrollOffset: CGFloat
     let bannerHeight: CGFloat
-    let brand: Brand
+    let brand: BrandInfo
     let brandId: Int
     @Binding var isScraped: Bool // ⭐️ @Binding으로 직접 연결
 
@@ -27,7 +27,7 @@ struct BrandInfoOverlayView: View {
     init(
         scrollOffset: CGFloat,
         bannerHeight: CGFloat,
-        brand: Brand,
+        brand: BrandInfo,
         brandId: Int,
         isScraped: Binding<Bool>,
         onDescriptionHeightChange: @escaping (CGFloat) -> Void = { _ in },
@@ -49,7 +49,7 @@ struct BrandInfoOverlayView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image(brand.brandLogoUrl)
+            Image(brand.brandLogo)
                 .resizable()
                 .frame(width: 48, height: 48)
                 .clipShape(Circle())
@@ -58,7 +58,7 @@ struct BrandInfoOverlayView: View {
                 .padding(.bottom, 7)
 
             HStack(alignment: .center, spacing: 8) {
-                Text(brand.name)
+                Text(brand.brandName)
                     .font(.custom("Pretendard-Bold", size: 35))
                     .foregroundColor(.white)
                     .fixedSize()
@@ -72,9 +72,9 @@ struct BrandInfoOverlayView: View {
                         }
                     )
 
-                Image("Level\(brand.brandLevel)")
-                    .resizable()
-                    .frame(width: 27, height: 27)
+//                Image("Level\(brand.brandLevel)")
+//                    .resizable()
+//                    .frame(width: 27, height: 27)
 
                 Spacer(minLength: 250 - brandNameWidth)
 
@@ -94,7 +94,7 @@ struct BrandInfoOverlayView: View {
             }
             .padding(.bottom, 5)
 
-            Text(brand.brandGenre)
+            Text(brand.genre)
                 .font(.custom("Pretendard-Medium", size: 10))
                 .foregroundColor(.white)
                 .opacity(0.7)
@@ -156,7 +156,7 @@ struct BrandInfoOverlayView: View {
                 .padding(.top, 12)
 
                 Button(action: {
-                    if let url = URL(string: brand.brandHomePageUrl) {
+                    if let url = URL(string: brand.brandPageUrl) {
                         UIApplication.shared.open(url)
                     }
                 }) {

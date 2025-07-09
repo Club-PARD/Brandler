@@ -50,11 +50,11 @@ struct SearchSelectView: View {
     }
 }
 
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-        SearchSelectView(selectedType: .constant(.brand))
-            .padding()
-    }
-    .previewLayout(.sizeThatFits)
-}
+//#Preview {
+//    ZStack {
+//        Color.black.ignoresSafeArea()
+//        SearchSelectView(selectedType: .constant(.brand))
+//            .padding()
+//    }
+//    .previewLayout(.sizeThatFits)
+//}

@@ -2,12 +2,12 @@ import Foundation
 
 class ScrapeServerAPI: ObservableObject {
 
-    @Published var brand: Brand
-    @Published var scrapedBrands: [BrandCard] = []
-
-    init(brand: Brand) {
-        self.brand = brand
-    }
+//    @Published var brand: Brand
+//    @Published var scrapedBrands: [BrandCard] = []
+//
+//    init(brand: Brand) {
+//        self.brand = brand
+//    }
 
     
     func patchLike(email: String, brandId: Int, isScraped: Bool, completion: (() -> Void)? = nil) {
