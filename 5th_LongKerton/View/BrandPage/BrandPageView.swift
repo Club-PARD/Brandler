@@ -51,10 +51,11 @@ struct BrandPage: View {
                                 descriptionTextHeight = height
                             }
                         )
-                        .offset(x: 15, y: overlayOffset + 250)
+                        .offset(x: 10,y: overlayOffset + 250)
                         .padding(.top, -viewModel.bannerHeight + 40)
                         .animation(.easeInOut(duration: 0.25), value: overlayOffset)
                         .padding(.bottom, 15)
+//                        .padding(.horizontal, 20)
 
                         VStack(spacing: 0) {
                             CategoryTabBarView(selected: $viewModel.selectedCategory)
@@ -62,8 +63,9 @@ struct BrandPage: View {
                                 .frame(height: 30)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.BgColor)
+                                .padding(.horizontal, 15)
 
-                            ItemGridView().padding(.bottom, 50)
+                            ItemGridView().padding(.bottom, 50).padding(.horizontal, 10)
 
                             Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
                                 .font(.custom("Pretendard-Regular", size: 12))

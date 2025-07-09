@@ -76,7 +76,7 @@ struct BrandInfoOverlayView: View {
                     .resizable()
                     .frame(width: 27, height: 27)
 
-                Spacer(minLength: 273 - brandNameWidth)
+                Spacer(minLength: 250 - brandNameWidth)
 
                 Button(action: {
                     withAnimation {
@@ -90,6 +90,7 @@ struct BrandInfoOverlayView: View {
                         .font(.system(size: 24))
                         .foregroundColor(isScraped ? .blue : .white)
                 }
+                .offset(x: -10)
             }
             .padding(.bottom, 5)
 
