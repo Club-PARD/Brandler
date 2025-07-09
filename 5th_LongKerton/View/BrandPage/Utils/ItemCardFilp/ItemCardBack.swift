@@ -8,42 +8,59 @@ struct ItemCardBack: View {
     @State private var showDeleteAlert = false // 삭제 알림창 표시 여부 상태
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            // 배경 색상 (반투명 회색)
+        ZStack {
+            // 배경 이미지
             Image(item.productImageUrl)
-                .resizable() // 이미지 크기 조정 가능하게 설정
-                .scaledToFill() // 프레임을 꽉 채우도록 비율 유지
+                .resizable()
+                .scaledToFill()
+
+            // 반투명 그라데이션
             LinearGradient(
                 gradient: Gradient(colors: [
-                    
                     Color.Gradient2,
                     Color.pageBlue
-                    
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
-                    
             )
-            .ignoresSafeArea()
             .opacity(0.5)
+
+            // 중앙 텍스트
             VStack(spacing: 8) {
-                Spacer() // 위쪽 여백
-                
-                // 상품 이름
                 Text(item.name)
                     .font(.custom("Pretendard-Regular", size: 12))
                     .foregroundColor(.white)
-                
-                // 상품 가격
-                Text("\(item.price)원")
-                    .font(.custom("Pretendard-Regular", size: 12))
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.ProductBackGround) // 배경색
+                            .frame(width: 81, height: 16)
+                            .opacity(0.5)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white, lineWidth: 1) // 테두리
+                            .frame(width: 81, height: 16)
+                            .opacity(0.5)
+                    )
+
+                Text("KRW \(item.price)")
+                    .font(.custom("Pretendard-Regular", size: 10))
                     .foregroundColor(.white)
-                
-                Spacer() // 아래쪽 여백
             }
-            .padding() // 전체 내용에 패딩 적용
+            .multilineTextAlignment(.center)
         }
-        .clipShape(RoundedRectangle(cornerRadius: 8)) // 카드 모서리를 둥글게
-        .shadow(radius: 2) // 그림자 효과
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .shadow(radius: 2)
+    }
+}
+
+#Preview {
+    ZStack {
+        Color.black.ignoresSafeArea() // 어두운 배경 설정
+        ItemCardBack(item: Product.brandItems.first!) {
+            print("🗑️ 삭제 실행됨")
+        }
+        .frame(width: 160, height: 240) // 카드 크기
+        .padding()
     }
 }

@@ -1,20 +1,18 @@
-//
-//  ContentView.swift
-//  SearchBar
-//
-//  Created by 정태주 on 6/29/25.
-//
-
 import SwiftUI
+
+// MARK: - SearchView
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var isSearching: Bool = false
-    
+    @State private var hasSearched: Bool = false
+
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
+
             VStack(alignment: .leading) {
+                // 뒤로가기 + 탭 선택
                 HStack {
                     Button(action: {
                         dismiss()
@@ -23,54 +21,36 @@ struct SearchView: View {
                             .font(.custom("Pretendard-Medium", size: 18))
                             .foregroundColor(Color(white: 0.9))
                     }
-                    
-                    SearchSelectView()
+
+                    SearchSelectView(selectedType: $viewModel.selectedType)
+                        .padding(.leading, 10)
+                        .offset(x: -25)
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 26)
-                
+                .padding(.bottom, 20)
+
+                // SearchBarView 내부에서 최근 검색어와 검색 결과 UI까지 모두 관리
                 SearchBarView(
                     searchText: $viewModel.searchText,
                     isSearch: $isSearching,
                     recentSearches: $viewModel.recentSearches,
-                    isFocused: $viewModel.isFocused, // 추가됨
+                    isFocused: $viewModel.isFocused,
+                    selectedType: $viewModel.selectedType,
+                    filteredResults: viewModel.filteredResults,
+                    hasSearched: $hasSearched,
                     onCommit: {
                         viewModel.addToRecent(viewModel.searchText)
                         viewModel.isFocused = false
+                        hasSearched = true
                     }
                 )
-                
-                // 🔍 검색 결과 리스트
-                if viewModel.isFocused {
-                    // 포커스 중일 때 최근 검색어만 표시 (이건 SearchBarView 내부에서 따로 처리하므로 필요 없을 수도 있음)
-                    EmptyView()
-                } else {
-                    VStack(alignment: .leading) {
-                        Text("검색 결과")
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.top, 27)
-                        
-                        if !viewModel.searchText.isEmpty {
-                            if !viewModel.filteredItems.isEmpty {
-                                List(viewModel.filteredItems) { item in
-                                    Text(item.name)
-                                }
-                                .listStyle(.plain)
-                            } else {
-                                Text("검색 결과가 없습니다.")
-                                    .foregroundColor(.gray)
-                                    .padding()
-                            }
-                        }
-                    }
-                }
-                
+
                 Spacer()
             }
             .onTapGesture {
                 viewModel.isFocused = false
             }
+            
             .navigationBarBackButtonHidden()
         }
     }
