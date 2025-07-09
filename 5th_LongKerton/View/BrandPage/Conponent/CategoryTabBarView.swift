@@ -46,7 +46,7 @@ struct CategoryTabBarView: View {
             }
         }
         // `HStack` 전체의 높이를 70pt로 고정합니다.
-        .frame(height: 70)
+//        .frame(height: 32)
         // `HStack`이 부모 뷰의 사용 가능한 가로 공간을 최대한 넓게 사용하도록 합니다.
         .frame(maxWidth: .infinity)
         // 탭바 전체의 배경 색상을 `Color.BgColor` (다크톤 #1B191A로 추정)로 지정합니다.

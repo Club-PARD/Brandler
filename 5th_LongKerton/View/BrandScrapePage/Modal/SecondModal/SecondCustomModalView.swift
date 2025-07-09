@@ -48,7 +48,9 @@ struct SecondModalView: View {
                                 .foregroundColor(.white)
                         }
                         .padding(.bottom, 12)
+//                        .border(.red,width:1) // 단계 가이드
                         .offset(y: -25)
+                        
                         // ✅ 모달 내부 콘텐츠 영역
                         ScrollView {
                             VStack(spacing: 0) {
@@ -66,6 +68,7 @@ struct SecondModalView: View {
                                 .frame(height: 56)
                                 .padding(.top, 20)
                                 .foregroundColor(Color.white)
+//                                .border(.red,width:1) // 탭바
 //                                .offset(y: -5)
 
                                 // ✅ 설명 텍스트 + 단계 카드 뷰
@@ -81,6 +84,7 @@ struct SecondModalView: View {
                                     .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
                                     .frame(maxWidth: .infinity)
+//                                    .border(.red,width:1) // 부제목 영역
 
                                     // ✅ 단계 카드
                                     VStack(spacing: 10) {
@@ -105,6 +109,7 @@ struct SecondModalView: View {
                                         }
                                         
                                     }
+//                                    .border(.red,width:1) // 위의 부분을 제외한 컨텐츠 영역
 //                                    Spacer()
 //                                        .frame(height: 24)
                                 }
@@ -162,18 +167,23 @@ struct SecondModalView: View {
                                             .stroke(Color.LogBlue, lineWidth: 1)
                                         )
                                     }
+//                                        .border(.red,width:1) // 모달 창 영역
                                 )
                                 .frame(maxWidth: .infinity)
                                 .padding(.horizontal, 19)
+//                                .border(.red,width:1) // 디깅 가이드 컨텐츠 부분
                             }
                             .frame(maxWidth: .infinity, alignment: .center)
+//                            .border(.red,width:1) // 스크롤 위의 단계 가이드 frame
 
                             Spacer().frame(height: 150) // 하단 여백
                         }
                         .ignoresSafeArea(.container, edges: .bottom)
+//                        .border(.red,width:1)     // 스크롤이 시작되는 영역
 
                         Spacer()
                     }
+                    
                     .frame(width: geometry.size.width - 30, height: maxHeight)
                     .background(
                         LinearGradient(
@@ -187,6 +197,7 @@ struct SecondModalView: View {
                         )
                         .opacity(0.2)
                     )
+//                    .border(.red,width:1) // 모달 창
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                     .offset(y: offsetY + dragOffset)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -212,9 +223,11 @@ struct SecondModalView: View {
                     .transition(.move(edge: .bottom)) // 아래에서 등장
                     .zIndex(10)
                     //.padding(.horizontal, 20, alignment : .center)
+//                    .border(.red,width:1)         // 배경 레이어
                 }
             }
             .ignoresSafeArea(.container, edges: .bottom)
+//            .border(.red,width:1)     // 컨텐츠 제일 밑
         }
     }
 

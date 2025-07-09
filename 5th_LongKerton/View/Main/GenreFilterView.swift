@@ -6,23 +6,25 @@
 //  Created by Kim Kyengdong on 7/2/25.
 //
 
+
 import SwiftUI
 
 struct GenreFilterView: View {
     @State private var showMoreFilters: Bool = false
-    @Binding var selectedFilter: String // "All"
+    @Binding var selectedFilter: String
     
     let allFilters: [String] = ["전체", "아메카지", "스트릿", "빈티지", "히피", "포멀", "페미닌", "테크", "펑크", "기타"]
     
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: 0) {
             Button(action: {
                 showMoreFilters.toggle()
             }) {
                 Image("Filter") // Filter icon
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 24, height: 24)
-                    .padding(2)
+                    .padding(.trailing,18)
             }
             if showMoreFilters {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 10) {
@@ -55,8 +57,10 @@ struct GenreFilterView: View {
                         .cornerRadius(10)
                 }
             }
-            
+            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.BgColor.edgesIgnoringSafeArea(.all)) // Dark background for the whole view
     }
 }
+

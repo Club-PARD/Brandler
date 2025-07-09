@@ -2,109 +2,110 @@ import SwiftUI
 
 // 브랜드 상세 페이지 뷰
 struct BrandPage: View {
-    @StateObject private var viewModel = BrandViewModel() // ViewModel 상태 객체
-    @State private var scrollProxy: ScrollViewProxy? = nil // ScrollView 제어용 proxy
+    @StateObject private var viewModel = BrandViewModel()
+    @State private var scrollProxy: ScrollViewProxy? = nil
 
-    var brand: Brand // 보여줄 브랜드 정보
+    var brand: Brand
+
+    @State private var descriptionTextHeight: CGFloat = 0  // ① 높이 상태 추가
 
     var body: some View {
-        ZStack(alignment: .top) { // 최상단 정렬 ZStack
-            Color.BgColor.ignoresSafeArea() // 전체 배경 색상 설정
+        ZStack(alignment: .top) {
+            Color.BgColor.ignoresSafeArea()
 
-            ScrollViewReader { proxy in // 스크롤 위치 제어를 위한 ScrollViewReader
-                ScrollView { // 메인 스크롤 뷰
-                    VStack(spacing: 0) { // 콘텐츠 수직 스택
-                        Color.clear.frame(height: 0).id("top") // 스크롤 최상단 위치용 아이디
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        Color.clear.frame(height: 0).id("top")
 
-                        // 배너 뷰 및 스크롤 오프셋 추적
                         GeometryReader { geo in
-                            BrandBannerView(brand: brand) // 브랜드 배너 뷰
-                                .frame(height: viewModel.bannerHeight) // 배너 높이 지정
+                            BrandBannerView(brand: brand)
+                                .frame(height: viewModel.bannerHeight)
                                 .background(
-                                    Color.clear
-                                        .preference(
-                                            key: ScrollOffsetKey.self,
-                                            value: -geo.frame(in: .named("scroll")).minY // y값으로 오프셋 계산
-                                        )
+                                    Color.clear.preference(
+                                        key: ScrollOffsetKey.self,
+                                        value: -geo.frame(in: .named("scroll")).minY
+                                    )
                                 )
                         }
-                        .frame(height: viewModel.bannerHeight) // 외부에서 프레임 고정
-
-                        // 스크롤 오프셋 변경 감지하여 ViewModel에 반영
+                        .frame(height: viewModel.bannerHeight)
                         .onPreferenceChange(ScrollOffsetKey.self) { offset in
                             viewModel.updateScrollOffset(offset)
                         }
-
-                        // 브랜드 로고 + 이름 오버레이
+//                        .offset(x: 20)
+                        // ② BrandInfoOverlayView 에 콜백 전달
                         BrandInfoOverlayView(
-                            scrollOffset: viewModel.scrollOffset, // 스크롤 오프셋 전달
-                            bannerHeight: viewModel.bannerHeight, // 배너 높이 전달
-                            brand: brand // 브랜드 정보 전달
+                            scrollOffset: viewModel.scrollOffset,
+                            bannerHeight: viewModel.bannerHeight,
+                            brand: brand,
+                            onDescriptionHeightChange: { height in
+                                descriptionTextHeight = height
+                            }
                         )
-                        .offset(x: 15, y: overlayOffset + 250) // 위치 오프셋 설정
-                        .padding(.top, -viewModel.bannerHeight + 40) // 배너와의 간격 조정
-                        .animation(.easeInOut(duration: 0.25), value: overlayOffset) // 애니메이션 적용
+                        .offset(x: 15, y: overlayOffset + 250)
+                        .padding(.top, -viewModel.bannerHeight + 40)
+                        .animation(.easeInOut(duration: 0.25), value: overlayOffset)
+                        .padding(.bottom, 15)
 
-                        // 본문 콘텐츠 영역
                         VStack(spacing: 0) {
-                            Rectangle().fill(Color.BgColor).frame(height: 30) // 배너 아래 여백
 
-                            CategoryTabBarView(selected: $viewModel.selectedCategory) // 카테고리 탭바
-                                .padding(.vertical, 12) // 위아래 여백
-                                .frame(height: 60) // 탭바 높이
-                                .frame(maxWidth: .infinity) // 너비 최대
-                                .background(Color.BgColor) // 배경색 설정
 
-                            ItemGridView().padding(.bottom, 50) // 상품 목록
+                            CategoryTabBarView(selected: $viewModel.selectedCategory)
+                                .padding(.vertical, 12)
+                                .frame(height: 30)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.BgColor)
 
-                            Text("Fashions fade, style is eternal. \n – Yves Saint Laurent") // 인용구
+                            ItemGridView().padding(.bottom, 50)
+
+                            Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
                                 .font(.custom("Pretendard-Regular", size: 12))
                                 .foregroundColor(Color.TabPurple)
-                                .multilineTextAlignment(.center) // 중앙 정렬
+                                .multilineTextAlignment(.center)
 
-                            Spacer(minLength: 200) // 하단 여백
+                            Spacer(minLength: 200)
                         }
-                        .offset(y: tabGroupOffset) // 전체 콘텐츠 오프셋
-                        .animation(.easeInOut(duration: 0.25), value: tabGroupOffset) // 오프셋 애니메이션
+                        // ③ descriptionTextHeight 를 offset에 더해서 반영
+                        .offset(y: tabGroupOffset + descriptionTextHeight - 38)
+                        .animation(.easeInOut(duration: 0.25), value: descriptionTextHeight)
+                        .animation(.easeInOut(duration: 0.25), value: tabGroupOffset)
+//                        .border(Color.red, width: 1)
                     }
                 }
-                .coordinateSpace(name: "scroll") // 스크롤 좌표계 이름 지정
-                .onAppear { scrollProxy = proxy } // ScrollProxy 저장
+                .coordinateSpace(name: "scroll")
+                .onAppear { scrollProxy = proxy }
             }
 
-            // 최상단 고정 탭바 (뒤로가기 포함)
             TopTabBarView(
-                tabBarScrollOffset: viewModel.tabBarScrollOffset, // 탭바 위치 제어용 오프셋
-                brandName: brand.name, // 브랜드 이름
+                tabBarScrollOffset: viewModel.tabBarScrollOffset,
+                brandName: brand.name,
                 backAction: {
-                    print("뒤로가기 탭됨") // 뒤로가기 동작 (추후 Navigation 처리 가능)
+                    print("뒤로가기 탭됨")
                 }
             )
-            .offset(y: -85) // 상단 위치 조정
-            .zIndex(1000) // 가장 위에 렌더링되도록 설정
+            .offset(y: -85)
+            .zIndex(1000)
 
-            // 스크롤 맨 위로 이동 버튼
             ScrollToTopButton(
-                proxy: scrollProxy, // ScrollProxy 사용
-                visible: viewModel.scrollOffset > 200 // 오프셋 200 이상일 때만 표시
+                proxy: scrollProxy,
+                visible: viewModel.scrollOffset > 200
             )
-            .offset(y: -70) // 위치 조정
+            .offset(y: -70)
         }
-        .environmentObject(viewModel) // ViewModel을 자식 뷰에 주입
-        .navigationBarBackButtonHidden(true) // 기본 뒤로가기 버튼 숨김
+        .environmentObject(viewModel)
+        .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(edges: .top)
+//        .padding(.horizontal, 25)
     }
 
-    // 브랜드 정보 오버레이 위치 계산
     var overlayOffset: CGFloat {
-        min(viewModel.scrollOffset, 170) // 170까지 고정 위치, 이후 따라감
+        min(viewModel.scrollOffset, 170)
     }
 
-    // 콘텐츠 그룹 전체 오프셋 계산
     var tabGroupOffset: CGFloat {
-        min(viewModel.scrollOffset, 170) // 170까지만 이동
+        min(viewModel.scrollOffset, 170)
     }
 
-    // 탭바 위치 계산 (카테고리 탭바가 움직이는 로직에 사용 가능)
     var tabBarOffset: CGFloat {
         let offset = viewModel.categoryTabBarScrollOffset
         if offset <= 300 {
@@ -116,17 +117,16 @@ struct BrandPage: View {
         }
     }
 }
-
 // MARK: - 프리뷰용 Brand 샘플
 extension Brand {
     static let preview: Brand = Brand(
         id: UUID(),
         name: "샘플 브랜드",
         brandGenre: "캐주얼",
-        description: "이 브랜드는 모던한 감성의 캐주얼 아이템을 선보입니다.",
+        description: "좋은 코드 구성이고, 거의 다 구현이 되어 있습니다. 문제는 지금 BrandInfoOverlayView의 높이가 즉시 계산되지 않아서 발생하는 것으로 보입니다. SwiftUI의 GeometryReader와 .preference(...)는 레이아웃 사이클 후에 높이 정보를 전달하기 때문에, overlayHeight 값이 즉시 반영되지 않는 경우가 있습니다.",
         brandBannerUrl: "mockBanner1",
         brandLogoUrl: "mockLogo1",
-//        isScraped: true,
+        //        isScraped: true,
         brandHomePageUrl: "https://www.samplebrand.com",
         brandLevel: 3
     )

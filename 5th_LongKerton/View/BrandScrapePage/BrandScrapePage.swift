@@ -4,16 +4,16 @@ struct BrandScrapePage: View {
     @State private var showSecondModal = false
     @State private var offsetY: CGFloat = 0
     @GestureState private var dragOffset: CGFloat = 0
-
+    
     @StateObject private var viewModel = BrandViewModel()
     @State private var flippedID: UUID? = nil
     @State private var currentPage: Int = 0
-
+    
     @State private var selectedBrand: Brand? = nil
     @State private var showBrandPage: Bool = false
-
+    
     private let itemsPerPage = 9
-
+    
     // MARK: - 3x3 그리드 포맷을 유지한 페이지 분할
     var pagedBrands: [[Brand?]] {
         stride(from: 0, to: viewModel.brands.count, by: itemsPerPage).map { start in
@@ -24,7 +24,7 @@ struct BrandScrapePage: View {
             return slice
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .topTrailing) {
@@ -35,24 +35,25 @@ struct BrandScrapePage: View {
                     .ignoresSafeArea()
                     .opacity(0.8)
                     .offset(x: 13)
-
+                
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color.black.opacity(0.8),
-                        Color.BackgroundBlue.opacity(1.0)
+                        Color.BackgroundBlue.opacity(0.8),
+                        Color.black.opacity(0.8)
+                        
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
                 ).ignoresSafeArea()
-
+                
                 VStack {
                     Text("My 디깅함")
                         .font(.custom("Pretendard-Bold", size: 15))
                         .foregroundColor(.white)
                         .padding(.top, 20)
-
-                    Spacer().frame(height: 100)
-
+                    
+                    Spacer().frame(height: 63)
+                    
                     Button(action: {
                         showSecondModal = true
                     }) {
@@ -63,7 +64,6 @@ struct BrandScrapePage: View {
                     }
                     .padding(.bottom, 10)
                     .padding(.leading, 230)
-
                     VStack {
                         if viewModel.hasNoScrapedBrands {
                             ZStack {
@@ -74,14 +74,14 @@ struct BrandScrapePage: View {
                                     .multilineTextAlignment(.center)
                             }
                             .frame(height: 440)
+//                            .border(Color.yellow, width: 1)
                         } else {
                             TabView(selection: $currentPage) {
                                 ForEach(0..<pagedBrands.count, id: \.self) { pageIndex in
                                     let brands = pagedBrands[pageIndex]
-
-                                    VStack(spacing: 0) {
+                                    VStack {
                                         ForEach(0..<3, id: \.self) { row in
-                                            HStack(spacing: 20) {
+                                            HStack(spacing: 11) {
                                                 ForEach(0..<3, id: \.self) { col in
                                                     let index = row * 3 + col
                                                     if let brand = brands[index] {
@@ -100,38 +100,44 @@ struct BrandScrapePage: View {
                                                         Color.clear
                                                     }
                                                 }
-                                                .frame(width: 90, height: 130)
+                                                .frame(width: 99, height: 124)
+//                                                .border(Color.yellow, width: 1) // 카드 하나 하나 뷰
                                             }
-                                            .padding(.horizontal, 11)
-
+//                                            .padding(.horizontal, 11)
                                             if row < 2 {
                                                 Rectangle()
                                                     .fill(Color.white.opacity(0.3))
                                                     .frame(height: 1)
                                                     .frame(width: 360)
-                                                    .padding(.horizontal, 16)
-                                                    .padding(.vertical, 13) // 36 간격
+                                                    .padding(.top, 17)
+                                                    .padding(.bottom, 17)
                                             }
                                         }
                                     }
-                                    .padding(.vertical, 36)
+                                    .padding(.vertical, 30) // 값 맞춰주기
+                                    .padding(.top, 30)
                                     .tag(pageIndex)
                                 }
+                                .padding(.top, 0)
+//                                .border(Color.yellow, width: 1) // <------------------------
                             }
                             .tabViewStyle(.page(indexDisplayMode: .never))
-                            .frame(height: 440)
-
+//                            .border(Color.yellow, width: 1)
                             HStack(spacing: 8) {
                                 ForEach(0..<pagedBrands.count, id: \.self) { index in
                                     Circle()
-                                        .fill(index == currentPage ? Color.ScrollPoint : Color.gray.opacity(0.3))
+                                        .fill(index == currentPage ? Color.ScrollPoint : Color.nickBox)
                                         .frame(width: 8, height: 8)
                                 }
                             }
-                            .padding(.top, 8)
+                            
+//                            .padding(.bottom, 6)
                         }
+//                            .border(Color.yellow, width: 1)
                     }
-                    .padding(.vertical, 20)
+//                    .padding(.top,20)
+                    .padding(.bottom, 50)
+//                    .border(Color.yellow, width: 1) // <-----------------
                     .background(
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.clear)
@@ -150,10 +156,10 @@ struct BrandScrapePage: View {
                                     )
                                     .opacity(0.5)
                                     .blur(radius: 0.3)
-
+                                    
                                     Color.white.opacity(0.24)
                                 }
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                             )
                     )
                     .overlay(
@@ -168,11 +174,11 @@ struct BrandScrapePage: View {
                     .opacity(0.9)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 40)
-                    .padding(.bottom, 8)
-
+                    .padding(.bottom, 50)
+                    
                     Spacer()
                 }
-
+                
                 if showSecondModal {
                     SecondModalView(isVisible: $showSecondModal)
                 }

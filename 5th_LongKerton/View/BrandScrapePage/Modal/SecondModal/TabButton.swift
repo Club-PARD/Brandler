@@ -11,7 +11,7 @@ func TabButton(title: String, selected: Bool, action: @escaping () -> Void) -> s
     }) {
         VStack(spacing: 0) { // 수직 정렬 (spacing 없이 촘촘하게 배치)
             
-            Spacer().frame(height: 20) // 상단 고정 여백 (탭 내부 여백 확보용)
+            Spacer().frame(height: 15) // 상단 고정 여백 (탭 내부 여백 확보용)
             
             Text(title) // 탭 이름 텍스트
                 .font(.system(size: 12)) // 글자 크기 설정
@@ -55,3 +55,5 @@ func TabButton(title: String, selected: Bool, action: @escaping () -> Void) -> s
         )
     }
 }
+
+
