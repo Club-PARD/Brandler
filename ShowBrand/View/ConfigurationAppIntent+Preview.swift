@@ -25,3 +25,4 @@ extension ConfigurationAppIntent {
         return intent
     }
 }
+

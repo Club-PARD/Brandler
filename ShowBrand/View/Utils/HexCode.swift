@@ -77,6 +77,13 @@ extension Color {
     static let BrandCardFontColor = Color(hex: 0x9F9F9F)
     static let GuideFontColor = Color(hex: 0xCDFF5D)
     
+    
+    static let WidgetShadowColor = Color(hex: 0x9D9D9D)
+    static let WidgetFontColor = Color(hex: 0xF0F0F0)
+    
+    
+    
+    
 
     
     //BrandPage
