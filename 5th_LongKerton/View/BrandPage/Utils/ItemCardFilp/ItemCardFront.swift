@@ -6,7 +6,7 @@ struct ItemCardFront: View {
 
     var body: some View {
         // 상품 이미지를 표시
-        Image(item.productImageUrl)
+        Image(item.productImageName)
             .resizable() // 이미지 크기 조정 가능하게 설정
             .scaledToFill() // 프레임을 꽉 채우도록 비율 유지
             .frame(width: 120, height: 180) // 카드 크기 지정
@@ -17,13 +17,13 @@ struct ItemCardFront: View {
 }
 
 // MARK: - Preview
-
-#Preview {
-    // 미리보기용 테스트 카드
-    ItemCardFront(item: Product(
-        productImageUrl: "item1_1",  // ⚠️ 실제 Assets에 있는 이미지 이름 필요
-        name: "테스트 상품",           // 상품 이름
-        price: 49000,                 // 상품 가격
-        productCategory: .top         // 카테고리
-    ))
-}
+//
+//#Preview {
+//    // 미리보기용 테스트 카드
+//    ItemCardFront(item: Product(
+//        productImageUrl: "item1_1",  // ⚠️ 실제 Assets에 있는 이미지 이름 필요
+//        name: "테스트 상품",           // 상품 이름
+//        price: 49000,                 // 상품 가격
+//        productCategory: .top         // 카테고리
+//    ))
+//}

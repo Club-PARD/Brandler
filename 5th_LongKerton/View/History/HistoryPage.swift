@@ -6,6 +6,9 @@ struct HistoryPage: View {
     @State private var historyList: [BrandCard] = []
     @Environment(\.dismiss) var dismiss
 
+    // 브랜드페이지 네비게이션용 상태
+    @State private var selectedBrandId: Int? = nil
+
     private var userEmail: String {
         session.userData?.email ?? "22200843@handong.ac.kr"
     }
@@ -51,21 +54,35 @@ struct HistoryPage: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
                             ForEach(historyList, id: \.brandId) { history in
-                                HStack {
-                                    Image(history.brandLogo)
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                        .padding(.trailing, 21)
-                                    Text(history.brandName)
-                                        .font(.custom("Pretendard-SemiBold",size: 15))
-                                        .foregroundColor(.white)
+                                NavigationLink(
+                                    destination: BrandPage(brandId: history.brandId),
+                                    tag: history.brandId,
+                                    selection: $selectedBrandId
+                                ) {
+                                    HStack {
+                                        Image(history.brandLogo)
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .padding(.trailing, 21)
+                                        Text(history.brandName)
+                                            .font(.custom("Pretendard-SemiBold",size: 15))
+                                            .foregroundColor(.white)
+                                    }
+                                    .contentShape(Rectangle()) // HStack 전체 터치 가능
+                                    .onTapGesture {
+                                        selectedBrandId = history.brandId
+                                    }
                                 }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 0)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .scrollIndicators(.hidden)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 0) // ScrollView 자체는 양쪽 끝까지
                     Spacer()
                 }
             }

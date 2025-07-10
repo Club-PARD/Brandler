@@ -9,52 +9,49 @@ struct FloatingTabBarView: View {
             Button {
                 selectedTab = "main"
             } label: {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(selectedTab == "main" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 120, height: 40)
+                    .frame(width: 117, height: 37)
                     .overlay(
                         Text("HOME")
-                            .font(.system(size: 15, weight: .medium))
-                            .foregroundColor(selectedTab == "main" ? Color.white:Color.pageBlue)
+                            .font(.custom("Pretendard-Semibold",size: 12))
+                            .foregroundColor(selectedTab == "main" ? Color.white:Color("TabNameColor"))
                     )
             }
             Button {
                 selectedTab = "scrap"
             } label: {
-                ZStack {
-                    Circle()
-                        .fill(selectedTab == "scrap" ? Color.pageDarkBlue:Color.myHomeGray)
-                        .frame(width: 54, height: 54)
-                    Image(selectedTab == "scrap" ? "scrapButtonPressed" : "scrapButton")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 54, height: 54)
-                }
+                Image(selectedTab == "scrap" ? "scrapButtonPressed" : "scrapButton")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 37, height: 37)
             }
             Button{
                 selectedTab = "my"
             } label: {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(selectedTab == "my" ? Color.pageDarkBlue:Color.myHomeGray)
-                    .frame(width: 120, height: 40)
+                    .frame(width: 117, height: 37)
                     .overlay(
                         Text("MY PAGE")
-                            .font(.system(size: 15, weight: .medium))
-                            .foregroundColor(selectedTab == "my" ? Color.white:Color.pageBlue)
+                            .font(.custom("Pretendard-Semibold",size: 12))
+                            .foregroundColor(selectedTab == "my" ? Color.white:Color("TabNameColor"))
                     )
             }
         }
-        .padding(.horizontal, 35)
+        .padding(.horizontal, 19)
         .padding(.vertical, 12)
         .background(
             .ultraThinMaterial,
-            in: RoundedRectangle(cornerRadius: 32, style: .continuous)
+            in: Capsule()
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 32, style: .continuous)
+            Capsule()
                 .stroke(Color.white.opacity(0.25), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.10), radius: 8, y: 2)
         .padding(.bottom, 8)
     }
 }
+
+

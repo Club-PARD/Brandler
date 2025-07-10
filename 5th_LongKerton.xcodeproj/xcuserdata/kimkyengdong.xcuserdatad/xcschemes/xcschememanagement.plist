@@ -7,12 +7,25 @@
 		<key>5th_LongKerton.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>ShowBrandExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>31554A892E08285700B35D58</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA1C37CA2E1E7D3200F2B67B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

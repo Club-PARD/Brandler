@@ -22,11 +22,11 @@ struct CircularProgressBar: View {
     var totalSteps: Int = 5
     var lineWidth: CGFloat = 20
     var size: CGFloat = 160
-
+    
     var progress: Double {
         Double(progressSteps) / Double(totalSteps)
     }
-
+    
     var body: some View {
         ZStack {
             Circle()
@@ -55,23 +55,25 @@ struct CircularProgressBar: View {
         .frame(width: size, height: size)
     }
 }
-
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
     @StateObject private var scrapeAPI = ScrapeServerAPI()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrapedBrandList: [BrandCard] = []
     @State private var recentBrandList: [BrandCard] = []
-
+    
     @Binding var selectedTab: String
     @Binding var currentState: AppState
-
+    
     @State private var showEditInfo: Bool = false
     @State private var showHistoryPage: Bool = false
     @State private var showScrapePage: Bool = false
     @State private var showDiggingPage: Bool = false
     @State private var showSecondModal = false
-
+    
+    // 브랜드페이지 네비게이션용 상태
+    @State private var selectedBrandId: Int? = nil
+    
     var nickname: String {
         session.userData?.nickname ?? "닉넴 없음"
     }
@@ -81,22 +83,20 @@ struct UserMainView: View {
     var email: String {
         session.userData?.email ?? "22200843@handong.ac.kr"
     }
-
-    // 서버에서 받아온 스크랩 브랜드 리스트의 count 사용!
+    
     var scrapedCount: Int {
         scrapedBrandList.count
     }
-
-    // progressSteps: 1~5 범위로 변환
+    
     var progressSteps: Int {
         let capped = max(1, scrapedCount)
         return ((capped - 1) % 5) + 1
     }
-
+    
     var diggingLevel: DiggingLevel {
         getDiggingLevel(scrape: scrapedCount)
     }
-
+    
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
@@ -121,9 +121,9 @@ struct UserMainView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 18)
                     .padding(.bottom, 15)
-
+                    
                     Spacer()
-
+                    
                     ZStack{
                         // 상단 프로필 카드
                         VStack {
@@ -133,9 +133,9 @@ struct UserMainView: View {
                                     .scaledToFit()
                                     .frame(width: 100, height: 160)
                                     .padding(.leading, 24)
-
+                                
                                 Spacer().frame(width: 32)
-
+                                
                                 VStack(alignment: .leading, spacing: 24) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("닉네임")
@@ -151,12 +151,12 @@ struct UserMainView: View {
                                     }
                                     .padding(.bottom, -10)
                                     .padding(.top, 20)
-
+                                    
                                     Rectangle()
                                         .fill(Color(.systemGray4))
                                         .frame(height: 1)
                                         .padding(.vertical, 2)
-
+                                    
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("장르")
                                             .font(.custom("Pretendard-SemiBold",size: 10))
@@ -174,7 +174,7 @@ struct UserMainView: View {
                                 }
                                 .padding(.vertical, 8)
                                 .padding(.trailing, 32)
-
+                                
                                 Spacer()
                             }
                             .background(
@@ -197,11 +197,11 @@ struct UserMainView: View {
                         }
                         .padding(.horizontal, 20)
                     }
-
+                    
                     // 디깅 레벨/프로그레스
                     HStack(alignment: .center, spacing: 0) {
                         VStack(alignment: .leading) {
-
+                            
                             VStack {
                                 (
                                     Text("\(nickname)님")
@@ -212,7 +212,7 @@ struct UserMainView: View {
                                 )
                                 .foregroundColor(.white)
                             }
-
+                            
                             VStack {
                                 ZStack(alignment: .bottomLeading) {
                                     Rectangle()
@@ -258,7 +258,7 @@ struct UserMainView: View {
                     }
                     .padding(.bottom, 37)
                     .padding(.top, 33)
-
+                    
                 }.background(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -270,11 +270,11 @@ struct UserMainView: View {
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                 )
-
+                
                 VStack(spacing: 0) {
                     Spacer().frame(height: 5)
-
-                    // MY 디깅함
+                    
+                    // MY 디깅함 (네비게이션 추가)
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             Text("MY 디깅함")
@@ -293,17 +293,27 @@ struct UserMainView: View {
                         }
                         .padding(.top, 15)
                         .padding(.horizontal, 12)
-
+                        
                         Spacer().frame(height: 10)
-
+                        
                         HStack(spacing: 12) {
                             ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
-                                BrandCardVIew(brand: brandCard)
+                                NavigationLink(
+                                    destination: BrandPage(brandId: brandCard.brandId),
+                                    tag: brandCard.brandId,
+                                    selection: $selectedBrandId
+                                ) {
+                                    BrandCardVIew(brand: brandCard)
+                                        .onTapGesture {
+                                            selectedBrandId = brandCard.brandId
+                                        }
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                         .padding(.horizontal, 18)
                         .padding(.bottom, 17)
-
+                        
                         Spacer().frame(height: 8)
                     }
                     .background(
@@ -316,9 +326,9 @@ struct UserMainView: View {
                     )
                     .padding(.horizontal, 18)
                     .padding(.bottom, 12)
-
+                    
                     Spacer().frame(height: 8)
-
+                    
                     // 최근 본 브랜드 (MY 디깅함과 동일 UI)
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
@@ -339,10 +349,20 @@ struct UserMainView: View {
                         .padding(.top, 15)
                         .padding(.horizontal, 12)
                         Spacer().frame(height: 10)
-
+                        
                         HStack(spacing: 12) {
                             ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
-                                BrandCardVIew(brand: brandCard)
+                                NavigationLink(
+                                    destination: BrandPage(brandId: brandCard.brandId),
+                                    tag: brandCard.brandId,
+                                    selection: $selectedBrandId
+                                ) {
+                                    BrandCardVIew(brand: brandCard)
+                                        .onTapGesture {
+                                            selectedBrandId = brandCard.brandId
+                                        }
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                         .padding(.horizontal, 18)
@@ -358,7 +378,6 @@ struct UserMainView: View {
                             )
                     )
                     .padding(.horizontal, 18)
-
                     // 중앙 명언
                     VStack {
                         Spacer()
@@ -375,7 +394,7 @@ struct UserMainView: View {
                 .padding(.top, 20)
                 .padding(.bottom, 60)
             }
-
+            
             if showSecondModal {
                 SecondModalView(isVisible: $showSecondModal)
                     .zIndex(10)

@@ -15,7 +15,7 @@ struct SearchBrandCardView: View {
                     .fill(Color.clear)
                     .frame(width: width, height: height)
                     .background(
-                        Image(brand.brandBannerUrl)
+                        Image(brand.brandBanner)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: width, height: height)
@@ -39,13 +39,13 @@ struct SearchBrandCardView: View {
             VStack {
                 Spacer()
                 HStack(spacing: 6) {
-                    Image(brand.brandLogoUrl)
+                    Image(brand.brandLogo)
                         .resizable()
                         .frame(width: 24, height: 24)
                         .clipShape(Circle())
                         .offset(x: -7.5)
                     
-                    Text(brand.name)
+                    Text(brand.brandName)
                         .font(.custom("Pretendard-Medium", size: 17))
                         .foregroundColor(Color("BrandNameColor"))
                         .lineLimit(1)
@@ -64,12 +64,3 @@ struct SearchBrandCardView: View {
     }
 }
 
-
-//#Preview {
-//    ZStack {
-//        Color.black.ignoresSafeArea()
-//        
-//        SearchBrandCardView(brand: SearchBrand.sampleData[0])
-//    }
-//    .previewLayout(.sizeThatFits)
-//}

@@ -19,16 +19,16 @@ final class BrandViewModel: ObservableObject {
     //@Published var filteredBrands: [BrandInfo] = []
     @Published var selectedGenre: String = "전체"
     @Published var selectedCategory: Category = .all
-    @Published var items: [Product] = Product.brandItems
+//    @Published var items: [Product1] = Product.brandItems
     @Published var scrollOffset: CGFloat = 0
     @Published var debugScrollOffset: CGFloat = 0
     @Published var tabBarScrollOffset: CGFloat = 0
     @Published var categoryTabBarScrollOffset: CGFloat = 0
     @Published var brandNameWidth: CGFloat = 0
 
-    var filteredItems: [Product] {
-        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
-    }
+//    var filteredItems: [Product] {
+//        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
+//    }
 
     let bannerHeight: CGFloat = 500
     let blurredBannerHeight: CGFloat = 700
@@ -121,6 +121,9 @@ final class BrandViewModel: ObservableObject {
         }
     }
 
+    
+    
+    ///------------------
     // 서버에서 스크랩 브랜드 GET 후 Brand에 매핑
     func fetchScrapedBrandsFromServer(email: String) async {
         let api = ScrapeServerAPI()
@@ -144,17 +147,43 @@ final class BrandViewModel: ObservableObject {
     }
 
     /// 브랜드 스크랩 해제(삭제) & 서버 동기화 & 최신화
-    func unsrapeAndSync(brand: BrandCard, email: String) async {
-//        if let idx = brands.firstIndex(where: { $0.id == brand.brandId }) {
-//            brands[idx].isScraped = false
-//        }
+    func unsrapeAndSync(brand: BrandCard, email: String) async -> [BrandCard] {
         let api = ScrapeServerAPI()
+        
         await withCheckedContinuation { continuation in
             api.patchLike(email: email, brandId: brand.brandId, isScraped: false) {
                 continuation.resume()
             }
         }
-        await fetchScrapedBrandsFromServer(email: email)
+        
+        do {
+            let updated = try await api.fetchScrapedBrands(email: email)
+            return updated
+        } catch {
+            print("스크랩 리스트 가져오기 실패: \(error)")
+            return []
+        }
+    }
+}
+
+func unsrapeAndRefresh(email: String, brand: BrandCard) async -> [BrandCard] {
+    let api = ScrapeServerAPI()
+    
+    // PATCH: 스크랩 해제
+    await withCheckedContinuation { continuation in
+        api.patchLike(email: email, brandId: brand.brandId, isScraped: false) {
+            continuation.resume()
+        }
+    }
+    
+    // GET: 스크랩 리스트 다시 받아오기
+    do {
+        let updatedList = try await api.fetchScrapedBrands(email: email)
+        print("✅ 스크랩 리스트 최신화 완료")
+        return updatedList
+    } catch {
+        print("❌ 스크랩 리스트 다시 받아오기 실패: \(error)")
+        return []
     }
 }
 
