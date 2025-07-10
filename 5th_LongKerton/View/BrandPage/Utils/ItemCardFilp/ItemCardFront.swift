@@ -9,7 +9,7 @@ struct ItemCardFront: View {
         Image(item.productImageName)
             .resizable() // 이미지 크기 조정 가능하게 설정
             .scaledToFill() // 프레임을 꽉 채우도록 비율 유지
-            .frame(width: 120, height: 180) // 카드 크기 지정
+            .frame(width: 110, height: 168) // 카드 크기 지정
             .clipped() // 프레임 바깥으로 넘치는 부분 잘라냄
             .clipShape(RoundedRectangle(cornerRadius: 8)) // 모서리 둥글게
             .shadow(radius: 2) // 그림자 효과
