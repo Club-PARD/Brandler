@@ -59,6 +59,8 @@ class UserSessionManager: ObservableObject {
         let data = UserData(email: email, nickname: nickname, fashionGenre: genre)
         self.userData = data
         self.isLoggedIn = true
+        let sharedDefaults = UserDefaults(suiteName: "")
+        sharedDefaults?.set(email, forKey: "userEmail")
     }
     
     private func saveUserDataToUserDefaults() {
