@@ -81,7 +81,7 @@ struct MainPage: View {
                             HStack(spacing: 16) {
                                 ForEach(top10List, id:\.brandId){ brand in
                                     NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
-                                        BrandCardVIew(brand: brand)
+                                        BrandCardView(brand: brand)
                                     }
                                 }
                             }
