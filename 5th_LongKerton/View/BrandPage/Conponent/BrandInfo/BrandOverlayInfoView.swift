@@ -75,11 +75,11 @@ struct BrandInfoOverlayView: View {
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
 
-                    Image("Level2")
-                        .resizable()
-                        .frame(width: 27, height: 27)
-                        .offset(y:3)
-                        .alignmentGuide(.firstTextBaseline) { d in d[.bottom] }
+                    Image(brand.levelImageName) // ✅ 동적으로 레벨 이미지 불러오기
+                         .resizable()
+                         .frame(width: 27, height: 27)
+                         .offset(y: 3)
+                         .alignmentGuide(.firstTextBaseline) { d in d[.bottom] }
                 }
                 .frame(width: 255, alignment: .leading)
                 .padding(.leading, 12)
