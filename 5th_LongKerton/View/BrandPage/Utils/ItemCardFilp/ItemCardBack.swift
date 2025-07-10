@@ -12,17 +12,19 @@ struct ItemCardBack: View {
             Image(item.productImageName)
                 .resizable()
                 .scaledToFill()
+                .frame(width: 110, height: 168) // 카드 크기 지정
 
             // 반투명 그라데이션
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color.Gradient2,
+                    Color.pageBlue,
                     Color.pageBlue
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
             )
-            .opacity(0.5)
+            .opacity(0.7)
 
             // 중앙 텍스트
             VStack(spacing: 8) {

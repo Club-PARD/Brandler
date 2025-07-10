@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct DescriptionHeightPreferenceKey: PreferenceKey {
+struct DescriptionHeightPreferenceKey1: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
     }
 }
 
-struct BrandInfoOverlayView: View {
+struct BrandInfoOverlayView1: View {
     let scrollOffset: CGFloat
     let bannerHeight: CGFloat
     let brand: BrandInfo
