@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 // 레벨과 진행 단계 계산용 구조체 및 함수
@@ -5,15 +6,17 @@ struct DiggingLevel {
     let levelName: String
     let progressSteps: Int
     let totalSteps: Int = 5
+    let char: String
 }
 
 func getDiggingLevel(scrape: Int) -> DiggingLevel {
+    let char = ["퐁당1", "퐁당2","퐁당3", "퐁당4", "퐁당5"]
     let levels = ["🐚입문자 디깅러", "🐟취향 디깅러", "🪸 탐험 디깅러", "🐋 심해 디깅러", "🌊마스터 브랜들러"]
     let maxLevelIndex = levels.count - 1
     let cappedScrape = max(0, scrape) // 0부터 시작
     let levelIndex = min(cappedScrape / 5, maxLevelIndex)
     let progressSteps = cappedScrape % 5 // 0~4
-    return DiggingLevel(levelName: levels[levelIndex], progressSteps: progressSteps)
+    return DiggingLevel(levelName: levels[levelIndex], progressSteps: progressSteps, char: char[levelIndex])
 }
 
 
@@ -22,21 +25,37 @@ struct CircularProgressBar: View {
     var totalSteps: Int = 5
     var lineWidth: CGFloat = 20
     var size: CGFloat = 160
-    
+
+    // 애니메이션을 위한 상태 변수
+    @State private var animatedProgress: Double = 0
+
     var progress: Double {
         Double(progressSteps) / Double(totalSteps)
     }
-    
+
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.EditBox, lineWidth: lineWidth)
+                   .stroke(Color.EditBox, lineWidth: lineWidth)
+                   .frame(width: size, height: size)
+
+               // Outer border (just outside the main bar)
+               Circle()
+                   .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                   .frame(width: size + lineWidth, height: size + lineWidth)
+            
             Circle()
-                .trim(from: 0.0, to: progress)
+                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                .frame(width: size - lineWidth, height: size - lineWidth)
+            
+
+            Circle()
+                .trim(from: 0.0, to: animatedProgress)
                 .stroke(Color(white: 0.9),
                         style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
                 .rotationEffect(.degrees(-90))
+                .animation(.easeOut(duration: 1.0), value: animatedProgress)
             VStack(spacing: 3) {
                 Text("디깅 수")
                     .font(.custom("Pretendard-Medium",size: 10))
@@ -53,8 +72,25 @@ struct CircularProgressBar: View {
             }
         }
         .frame(width: size, height: size)
+        .onAppear {
+            // 0으로 초기화 후, 애니메이션으로 목표값까지 증가
+            animatedProgress = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                animatedProgress = progress
+            }
+        }
+        .onChange(of: progressSteps) { _ in
+            // progressSteps가 변경될 때마다 애니메이션 적용
+            animatedProgress = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                animatedProgress = progress
+            }
+        }
     }
 }
+
+
+
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
     @StateObject private var scrapeAPI = ScrapeServerAPI()
@@ -129,7 +165,7 @@ struct UserMainView: View {
                         // 상단 프로필 카드
                         VStack {
                             HStack(alignment: .center, spacing: 0) {
-                                Image("whale_char")
+                                Image(diggingLevel.char)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 100, height: 160)
@@ -191,7 +227,7 @@ struct UserMainView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color(.systemGray4), lineWidth: 2)
+                                    .stroke(Color.white.opacity(0.06), lineWidth: 1)
                             )
                             .padding(.horizontal, 8)
                             .frame(height: 220)
@@ -253,6 +289,7 @@ struct UserMainView: View {
                             totalSteps: diggingLevel.totalSteps,
                             lineWidth: 20,
                             size: 120
+
                         )
                         .padding(.trailing, 43)
                         .padding(.top, -18)
@@ -275,52 +312,65 @@ struct UserMainView: View {
                 VStack(spacing: 0) {
                     Spacer().frame(height: 5)
                     
-                    // MY 디깅함 (네비게이션 추가)
+                    //MY 디깅함
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             Text("MY 디깅함")
                                 .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
                             Spacer()
-                            Button {
-                                selectedTab = "scrap"
-                            } label: {
-                                Text("더보기")
-                                    .font(.custom("Pretendard-Medium",size: 10))
-                                    .foregroundColor(Color.myGray)
-                                    .padding(.trailing, 7)
+                            if !scrapedBrandList.isEmpty {
+                                Button {
+                                    selectedTab = "scrap"
+                                } label: {
+                                    Text("더보기")
+                                        .font(.custom("Pretendard-Medium",size: 10))
+                                        .foregroundColor(Color.myGray)
+                                        .padding(.trailing, 7)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
-                        .padding(.top, 15)
+                        .padding(.top, 11)
                         .padding(.horizontal, 12)
                         
                         Spacer().frame(height: 10)
                         
-                        
-                        HStack(spacing: 12) {
-                            ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
-                                NavigationLink(
-                                    destination: BrandPage(brandId: brandCard.brandId),
-                                    tag: brandCard.brandId,
-                                    selection: $selectedBrandId
-                                ) {
-                                    BrandCardView(brand: brandCard)
-                                        .onTapGesture {
-                                            selectedBrandId = brandCard.brandId
-                                        }
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                        if scrapedBrandList.isEmpty {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Text("디깅함이 비어있어요")
+                                    .font(.custom("Pretendard-Regular", size: 14))
+                                    .foregroundColor(.EditBox)
+                                Spacer()
                             }
+                            .padding(.bottom, 80)
+                        } else {
+                            HStack(spacing: 12) {
+                                ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
+                                    NavigationLink(
+                                        destination: BrandPage(brandId: brandCard.brandId),
+                                        tag: brandCard.brandId,
+                                        selection: $selectedBrandId
+                                    ) {
+                                        BrandCardView(brand: brandCard)
+                                            .onTapGesture {
+                                                selectedBrandId = brandCard.brandId
+                                            }
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding(.horizontal, 18)
+                            .padding(.bottom, 17)
+                            Spacer().frame(height: 8)
                         }
-                        .padding(.horizontal, 18)
-                        .padding(.bottom, 17)
-                        
-                        Spacer().frame(height: 8)
                     }
+                    .frame(height: 173)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                            .stroke(Color.white.opacity(0.06), lineWidth: 1)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.myHomeGray)
@@ -328,61 +378,77 @@ struct UserMainView: View {
                     )
                     .padding(.horizontal, 18)
                     .padding(.bottom, 12)
-                    
+
+ 
                     Spacer().frame(height: 8)
                     
-                    // 최근 본 브랜드 (MY 디깅함과 동일 UI)
+
+                    // 최근 본 브랜드
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             Text("최근 본 브랜드")
                                 .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
                             Spacer()
-                            Button {
-                                showHistoryPage = true
-                            } label: {
-                                Text("더보기")
-                                    .font(.custom("Pretendard-Medium",size: 10))
-                                    .foregroundColor(Color.myGray)
-                                    .padding(.trailing, 7)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        .padding(.top, 15)
-                        .padding(.horizontal, 12)
-                        Spacer().frame(height: 10)
-                        
-                        
-                        
-                        
-                        HStack(spacing: 12) {
-                            ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
-                                NavigationLink(
-                                    destination: BrandPage(brandId: brandCard.brandId),
-                                    tag: brandCard.brandId,
-                                    selection: $selectedBrandId
-                                ) {
-                                    BrandCardView(brand: brandCard)
-                                        .onTapGesture {
-                                            selectedBrandId = brandCard.brandId
-                                        }
+                            if !recentBrandList.isEmpty {
+                                Button {
+                                    showHistoryPage = true
+                                } label: {
+                                    Text("더보기")
+                                        .font(.custom("Pretendard-Medium",size: 10))
+                                        .foregroundColor(Color.myGray)
+                                        .padding(.trailing, 7)
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                .buttonStyle(.plain)
                             }
                         }
-                        .padding(.horizontal, 18)
-                        .padding(.bottom, 17)
-                        Spacer().frame(height: 8)
+                        .padding(.top, 11)
+                        .padding(.horizontal, 12)
+                        //Spacer().frame(height: 10)
+                        
+                        if recentBrandList.isEmpty {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Text("디깅함이 비어있어요")
+                                    .font(.custom("Pretendard-Regular", size: 14))
+                                    .foregroundColor(.EditBox)
+                                Spacer()
+                            }
+                            .padding(.bottom, 80)
+                        } else {
+                            HStack(spacing: 12) {
+                                ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
+                                    NavigationLink(
+                                        destination: BrandPage(brandId: brandCard.brandId),
+                                        tag: brandCard.brandId,
+                                        selection: $selectedBrandId
+                                    ) {
+                                        BrandCardView(brand: brandCard)
+                                            .onTapGesture {
+                                                selectedBrandId = brandCard.brandId
+                                            }
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding(.horizontal, 18)
+                            .padding(.bottom, 17)
+                            Spacer().frame(height: 8)
+                        }
                     }
+                    .frame(height: 173)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                            .stroke(Color.white.opacity(0.06), lineWidth: 1)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.myHomeGray)
                             )
                     )
                     .padding(.horizontal, 18)
+
+
                     
                     //중앙 명언
                     VStack {
