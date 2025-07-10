@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 struct OnBoardLastView: View {
@@ -9,6 +10,12 @@ struct OnBoardLastView: View {
     @EnvironmentObject var session: UserSessionManager
     @State private var isUploading = false
     @State private var showError = false
+
+    // 애니메이션 배경 관련 상태 및 상수
+    @State private var offset: CGFloat = 0
+    let imageWidth: CGFloat = 678 // height 240 기준 원본 비율
+    let imageHeight: CGFloat = 240
+    let animationDuration: Double = 10
 
     var body: some View {
         ZStack {
@@ -43,14 +50,38 @@ struct OnBoardLastView: View {
                 .padding(.leading, 24)
                 .padding(.bottom, 75)
                 
-                // 캐릭터 이미지
-                Image("charWithCir")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 160, height: 240)
-                    .padding(.leading, 55)
-                    .padding(.bottom, 20)
+                // 캐릭터 이미지 + 움직이는 배경
+                ZStack {
+                    GeometryReader { geometry in
+                        let repeats = 3 // Seamless looping
 
+                        HStack(spacing: 0) {
+                            ForEach(0..<repeats, id: \.self) { _ in
+                                Image("backgroundImage")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: imageWidth, height: imageHeight)
+                                    .clipped()
+                            }
+                        }
+                        .offset(x: offset)
+                        .frame(width: geometry.size.width, height: imageHeight)
+                        .onAppear {
+                            animateRight(imageWidth: imageWidth)
+                        }
+                    }
+                    .frame(width: imageWidth, height: imageHeight)
+                    .clipped()
+                    
+                    Image("charWithCir")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 160, height: 240)
+                        .padding(.leading, 55)
+                        .padding(.bottom, 20)
+                }
+                .frame(height: imageHeight)
+                
                 Spacer()
                 
                 // 설명 텍스트
@@ -72,7 +103,6 @@ struct OnBoardLastView: View {
                 
                 // 완료 버튼
                 Button(action: {
-                    // email은 구글 로그인 후 세션에만 임시 저장되어 있다고 가정
                     guard let email = session.userData?.email, !nickname.isEmpty, !selectedGenre.isEmpty else {
                         showError = true
                         return
@@ -86,11 +116,9 @@ struct OnBoardLastView: View {
                         DispatchQueue.main.async {
                             isUploading = false
                             if success {
-                                // POST 성공 시에만 세션 저장
                                 session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
                                 finish()
                             } else {
-                                // 실패 시 세션 저장하지 않음
                                 showError = true
                             }
                         }
@@ -119,8 +147,20 @@ struct OnBoardLastView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
+
+    // 애니메이션 함수
+    func animateRight(imageWidth: CGFloat) {
+        withAnimation(Animation.linear(duration: animationDuration)) {
+            offset = -imageWidth
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            offset = 0
+            animateRight(imageWidth: imageWidth)
+        }
+    }
 }
 
+// 프리뷰
 #Preview {
     OnBoardLastView(
         finish: {},
