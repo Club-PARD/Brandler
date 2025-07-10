@@ -305,7 +305,7 @@ struct UserMainView: View {
                                     tag: brandCard.brandId,
                                     selection: $selectedBrandId
                                 ) {
-                                    BrandCardVIew(brand: brandCard)
+                                    BrandCardView(brand: brandCard)
                                         .onTapGesture {
                                             selectedBrandId = brandCard.brandId
                                         }
@@ -362,7 +362,7 @@ struct UserMainView: View {
                                     tag: brandCard.brandId,
                                     selection: $selectedBrandId
                                 ) {
-                                    BrandCardVIew(brand: brandCard)
+                                    BrandCardView(brand: brandCard)
                                         .onTapGesture {
                                             selectedBrandId = brandCard.brandId
                                         }
