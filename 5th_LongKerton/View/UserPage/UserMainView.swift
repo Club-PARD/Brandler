@@ -10,11 +10,12 @@ struct DiggingLevel {
 func getDiggingLevel(scrape: Int) -> DiggingLevel {
     let levels = ["🐚입문자 디깅러", "🐟취향 디깅러", "🪸 탐험 디깅러", "🐋 심해 디깅러", "🌊마스터 브랜들러"]
     let maxLevelIndex = levels.count - 1
-    let cappedScrape = max(1, scrape)
-    let levelIndex = min((cappedScrape - 1) / 5, maxLevelIndex)
-    let progressSteps = ((cappedScrape - 1) % 5) + 1
+    let cappedScrape = max(0, scrape) // 0부터 시작
+    let levelIndex = min(cappedScrape / 5, maxLevelIndex)
+    let progressSteps = cappedScrape % 5 // 0~4
     return DiggingLevel(levelName: levels[levelIndex], progressSteps: progressSteps)
 }
+
 
 struct CircularProgressBar: View {
     var progressSteps: Int
@@ -86,11 +87,12 @@ struct UserMainView: View {
     var scrapedCount: Int {
         scrapedBrandList.count
     }
-    
+
     var progressSteps: Int {
-        let capped = max(1, scrapedCount)
-        return ((capped - 1) % 5) + 1
+        let capped = max(0, scrapedCount)
+        return capped % 5
     }
+    
     
     var diggingLevel: DiggingLevel {
         getDiggingLevel(scrape: scrapedCount)
@@ -295,6 +297,7 @@ struct UserMainView: View {
                         
                         Spacer().frame(height: 10)
                         
+                        
                         HStack(spacing: 12) {
                             ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
                                 NavigationLink(
@@ -349,6 +352,9 @@ struct UserMainView: View {
                         .padding(.horizontal, 12)
                         Spacer().frame(height: 10)
                         
+                        
+                        
+                        
                         HStack(spacing: 12) {
                             ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
                                 NavigationLink(
@@ -377,7 +383,8 @@ struct UserMainView: View {
                             )
                     )
                     .padding(.horizontal, 18)
-                    // 중앙 명언
+                    
+                    //중앙 명언
                     VStack {
                         Spacer()
                         Text("Fashions fade, style is eternal.\n– Yves Saint Laurent")
@@ -423,5 +430,17 @@ struct UserMainView: View {
                 }
             }
         }
+    }
+}
+
+
+
+#Preview {
+    @Previewable @State var currentState: AppState = .main
+    @Previewable @State var selectedTab: String = "home"
+    
+    return NavigationStack {
+        UserMainView(selectedTab: $selectedTab, currentState: $currentState)
+            .environmentObject(UserSessionManager.shared)
     }
 }
