@@ -40,7 +40,9 @@ struct TopTabBarView: View {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.white) // 아이콘 색상을 흰색으로 설정합니다.
                         .padding(.leading, 16)   // 왼쪽 가장자리에서 16pt 패딩을 추가합니다.
+                        
                 }
+                .offset(x: 10)
 
                 // 버튼과 브랜드 이름 사이에 유연한 공간을 추가하여 브랜드 이름을 중앙에 가깝게 밀어냅니다.
                 Spacer()
