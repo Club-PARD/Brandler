@@ -51,7 +51,7 @@ struct BrandPage: View {
 
                             GeometryReader { geo in
                                 BrandBannerView(brand: brandInfo)
-                                    .frame(width: UIScreen.main.bounds.width, height: viewModel.bannerHeight)
+                                    .frame(width: UIScreen.main.bounds.width + 10, height: viewModel.bannerHeight)
                                     .background(
                                         Color.clear.preference(
                                             key: ScrollOffsetKey.self,

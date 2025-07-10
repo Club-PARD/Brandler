@@ -97,20 +97,27 @@ final class GetBrandListViewModel: ObservableObject {
     public func getBrandInfo(_ email: String, _ brandId: Int) async throws -> BrandInfo {
         let urlString = BaseURL.baseUrl.rawValue
         guard let url = URL(string: "\(urlString)/brand/\(email)/\(brandId)") else {
+            print("❌ 잘못된 URL: \(urlString)/brand/\(email)/\(brandId)")
             throw ErrorType.invalidURL
         }
+
         let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
-            print(response)
+
+        guard let HTTPresponse = response as? HTTPURLResponse,
+              (200...299).contains(HTTPresponse.statusCode) else {
+            print("❌ 잘못된 응답: \(response)")
             throw ErrorType.invalidResponse
         }
-        
-        do{
-            let data = try JSONDecoder().decode(BrandInfo.self,from:data)
-            print("✅ connet server BrandInfo")
-            return(data)
+
+        do {
+            let brandInfo = try JSONDecoder().decode(BrandInfo.self, from: data)
+            print("✅ 서버에서 BrandInfo 성공적으로 수신")
+            return brandInfo
         } catch {
+            print("❌ 디코딩 실패: \(error.localizedDescription)")
+            if let responseBody = String(data: data, encoding: .utf8) {
+                print("📦 서버 응답 본문:\n\(responseBody)")
+            }
             throw ErrorType.networkError
         }
     }
