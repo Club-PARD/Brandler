@@ -49,13 +49,13 @@ struct SearchBarView: View {
             }
             
             Button {
-                isSearch = true
+                isSearchFocusedInternal = false // 키보드 내리기
+                onCommit()                      // ✅ 검색 실행
             } label: {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color.nickBoxStroke)
                     .padding(.trailing, 16)
-            }
-        }
+            }        }
         .frame(height: 34)
         .background(Color.nickBox)
         .cornerRadius(15)
