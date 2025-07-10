@@ -1,13 +1,6 @@
-//
-//  BrandFilterView.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 7/4/25.
-//
-
 import SwiftUI
 
-struct BrandFilterView: View{
+struct BrandFilterView: View {
     let brands: [GenreBrandCard]
     var selectedGenre: String = "전체"
     
@@ -17,11 +10,12 @@ struct BrandFilterView: View{
         : brands.filter { $0.genre == selectedGenre }
     }
     
-    var body: some View{
+    var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.fixed(173)), count: 2), spacing: 10) {
-            ForEach(filteredBrands, id:\.brandId) { (brand:GenreBrandCard) in
+            ForEach(filteredBrands, id: \.brandId) { brand in
                 NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
-                    ZStack(alignment: .bottom) {
+                    ZStack(alignment: .topTrailing) {
+                        // 카드 배경
                         Rectangle()
                             .foregroundColor(.clear)
                             .frame(width: 173, height: 252)
@@ -42,28 +36,43 @@ struct BrandFilterView: View{
                                     .frame(width: 173, height: 252)
                             )
                             .cornerRadius(12)
-                        HStack(spacing:0){
-                            Image(brand.brandLogo)
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .clipShape(Circle())
-                                .padding(.leading,3)
-                            VStack(alignment:.center){
+
+                        // ✅ 슬로건 텍스트 (우측 상단)
+                        Text(brand.slogan)
+                            .font(.system(size: 10))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.trailing)
+                            .lineLimit(2)
+                            .truncationMode(.tail)
+                            .frame(width: 120, alignment: .trailing)
+                            .padding([.top, .trailing], 8)
+
+                        // ✅ 하단 중앙 정렬된 로고 + 이름 (좌우 배치)
+                        VStack {
+                            Spacer()
+                            HStack(spacing: 6) {
+                                Image(brand.brandLogo)
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .clipShape(Circle())
+
                                 Text(brand.brandName)
                                     .font(.custom("Pretendard-Medium", size: 17))
                                     .foregroundColor(Color("BrandNameColor"))
                                     .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .frame(width:112)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .frame(width: 147, height: 31)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color("BrandGroupColor"))
+                                    .stroke(Color("BrandNameColor"), lineWidth: 2)
+                            )
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 8)
                         }
-                        .frame(width: 147, height: 31, alignment: .leading)
-                        .background(
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color("BrandGroupColor"))
-                                .stroke(Color("BrandNameColor"), lineWidth: 2)
-                        )
-                        .padding(.bottom, 8)
-                        
                     }
                 }
             }
@@ -71,7 +80,3 @@ struct BrandFilterView: View{
         .padding(0)
     }
 }
-//
-//#Preview{
-//    BrandFilterView(brands: Brand.sampleData)
-//}
