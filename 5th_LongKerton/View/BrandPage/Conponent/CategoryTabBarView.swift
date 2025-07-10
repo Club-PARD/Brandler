@@ -27,6 +27,7 @@ struct CategoryTabBarView: View {
                     Text(category.rawValue)
                         // 텍스트 뷰의 고정 크기를 너비 70pt, 높이 31pt로 지정합니다.
                         .frame(width: 70, height: 31)
+                        .font(.custom("Pretendard-Semibold",size:12))
                         // 텍스트 뷰의 배경으로 둥근 사각형을 추가합니다.
                         .background(
                             RoundedRectangle(cornerRadius: 10) // 10pt의 둥근 모서리를 가진 사각형

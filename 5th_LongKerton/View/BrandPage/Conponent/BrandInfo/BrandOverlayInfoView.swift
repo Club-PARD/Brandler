@@ -81,9 +81,6 @@ struct BrandInfoOverlayView: View {
                 Button(action: {
                     withAnimation {
                         isScraped.toggle()
-//                        if let email = session.userData?.email {
-//                            scrapeAPI.patchLike(email: email, brandId: brandId, isScraped: isScraped)
-//                        }
                     }
                 }) {
                     Image(systemName: isScraped ? "heart.fill" : "heart")
@@ -152,7 +149,7 @@ struct BrandInfoOverlayView: View {
                         )
                     }
                 }
-                .frame(maxWidth: 220, alignment: .leading)
+                .frame(maxWidth: 255, alignment: .leading)
                 .padding(.top, 12)
 
                 Button(action: {
