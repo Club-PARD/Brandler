@@ -6,8 +6,8 @@ class SearchViewModel: ObservableObject {
     @Published var isFocused: Bool = false
     @Published var selectedType: SearchType = .brand
 
-    var allBrands: [SearchBrand] = SearchBrand.sampleData
-    var allProducts: [SearchProduct] = SearchProduct.brandItems
+//    var allBrands: [SearchBrand] = SearchBrand.sampleData
+//    var allProducts: [SearchProduct] = SearchProduct.brandItems
 
     var filteredResults: [Any] {
         guard !searchText.isEmpty else { return [] }
@@ -23,6 +23,9 @@ class SearchViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    
 
     func addToRecent(_ term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -35,3 +38,8 @@ class SearchViewModel: ObservableObject {
         }
     }
 }
+
+
+
+
+

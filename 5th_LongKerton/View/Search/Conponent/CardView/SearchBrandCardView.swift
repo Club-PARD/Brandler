@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SearchBrandCardView: View {
     let brand: SearchBrand
+    
     let width: CGFloat = 173
     let height: CGFloat = 252
     let cornerRadius: CGFloat = 12
