@@ -8,11 +8,9 @@ struct OnBoardNickNameView: View {
     @EnvironmentObject var session: UserSessionManager
 
     var body: some View {
-        ZStack {
+        ZStack(alignment:.top) {
             Color.BgColor.ignoresSafeArea()
-            
             VStack(spacing: 0) {
-                Spacer().frame(height: 30)
                 
                 // 동그라미 인디케이터
                 HStack(spacing: 8) {
@@ -24,7 +22,7 @@ struct OnBoardNickNameView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 62)
-                .padding(.top, 62)
+                .padding(.top, 109)
                 
                 HStack {
                     Text("닉네임을 설정해주세요")
@@ -69,31 +67,33 @@ struct OnBoardNickNameView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 383)
                 
+                // 다음으로 버튼을 오버레이로 고정
+                VStack {
+                    Button(action: {
+                        session.updateNickname(nickname)
+                        goToNext()
+                    }) {
+                        Text("다음으로")
+                            .font(.custom("Pretendard-SemiBold",size: 16))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 80)
+                            .background(nickname.isEmpty ? Color.NextButton : Color.lastBox)
+                            .cornerRadius(100)
+                    }
+                    .disabled(nickname.isEmpty)
+                    .padding(.horizontal, 25)
+                    .padding(.bottom, 48)
+                }
+                .ignoresSafeArea(.keyboard) // Keeps button fixed even when keyboard is up
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                
                 
             }
-            .padding(.bottom, 100) // Prevents content from going under the button
+//            .padding(.bottom, 100)
 
-            // 다음으로 버튼을 오버레이로 고정
-            VStack {
-                Spacer()
-                Button(action: {
-                    session.updateNickname(nickname)
-                    goToNext()
-                }) {
-                    Text("다음으로")
-                        .font(.custom("Pretendard-SemiBold",size: 16))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, minHeight: 80)
-                        .background(nickname.isEmpty ? Color.NextButton : Color.lastBox)
-                        .cornerRadius(100)
-                }
-                .disabled(nickname.isEmpty)
-                .padding(.horizontal, 25)
-                .padding(.bottom, 6)
-            }
-            .ignoresSafeArea(.keyboard) // Keeps button fixed even when keyboard is up
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            
         }
+        .edgesIgnoringSafeArea(.top)
         .navigationBarBackButtonHidden(true)
     }
 }

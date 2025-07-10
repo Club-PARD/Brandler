@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 // 레벨과 진행 단계 계산용 구조체 및 함수
@@ -19,14 +18,12 @@ func getDiggingLevel(scrape: Int) -> DiggingLevel {
     return DiggingLevel(levelName: levels[levelIndex], progressSteps: progressSteps, char: char[levelIndex])
 }
 
-
 struct CircularProgressBar: View {
     var progressSteps: Int
     var totalSteps: Int = 5
     var lineWidth: CGFloat = 20
     var size: CGFloat = 160
 
-    // 애니메이션을 위한 상태 변수
     @State private var animatedProgress: Double = 0
 
     var progress: Double {
@@ -35,20 +32,22 @@ struct CircularProgressBar: View {
 
     var body: some View {
         ZStack {
+            // Main circular bar
             Circle()
-                   .stroke(Color.EditBox, lineWidth: lineWidth)
-                   .frame(width: size, height: size)
+                .stroke(Color.EditBox, lineWidth: lineWidth)
+                .frame(width: size, height: size)
 
-               // Outer border (just outside the main bar)
-               Circle()
-                   .stroke(Color.white.opacity(0.06), lineWidth: 1)
-                   .frame(width: size + lineWidth, height: size + lineWidth)
-            
+            // Outer border
+            Circle()
+                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                .frame(width: size + lineWidth, height: size + lineWidth)
+
+            // Inner border (optional, as in your code)
             Circle()
                 .stroke(Color.white.opacity(0.06), lineWidth: 1)
                 .frame(width: size - lineWidth, height: size - lineWidth)
-            
 
+            // Progress arc
             Circle()
                 .trim(from: 0.0, to: animatedProgress)
                 .stroke(Color(white: 0.9),
@@ -56,6 +55,9 @@ struct CircularProgressBar: View {
                 )
                 .rotationEffect(.degrees(-90))
                 .animation(.easeOut(duration: 1.0), value: animatedProgress)
+                .frame(width: size, height: size)
+
+            // Center label
             VStack(spacing: 3) {
                 Text("디깅 수")
                     .font(.custom("Pretendard-Medium",size: 10))
@@ -71,16 +73,14 @@ struct CircularProgressBar: View {
                 }
             }
         }
-        .frame(width: size, height: size)
+        .frame(width: size + lineWidth, height: size + lineWidth)
         .onAppear {
-            // 0으로 초기화 후, 애니메이션으로 목표값까지 증가
             animatedProgress = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 animatedProgress = progress
             }
         }
         .onChange(of: progressSteps) { _ in
-            // progressSteps가 변경될 때마다 애니메이션 적용
             animatedProgress = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 animatedProgress = progress
@@ -89,7 +89,7 @@ struct CircularProgressBar: View {
     }
 }
 
-
+// MARK: - UserMainView
 
 struct UserMainView: View {
     @ObservedObject private var session = UserSessionManager.shared
@@ -97,19 +97,19 @@ struct UserMainView: View {
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrapedBrandList: [BrandCard] = []
     @State private var recentBrandList: [BrandCard] = []
-    
+
     @Binding var selectedTab: String
     @Binding var currentState: AppState
-    
+
     @State private var showEditInfo: Bool = false
     @State private var showHistoryPage: Bool = false
     @State private var showScrapePage: Bool = false
     @State private var showDiggingPage: Bool = false
     @State private var showSecondModal = false
-    
+
     // 브랜드페이지 네비게이션용 상태
     @State private var selectedBrandId: Int? = nil
-    
+
     var nickname: String {
         session.userData?.nickname ?? "닉넴 없음"
     }
@@ -119,7 +119,7 @@ struct UserMainView: View {
     var email: String {
         session.userData?.email ?? "22200843@handong.ac.kr"
     }
-    
+
     var scrapedCount: Int {
         scrapedBrandList.count
     }
@@ -128,12 +128,11 @@ struct UserMainView: View {
         let capped = max(0, scrapedCount)
         return capped % 5
     }
-    
-    
+
     var diggingLevel: DiggingLevel {
         getDiggingLevel(scrape: scrapedCount)
     }
-    
+
     var body: some View {
         ZStack {
             Color.BgColor.ignoresSafeArea()
@@ -158,9 +157,9 @@ struct UserMainView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 18)
                     .padding(.bottom, 15)
-                    
+
                     Spacer()
-                    
+
                     ZStack{
                         // 상단 프로필 카드
                         VStack {
@@ -170,9 +169,9 @@ struct UserMainView: View {
                                     .scaledToFit()
                                     .frame(width: 100, height: 160)
                                     .padding(.leading, 24)
-                                
+
                                 Spacer().frame(width: 32)
-                                
+
                                 VStack(alignment: .leading, spacing: 24) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("닉네임")
@@ -188,12 +187,12 @@ struct UserMainView: View {
                                     }
                                     .padding(.bottom, -10)
                                     .padding(.top, 20)
-                                    
+
                                     Rectangle()
                                         .fill(Color(.systemGray4))
                                         .frame(height: 1)
                                         .padding(.vertical, 2)
-                                    
+
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("장르")
                                             .font(.custom("Pretendard-SemiBold",size: 10))
@@ -211,7 +210,7 @@ struct UserMainView: View {
                                 }
                                 .padding(.vertical, 8)
                                 .padding(.trailing, 32)
-                                
+
                                 Spacer()
                             }
                             .background(
@@ -234,11 +233,11 @@ struct UserMainView: View {
                         }
                         .padding(.horizontal, 20)
                     }
-                    
+
                     // 디깅 레벨/프로그레스
                     HStack(alignment: .center, spacing: 0) {
                         VStack(alignment: .leading) {
-                            
+
                             VStack {
                                 (
                                     Text("\(nickname)님")
@@ -249,7 +248,7 @@ struct UserMainView: View {
                                 )
                                 .foregroundColor(.white)
                             }
-                            
+
                             VStack {
                                 ZStack(alignment: .bottomLeading) {
                                     Rectangle()
@@ -289,14 +288,14 @@ struct UserMainView: View {
                             totalSteps: diggingLevel.totalSteps,
                             lineWidth: 20,
                             size: 120
-
                         )
+                        .id(progressSteps) // <--- 애니메이션이 항상 동작하도록!
                         .padding(.trailing, 43)
                         .padding(.top, -18)
                     }
                     .padding(.bottom, 37)
                     .padding(.top, 33)
-                    
+
                 }.background(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -308,16 +307,16 @@ struct UserMainView: View {
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                 )
-                
+
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 5)
-                    
+
                     //MY 디깅함
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack {
+                        HStack (alignment:.bottom){
                             Text("MY 디깅함")
                                 .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
+                                .padding(.bottom,1)
                             Spacer()
                             if !scrapedBrandList.isEmpty {
                                 Button {
@@ -326,16 +325,17 @@ struct UserMainView: View {
                                     Text("더보기")
                                         .font(.custom("Pretendard-Medium",size: 10))
                                         .foregroundColor(Color.myGray)
-                                        .padding(.trailing, 7)
+                                        .padding(.trailing, -1)
                                 }
                                 .buttonStyle(.plain)
                             }
                         }
-                        .padding(.top, 11)
-                        .padding(.horizontal, 12)
+                        .padding(.top, 12)
+                        .padding(.horizontal, 23)
+                        .padding(.bottom,9)
+
                         
-                        Spacer().frame(height: 10)
-                        
+
                         if scrapedBrandList.isEmpty {
                             Spacer()
                             HStack {
@@ -347,7 +347,7 @@ struct UserMainView: View {
                             }
                             .padding(.bottom, 80)
                         } else {
-                            HStack(spacing: 12) {
+                            HStack(spacing: 11) {
                                 ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
                                     NavigationLink(
                                         destination: BrandPage(brandId: brandCard.brandId),
@@ -362,9 +362,8 @@ struct UserMainView: View {
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
-                            .padding(.horizontal, 18)
+                            .padding(.horizontal, 16)
                             .padding(.bottom, 17)
-                            Spacer().frame(height: 8)
                         }
                     }
                     .frame(height: 173)
@@ -376,19 +375,19 @@ struct UserMainView: View {
                                     .fill(Color.myHomeGray)
                             )
                     )
-                    .padding(.horizontal, 18)
+                    .padding(.horizontal, 37)
                     .padding(.bottom, 12)
 
- 
-                    Spacer().frame(height: 8)
                     
+                    Spacer().frame(height: 10)
 
                     // 최근 본 브랜드
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack {
+                        HStack (alignment:.bottom){
                             Text("최근 본 브랜드")
                                 .font(.custom("Pretendard-SemiBold",size: 13))
                                 .foregroundColor(.myGray)
+                                .padding(.bottom,1)
                             Spacer()
                             if !recentBrandList.isEmpty {
                                 Button {
@@ -397,15 +396,17 @@ struct UserMainView: View {
                                     Text("더보기")
                                         .font(.custom("Pretendard-Medium",size: 10))
                                         .foregroundColor(Color.myGray)
-                                        .padding(.trailing, 7)
+                                        .padding(.trailing, -1)
+                                        
                                 }
                                 .buttonStyle(.plain)
                             }
                         }
-                        .padding(.top, 11)
-                        .padding(.horizontal, 12)
-                        //Spacer().frame(height: 10)
-                        
+                        .padding(.top, 12)
+                        .padding(.horizontal, 23)
+                        .padding(.bottom,9)
+
+
                         if recentBrandList.isEmpty {
                             Spacer()
                             HStack {
@@ -417,7 +418,7 @@ struct UserMainView: View {
                             }
                             .padding(.bottom, 80)
                         } else {
-                            HStack(spacing: 12) {
+                            HStack(spacing: 11) {
                                 ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
                                     NavigationLink(
                                         destination: BrandPage(brandId: brandCard.brandId),
@@ -432,9 +433,9 @@ struct UserMainView: View {
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
-                            .padding(.horizontal, 18)
+                            .padding(.horizontal, 16)
                             .padding(.bottom, 17)
-                            Spacer().frame(height: 8)
+                            
                         }
                     }
                     .frame(height: 173)
@@ -446,10 +447,12 @@ struct UserMainView: View {
                                     .fill(Color.myHomeGray)
                             )
                     )
-                    .padding(.horizontal, 18)
-
-
+                    .padding(.horizontal, 37)
+                    .padding(.bottom, 12)
                     
+                    
+                   
+
                     //중앙 명언
                     VStack {
                         Spacer()
@@ -466,7 +469,7 @@ struct UserMainView: View {
                 .padding(.top, 20)
                 .padding(.bottom, 60)
             }
-            
+
             if showSecondModal {
                 SecondModalView(isVisible: $showSecondModal)
                     .zIndex(10)
@@ -499,12 +502,12 @@ struct UserMainView: View {
     }
 }
 
-
+// MARK: - Preview
 
 #Preview {
     @Previewable @State var currentState: AppState = .main
     @Previewable @State var selectedTab: String = "home"
-    
+
     return NavigationStack {
         UserMainView(selectedTab: $selectedTab, currentState: $currentState)
             .environmentObject(UserSessionManager.shared)

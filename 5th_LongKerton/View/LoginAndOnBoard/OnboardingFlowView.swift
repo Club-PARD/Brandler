@@ -15,6 +15,7 @@ struct OnboardingFlowView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
+            Color.BgColor.ignoresSafeArea()
             // 온보딩 첫 화면
             OnBoardNickNameView(
                 goToNext: {
