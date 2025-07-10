@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 // 움직이는 배경 뷰: charWithCir와 동일한 크기로 반복 애니메이션
@@ -51,6 +52,12 @@ struct OnBoardLastView: View {
     @EnvironmentObject var session: UserSessionManager
     @State private var isUploading = false
     @State private var showError = false
+
+    // 애니메이션 배경 관련 상태 및 상수
+    @State private var offset: CGFloat = 0
+    let imageWidth: CGFloat = 678 // height 240 기준 원본 비율
+    let imageHeight: CGFloat = 240
+    let animationDuration: Double = 10
 
     var body: some View {
         ZStack {
@@ -186,6 +193,17 @@ struct OnBoardLastView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
+        }
+    }
+
+    // 애니메이션 함수
+    func animateRight(imageWidth: CGFloat) {
+        withAnimation(Animation.linear(duration: animationDuration)) {
+            offset = -imageWidth
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            offset = 0
+            animateRight(imageWidth: imageWidth)
         }
     }
 }

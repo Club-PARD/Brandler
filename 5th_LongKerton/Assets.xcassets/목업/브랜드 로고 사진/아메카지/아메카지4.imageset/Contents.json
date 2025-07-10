@@ -1,0 +1,25 @@
+{
+  "images" : [
+    {
+<<<<<<< HEAD:5th_LongKerton/Assets.xcassets/목업/브랜드 로고 사진/아메카지/아메카지4.imageset/Contents.json
+      "filename" : "아메카지4.jpg",
+=======
+      "filename" : "스트릿5.jpg",
+>>>>>>> 9a9ddf4b8768ee17eb3b756659d133b96ea15e52:5th_LongKerton/Assets.xcassets/목업(사진)/브랜드/스트릿/스트릿5.imageset/Contents.json
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
