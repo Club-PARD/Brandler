@@ -7,6 +7,7 @@ struct GoogleSignInView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UIViewController {
         let controller = UIViewController()
+        controller.view.backgroundColor = UIColor(named: "BgColor")
         DispatchQueue.main.async {
             let rootVC = controller.view.window?.rootViewController
                 ?? UIApplication.shared.connectedScenes

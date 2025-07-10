@@ -25,9 +25,17 @@ struct MainPage: View {
     @State private var togglemesage: Bool = false
     private var toggleGenre: Bool = false
     @State public var bannerData = [
-        Banner(imageName: "mockBanner1", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
-        Banner(imageName: "mockBanner2", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
-        Banner(imageName: "mockBanner2", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
+        Banner(imageName: "배너1번", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
+        Banner(imageName: "배너2번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
+        Banner(imageName: "배너3번", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
+        Banner(imageName: "배너4번", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
+        Banner(imageName: "배너5번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
+        Banner(imageName: "배너6번", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
+        Banner(imageName: "배너7번", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
+        Banner(imageName: "배너8번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
+        Banner(imageName: "배너9번", titleLine1: "다음 계절을 준비하는 법", titleLine2: "클릭 한 번으로 완성"),
+        Banner(imageName: "배너10번", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
+        Banner(imageName: "배너11번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요")
     ]
     
     

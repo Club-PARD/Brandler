@@ -10,7 +10,7 @@ struct KDView: View {
     @Binding var currentState: AppState
     @State var selectedTab: String = "main"
     @State var scrape: Int = 8
-
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -27,6 +27,7 @@ struct KDView: View {
                 FloatingTabBarView(selectedTab: $selectedTab)
                     .padding(.horizontal, 20)
             }
+            .animation(.easeInOut(duration: 0.4), value: selectedTab)
         }
     }
 }

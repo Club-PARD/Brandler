@@ -6,13 +6,13 @@ struct MovingBackgroundView: View {
     @State private var offset: CGFloat = 0
     let imageHeight: CGFloat = 208
     let animationDuration: Double = 10
-
+    
     var body: some View {
         GeometryReader { geometry in
             let imageWidth = geometry.size.width
             // 충분히 반복되도록 이미지 개수 계산
             let repeats = Int((imageWidth / imageHeight).rounded(.up)) + 1
-
+            
             HStack(spacing: 0) {
                 ForEach(0..<repeats, id: \.self) { _ in
                     Image("backgroundImage")
@@ -31,7 +31,7 @@ struct MovingBackgroundView: View {
         .frame(height: imageHeight)
         .clipped()
     }
-
+    
     func animateRight(imageWidth: CGFloat) {
         withAnimation(Animation.linear(duration: animationDuration)) {
             offset = -imageWidth
@@ -48,22 +48,21 @@ struct OnBoardLastView: View {
     let nickname: String
     let selectedGenre: String
     var currentStep: Int = 2 // 0, 1, 2 중 현재 단계
-
+    
     @EnvironmentObject var session: UserSessionManager
     @State private var isUploading = false
     @State private var showError = false
-
+    
     // 애니메이션 배경 관련 상태 및 상수
     @State private var offset: CGFloat = 0
     let imageWidth: CGFloat = 678 // height 240 기준 원본 비율
     let imageHeight: CGFloat = 240
     let animationDuration: Double = 10
-
+    
     var body: some View {
-        ZStack {
+        ZStack(alignment:.top){
             Color.BgColor.ignoresSafeArea()
             VStack(spacing: 0) {
-                Spacer().frame(height: 30)
                 
                 // 진행 바
                 HStack(spacing: 8) {
@@ -75,7 +74,7 @@ struct OnBoardLastView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 62)
-                .padding(.top, 62)
+                .padding(.top, 109)
                 
                 // 환영 메시지
                 HStack {
@@ -92,7 +91,7 @@ struct OnBoardLastView: View {
                     Spacer()
                 }
                 .padding(.leading, 24)
-                .padding(.bottom, 66)
+                .padding(.bottom, 61)
                 
                 // 캐릭터 이미지 + 움직이는 배경
                 ZStack {
@@ -107,7 +106,7 @@ struct OnBoardLastView: View {
                 .padding(.top, 0)
                 
                 // 설명 텍스트
-                VStack(alignment: .center, spacing: 8) {
+                VStack(alignment: .center) {
                     Text("좋아하는 브랜드를 발견하고 모으는 사람.")
                         .font(.custom("Pretendard-SemiBold", size: 16))
                         .foregroundColor(.lastTxt)
@@ -140,11 +139,10 @@ struct OnBoardLastView: View {
                         .font(.custom("Pretendard-SemiBold", size: 16))
                         .foregroundColor(.lastTxt)
                 }
-                
-                .kerning(-0.45)
                 .lineSpacing(4.8)
+                .kerning(-0.45)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
+                .frame(width:295 ,height:105)
                 .padding(.top, 0)
                 .padding(.bottom, 80)
                 
@@ -186,16 +184,18 @@ struct OnBoardLastView: View {
                     }
                 }
                 .padding(.horizontal, 25)
-                .padding(.bottom, 6)
+                .padding(.bottom, 48)
                 .disabled(isUploading)
                 .alert(isPresented: $showError) {
                     Alert(title: Text("오류"), message: Text("유저 정보 업로드에 실패했습니다.\n네트워크 상태를 확인해주세요."), dismissButton: .default(Text("확인")))
                 }
+                
             }
+            .edgesIgnoringSafeArea(.top)
             .navigationBarBackButtonHidden(true)
         }
     }
-
+    
     // 애니메이션 함수
     func animateRight(imageWidth: CGFloat) {
         withAnimation(Animation.linear(duration: animationDuration)) {
