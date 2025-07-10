@@ -21,7 +21,7 @@ struct SearchProductCardView: View {
                     .fill(Color.clear)
                     .frame(width: width, height: height)
                     .background(
-                        Image(product.productImageUrl)
+                        Image(product.productImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: width, height: height)
@@ -43,7 +43,7 @@ struct SearchProductCardView: View {
 
             // ✅ 상품명 + 가격 텍스트
             VStack(alignment: .center, spacing: 10) {
-                Text(product.name)
+                Text(product.productName)
                     .font(.custom("Pretendard-Medium", size: 12))
                     .foregroundColor(.white)
                     .opacity(1.0)
@@ -58,7 +58,7 @@ struct SearchProductCardView: View {
                             .stroke(Color.white, lineWidth: 1) // 테두리
                             .opacity(0.3)
                     )
-
+                
                 Text("KRW \(product.price.formatted())원")
                     .font(.custom("Pretendard-Regular", size: 12))
                     .foregroundColor(.white)
@@ -72,11 +72,11 @@ struct SearchProductCardView: View {
     }
 }
 
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-
-        SearchProductCardView(product: SearchProduct.brandItems[0])
-    }
-    .previewLayout(.sizeThatFits)
-}
+//#Preview {
+//    ZStack {
+//        Color.black.ignoresSafeArea()
+//
+//        SearchProductCardView(product: SearchProduct.brandItems[0])
+//    }
+//    .previewLayout(.sizeThatFits)
+//}

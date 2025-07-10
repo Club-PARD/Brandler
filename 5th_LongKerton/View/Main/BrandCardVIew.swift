@@ -1,15 +1,8 @@
-//
-//  BestBrandCardVIew.swift
-//  5th_LongKerton
-//
-//  Created by Kim Kyengdong on 7/3/25.
-//
-
 import SwiftUI
 
-struct BrandCardVIew:View {
+struct BrandCardVIew: View {
     var brand: BrandCard
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             Rectangle()
@@ -32,21 +25,24 @@ struct BrandCardVIew:View {
                         .frame(width: 99, height: 124)
                 )
                 .cornerRadius(12)
-            HStack{
+
+            HStack {
                 Image(brand.brandLogo)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)
                     .clipShape(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(.white.opacity(0.3), lineWidth: 1)
-                    )
-                Text(brand.brandName)
-                    .font(.custom("Pretendard-Medium", size: 10))
-                    .foregroundColor(Color("BrandNameColor"))
-                    .frame(minWidth: 64, maxWidth: 64, maxHeight: .infinity, alignment: .leading)
-                    .lineLimit(1)
+                    .padding(1)
+
+                VStack(alignment: .center) {
+                    Text(brand.brandName)
+                        .font(.custom("Pretendard-Medium", size: 10))
+                        .foregroundColor(Color("BrandNameColor"))
+                        .lineLimit(1) // ✅ 한 줄로 제한
+                        .truncationMode(.tail) // ✅ 넘칠 경우 ... 처리
+                        .allowsTightening(true) // ✅ 글자 간격 자동 조정 허용
+                        .frame(width: 49, alignment: .leading) // ✅ 고정 너비 설정
+                }
             }
             .frame(width: 81, height: 16, alignment: .leading)
             .background(
@@ -58,12 +54,6 @@ struct BrandCardVIew:View {
                     .stroke(Color("BrandNameColor"), lineWidth: 1)
             )
             .padding(.bottom, 8)
-            
         }
     }
-    
 }
-//
-//#Preview{
-//    BrandCardVIew(brand: .sampleData[1])
-//}

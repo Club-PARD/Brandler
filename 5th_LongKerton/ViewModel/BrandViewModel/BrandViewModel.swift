@@ -1,3 +1,4 @@
+
 import SwiftUI
 import Foundation
 
@@ -6,28 +7,28 @@ enum Category: String, CaseIterable, Identifiable {
     case top = "상의"
     case bottom = "하의"
     case accessory = "악세사리"
-
     var id: String { rawValue }
 }
 
+@MainActor
 final class BrandViewModel: ObservableObject {
+    @Published var brandCards: [BrandCard]?
+    @Published var brandInfos: [BrandInfo]?
     @Published var brands: [Brand] = Brand.sampleData
     @Published var filteredBrands: [Brand] = []
+    //@Published var filteredBrands: [BrandInfo] = []
     @Published var selectedGenre: String = "전체"
-
     @Published var selectedCategory: Category = .all
-    @Published var items: [Product] = Product.brandItems
-
+//    @Published var items: [Product1] = Product.brandItems
     @Published var scrollOffset: CGFloat = 0
     @Published var debugScrollOffset: CGFloat = 0
     @Published var tabBarScrollOffset: CGFloat = 0
     @Published var categoryTabBarScrollOffset: CGFloat = 0
+    @Published var brandNameWidth: CGFloat = 0
 
-    @Published var brandNameWidth: CGFloat = 0  // ✅ 추가됨
-
-    var filteredItems: [Product] {
-        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
-    }
+//    var filteredItems: [Product] {
+//        selectedCategory == .all ? items : items.filter { $0.productCategory.rawValue == selectedCategory.rawValue }
+//    }
 
     let bannerHeight: CGFloat = 500
     let blurredBannerHeight: CGFloat = 700
@@ -71,16 +72,16 @@ final class BrandViewModel: ObservableObject {
     }
 
     func deleteBrand(_ brand: Brand) {
-        brands.removeAll { $0.id == brand.id }
-        filterBrands()
-    }
+            brands.removeAll { $0.id == brand.id }
+            filterBrands()
+        }
 
     var hasNoScrapedBrands: Bool {
-        brands.isEmpty
+        brands.filter { $0.isScraped }.isEmpty
     }
 
     var diggingCount: Int {
-        brands.count
+        brands.filter { $0.isScraped }.count
     }
 
     var diggingDistanceInKM: Double {
@@ -118,6 +119,71 @@ final class BrandViewModel: ObservableObject {
         } else {
             return (distance - lower) / 2.0
         }
+    }
+
+    
+    
+    ///------------------
+    // 서버에서 스크랩 브랜드 GET 후 Brand에 매핑
+    func fetchScrapedBrandsFromServer(email: String) async {
+        let api = ScrapeServerAPI()
+        do {
+            let scrapedBrandCards = try await api.fetchScrapedBrands(email: email)
+            var updatedBrands = Brand.sampleData.map { brand in
+                var mutableBrand = brand
+                mutableBrand.isScraped = false
+                return mutableBrand
+            }
+            for card in scrapedBrandCards {
+                if let index = updatedBrands.firstIndex(where: { $0.id == card.brandId }) {
+                    updatedBrands[index].isScraped = true
+                }
+            }
+//            self.brands = updatedBrands
+//            self.filterBrands()
+        } catch {
+            print("Failed to fetch scraped brands: \(error)")
+        }
+    }
+
+    /// 브랜드 스크랩 해제(삭제) & 서버 동기화 & 최신화
+    func unsrapeAndSync(brand: BrandCard, email: String) async -> [BrandCard] {
+        let api = ScrapeServerAPI()
+        
+        await withCheckedContinuation { continuation in
+            api.patchLike(email: email, brandId: brand.brandId, isScraped: false) {
+                continuation.resume()
+            }
+        }
+        
+        do {
+            let updated = try await api.fetchScrapedBrands(email: email)
+            return updated
+        } catch {
+            print("스크랩 리스트 가져오기 실패: \(error)")
+            return []
+        }
+    }
+}
+
+func unsrapeAndRefresh(email: String, brand: BrandCard) async -> [BrandCard] {
+    let api = ScrapeServerAPI()
+    
+    // PATCH: 스크랩 해제
+    await withCheckedContinuation { continuation in
+        api.patchLike(email: email, brandId: brand.brandId, isScraped: false) {
+            continuation.resume()
+        }
+    }
+    
+    // GET: 스크랩 리스트 다시 받아오기
+    do {
+        let updatedList = try await api.fetchScrapedBrands(email: email)
+        print("✅ 스크랩 리스트 최신화 완료")
+        return updatedList
+    } catch {
+        print("❌ 스크랩 리스트 다시 받아오기 실패: \(error)")
+        return []
     }
 }
 

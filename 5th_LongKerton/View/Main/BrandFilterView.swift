@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct BrandFilterView: View{
-    let brands: [Brand]
+    let brands: [GenreBrandCard]
     var selectedGenre: String = "전체"
     
-    var filteredBrands: [Brand] {
+    var filteredBrands: [GenreBrandCard] {
         selectedGenre == "전체"
         ? brands
-        : brands.filter { $0.brandGenre == selectedGenre }
+        : brands.filter { $0.genre == selectedGenre }
     }
     
     var body: some View{
         LazyVGrid(columns: Array(repeating: GridItem(.fixed(173)), count: 2), spacing: 10) {
-            ForEach(filteredBrands) { brand in
-                NavigationLink(destination: BrandPage(brand: brand)) {
+            ForEach(filteredBrands, id:\.brandId) { (brand:GenreBrandCard) in
+                NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
                     ZStack(alignment: .bottom) {
                         Rectangle()
                             .foregroundColor(.clear)
@@ -36,20 +36,20 @@ struct BrandFilterView: View{
                                 )
                             )
                             .background(
-                                Image(brand.brandBannerUrl)
+                                Image(brand.brandBanner)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 173, height: 252)
                             )
                             .cornerRadius(12)
                         HStack(spacing:0){
-                            Image(brand.brandLogoUrl)
+                            Image(brand.brandLogo)
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .clipShape(Circle())
                                 .padding(.leading,3)
                             VStack(alignment:.center){
-                                Text(brand.name)
+                                Text(brand.brandName)
                                     .font(.custom("Pretendard-Medium", size: 17))
                                     .foregroundColor(Color("BrandNameColor"))
                                     .lineLimit(1)
@@ -71,7 +71,7 @@ struct BrandFilterView: View{
         .padding(0)
     }
 }
-
-#Preview{
-    BrandFilterView(brands: Brand.sampleData)
-}
+//
+//#Preview{
+//    BrandFilterView(brands: Brand.sampleData)
+//}

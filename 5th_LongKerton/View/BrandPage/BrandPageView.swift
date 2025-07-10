@@ -1,127 +1,143 @@
 import SwiftUI
 
 struct BrandPage: View {
+    let brandId: Int
+    @State private var brandInfo: BrandInfo?
+    @State private var productList: [Product] = []
+    
     @StateObject private var viewModel = BrandViewModel()
+    @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
     @Environment(\.dismiss) var dismiss
-    var brand: Brand
-
     @State private var descriptionTextHeight: CGFloat = 0
-    @StateObject private var scrapeAPI: ScrapeServerAPI
+
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
-    @Environment(\.scenePhase) private var scenePhase // ⭐️ scenePhase 감지
-
-    init(brand: Brand) {
-        self.brand = brand
-        _scrapeAPI = StateObject(wrappedValue: ScrapeServerAPI(brand: brand))
-    }
+    @Environment(\.scenePhase) private var scenePhase
+    // ✅ 일반 인스턴스로 생성
+    private let scrapeAPI = ScrapeServerAPI()
 
     var body: some View {
         ZStack(alignment: .top) {
             Color.BgColor.ignoresSafeArea()
 
-            ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(spacing: 0) {
-                        Color.clear.frame(height: 0).id("top")
-                        GeometryReader { geo in
-                            BrandBannerView(brand: brand)
-                                .frame(height: viewModel.bannerHeight)
-                                .background(
-                                    Color.clear.preference(
-                                        key: ScrollOffsetKey.self,
-                                        value: -geo.frame(in: .named("scroll")).minY
-                                    )
-                                )
-                        }
-                        .frame(height: viewModel.bannerHeight)
-                        .onPreferenceChange(ScrollOffsetKey.self) { offset in
-                            viewModel.updateScrollOffset(offset)
-                        }
-
-                        // ⭐️ isScraped를 @Binding으로 전달
-                        BrandInfoOverlayView(
-                            scrollOffset: viewModel.scrollOffset,
-                            bannerHeight: viewModel.bannerHeight,
-                            brand: brand,
-                            brandId: brand.id,
-                            isScraped: $isScraped,
-                            onDescriptionHeightChange: { height in
-                                descriptionTextHeight = height
-                            }
-                        )
-                        .offset(x: 10,y: overlayOffset + 250)
-                        .padding(.top, -viewModel.bannerHeight + 40)
-                        .animation(.easeInOut(duration: 0.25), value: overlayOffset)
-                        .padding(.bottom, 15)
-//                        .padding(.horizontal, 20)
-
+            if let brandInfo = brandInfo {
+                ScrollViewReader { proxy in
+                    ScrollView {
                         VStack(spacing: 0) {
-                            CategoryTabBarView(selected: $viewModel.selectedCategory)
-                                .padding(.vertical, 12)
-                                .frame(height: 30)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.BgColor)
-                                .padding(.horizontal, 15)
+                            Color.clear.frame(height: 0).id("top")
+                            GeometryReader { geo in
+                                BrandBannerView(brand: brandInfo)
+                                    .frame(height: viewModel.bannerHeight)
+                                    .background(
+                                        Color.clear.preference(
+                                            key: ScrollOffsetKey.self,
+                                            value: -geo.frame(in: .named("scroll")).minY
+                                        )
+                                    )
+                            }
+                            .frame(height: viewModel.bannerHeight)
+                            .onPreferenceChange(ScrollOffsetKey.self) { offset in
+                                viewModel.updateScrollOffset(offset)
+                            }
 
-                            ItemGridView().padding(.bottom, 50).padding(.horizontal, 10)
+                            BrandInfoOverlayView(
+                                scrollOffset: viewModel.scrollOffset,
+                                bannerHeight: viewModel.bannerHeight,
+                                brand: brandInfo,
+                                brandId: brandInfo.id,
+                                isScraped: $isScraped,
+                                onDescriptionHeightChange: { height in
+                                    descriptionTextHeight = height
+                                }
+                            )
+                            .offset(x: 10, y: overlayOffset + 250)
+                            .padding(.top, -viewModel.bannerHeight + 40)
+                            .animation(.easeInOut(duration: 0.25), value: overlayOffset)
+                            .padding(.bottom, 15)
 
-                            Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
-                                .font(.custom("Pretendard-Regular", size: 12))
-                                .foregroundColor(Color.TabPurple)
-                                .multilineTextAlignment(.center)
+                            VStack(spacing: 0) {
+                                CategoryTabBarView(selected: $viewModel.selectedCategory)
+                                    .padding(.vertical, 12)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.BgColor)
+                                    .padding(.horizontal, 15)
 
-                            Spacer(minLength: 200)
+                                ItemGridView(items:productList)
+                                    .padding(.bottom, 50)
+                                    .padding(.horizontal, 10)
+
+                                Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
+                                    .font(.custom("Pretendard-Regular", size: 12))
+                                    .foregroundColor(Color.TabPurple)
+                                    .multilineTextAlignment(.center)
+
+                                Spacer(minLength: 200)
+                            }
+                            .offset(y: tabGroupOffset + descriptionTextHeight - 38)
+                            .animation(.easeInOut(duration: 0.25), value: descriptionTextHeight)
+                            .animation(.easeInOut(duration: 0.25), value: tabGroupOffset)
                         }
-                        .offset(y: tabGroupOffset + descriptionTextHeight - 38)
-                        .animation(.easeInOut(duration: 0.25), value: descriptionTextHeight)
-                        .animation(.easeInOut(duration: 0.25), value: tabGroupOffset)
+                    }
+                    .coordinateSpace(name: "scroll")
+                    .onAppear {
+                        scrollProxy = proxy
                     }
                 }
-                .coordinateSpace(name: "scroll")
-                .onAppear { scrollProxy = proxy }
+
+                TopTabBarView(
+                    tabBarScrollOffset: viewModel.tabBarScrollOffset,
+                    brandName: brandInfo.brandName
+                )
+                .offset(y: -10)
+                .zIndex(1000)
+
+                ScrollToTopButton(
+                    proxy: scrollProxy,
+                    visible: viewModel.scrollOffset > 200
+                )
+                .offset(y: -70)
+            } else {
+                ProgressView("브랜드 정보를 불러오는 중...")
+                    .foregroundColor(.gray)
             }
-
-            TopTabBarView(
-                tabBarScrollOffset: viewModel.tabBarScrollOffset,
-                brandName: brand.name,
-            )
-            .offset(y: -10)
-            .zIndex(1000)
-
-            ScrollToTopButton(
-                proxy: scrollProxy,
-                visible: viewModel.scrollOffset > 200
-            )
-            .offset(y: -70)
         }
         .environmentObject(viewModel)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .top)
         .onAppear {
-            // ⭐️ 서버에서 좋아요 상태 GET
-            if let email = session.userData?.email {
-                scrapeAPI.fetchIsScraped(email: email, brandId: brand.id) { result in
-                    DispatchQueue.main.async {
-                        if let isScraped = result {
-                            self.isScraped = isScraped
+            Task {
+                if let email = session.userData?.email {
+                    do {
+                        let fetched = try await getViewModel.getBrandInfo(email, brandId)
+                        self.brandInfo = fetched
+                        
+                        let products = try await getViewModel.getProductInfo(brandId)
+                        self.productList = products
+                        
+                        scrapeAPI.fetchIsScraped(email: email, brandId: brandId) { result in
+                            DispatchQueue.main.async {
+                                self.isScraped = result ?? false
+                            }
                         }
+                    } catch {
+                        print("❌ 브랜드 정보 로딩 실패: \(error)")
                     }
                 }
             }
         }
         .onDisappear {
-            // ⭐️ 페이지에서 나갈 때 PATCH 호출
-            if let email = session.userData?.email {
-                scrapeAPI.patchLike(email: email, brandId: brand.id, isScraped: isScraped)
+            if let email = session.userData?.email,
+               let brandInfo = brandInfo {
+                scrapeAPI.patchLike(email: email, brandId: brandInfo.id, isScraped: isScraped)
             }
         }
-        // ⭐️ scenePhase 감지로 백그라운드 진입 시 PATCH 호출
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            if newPhase == .background || newPhase == .inactive {
-                if let email = session.userData?.email {
-                    scrapeAPI.patchLike(email: email, brandId: brand.id, isScraped: isScraped)
+        .onChange(of: scenePhase) { _, new in
+            if new == .background || new == .inactive {
+                if let email = session.userData?.email,
+                   let brandInfo = brandInfo {
+                    scrapeAPI.patchLike(email: email, brandId: brandInfo.id, isScraped: isScraped)
                 }
             }
         }
@@ -151,7 +167,7 @@ extension Brand {
 }
 
 // MARK: - BrandPage 프리뷰
-#Preview {
-    BrandPage(brand: .preview)
-        .environmentObject(UserSessionManager.shared)
-}
+//#Preview {
+//    BrandPage(brand: .preview)
+//        .environmentObject(UserSessionManager.shared)
+//}

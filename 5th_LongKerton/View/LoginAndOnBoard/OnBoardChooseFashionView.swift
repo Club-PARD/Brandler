@@ -10,7 +10,7 @@ struct OnBoardChooseFashionView: View {
     let genres = [
         ["아메카지", "스트릿", "빈티지"],
         ["히피", "포멀", "페미닌"],
-        ["캐주얼", "테크", "기타"]
+        ["캐주얼", "테크웨어", "기타"]
     ]
 
     var body: some View {
@@ -89,7 +89,7 @@ struct OnBoardChooseFashionView: View {
                         .font(.custom("Pretendard-SemiBold",size: 16))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 80)
-                        .background(Color.NextButton)
+                        .background(selectedGenre.isEmpty ? Color.NextButton : Color.lastBox)
                         .cornerRadius(100)
                 }
                 .padding(.horizontal, 25)

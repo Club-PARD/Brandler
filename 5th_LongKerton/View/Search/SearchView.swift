@@ -1,6 +1,5 @@
 import SwiftUI
 
-// MARK: - SearchView
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @Environment(\.dismiss) var dismiss
@@ -29,7 +28,7 @@ struct SearchView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
 
-                // SearchBarView 내부에서 최근 검색어와 검색 결과 UI까지 모두 관리
+                // ✅ SearchBarView 안에서 검색 실행 포함
                 SearchBarView(
                     searchText: $viewModel.searchText,
                     isSearch: $isSearching,
@@ -39,9 +38,12 @@ struct SearchView: View {
                     filteredResults: viewModel.filteredResults,
                     hasSearched: $hasSearched,
                     onCommit: {
-                        viewModel.addToRecent(viewModel.searchText)
-                        viewModel.isFocused = false
-                        hasSearched = true
+                        Task {
+                            viewModel.addToRecent(viewModel.searchText)
+                            viewModel.isFocused = false
+                            hasSearched = true
+                            await viewModel.search() // ✅ 검색 실행
+                        }
                     }
                 )
 
@@ -50,12 +52,10 @@ struct SearchView: View {
             .onTapGesture {
                 viewModel.isFocused = false
             }
-            
             .navigationBarBackButtonHidden()
         }
     }
 }
-
 #Preview {
     SearchView()
 }

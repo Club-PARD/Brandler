@@ -13,7 +13,9 @@ struct MainPage: View {
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var top10List: [BrandCard] = []
+    @State private var sortedList: [GenreBrandCard] = []
     
+    let email: String = ""
     ////    @StateObject private var brandModel = BrandViewModel()
     //@State public var selectedGenre: String = "빈티지"
     @State public var selectedGenre: String = UserSessionManager.shared.userData?.fashionGenre ?? "전체"
@@ -78,10 +80,10 @@ struct MainPage: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 ForEach(top10List, id:\.brandId){ brand in
-//브랜드 페이지 ID로 접근                                    NavigationLink(destination: BrandPage(brand: brand)) {
+                                    NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
                                         BrandCardVIew(brand: brand)
                                     }
-//                                }
+                                }
                             }
                         }
                         .padding(.leading, 20)
@@ -118,7 +120,7 @@ struct MainPage: View {
                             .padding(.trailing,20)
                             
                             ZStack (alignment: .topTrailing){
-                                BrandFilterView(brands: viewModel.brands, selectedGenre: selectedGenre)
+                                BrandFilterView(brands: sortedList, selectedGenre: selectedGenre)
                                     .padding(.horizontal, 20)
                                 if togglemesage {
                                     ZStack(alignment:.topTrailing){
@@ -151,6 +153,9 @@ struct MainPage: View {
             .task{
                 do{
                     top10List = try await getViewModel.getTop10List()
+                    if let email = session.userData?.email {
+                        sortedList = try await getViewModel.getSortedList(email)
+                    }
                 } catch {
                     print("❌ Get Error: \(error)")
                 }

@@ -2,12 +2,12 @@ import SwiftUI // SwiftUI 프레임워크를 가져옵니다
 
 // MARK: - 브랜드 카드 앞면 뷰
 struct BrandCardFront: View {
-    let brand: Brand // 표시할 브랜드 정보
+    let brand: BrandCard // 표시할 브랜드 정보
 
     var body: some View {
         ZStack {
             // 배경 배너 이미지 표시
-            Image(brand.brandBannerUrl)
+            Image(brand.brandBanner)
                 .resizable() // 이미지 크기 조정 가능
                 .scaledToFill() // 프레임을 꽉 채우도록 비율 맞춤
                 .frame(width: 99, height: 124) // 고정 크기
@@ -32,14 +32,14 @@ struct BrandCardFront: View {
 
                 HStack(spacing: 6) {
                     // 브랜드 로고 (원형 + 테두리)
-                    Image(brand.brandLogoUrl)
+                    Image(brand.brandLogo)
                         .resizable() // 크기 조절
                         .frame(width: 14, height: 14) // 작게 표시
                         .clipShape(Circle()) // 원형 마스크
                         .overlay(Circle().stroke(Color.white, lineWidth: 1)) // 흰색 테두리
 
                     // 브랜드 이름 텍스트
-                    Text(brand.name)
+                    Text(brand.brandName)
                         .font(.system(size: 10, weight: .medium)) // 작은 크기의 보통 굵기
                         .foregroundColor(Color.BrandCardFontColor) // 사용자 정의 색상
                         .lineLimit(1) // 한 줄로 제한

@@ -14,3 +14,13 @@ struct BrandCard: Hashable, Codable{
     let brandBanner: String
     let slogan : String
 }
+
+struct GenreBrandCard: Identifiable, Hashable, Codable{
+    var id: Int {brandId}
+    let brandId : Int
+    let brandName: String
+    let brandLogo: String
+    let brandBanner: String
+    let genre: String
+    let slogan : String
+}

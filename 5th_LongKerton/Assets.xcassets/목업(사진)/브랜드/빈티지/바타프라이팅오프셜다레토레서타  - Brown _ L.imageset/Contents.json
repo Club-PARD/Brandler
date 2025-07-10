@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "바타프라이팅오프셜다레토레서타  - Brown _ L.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

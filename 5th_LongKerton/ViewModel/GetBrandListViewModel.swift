@@ -28,25 +28,29 @@ final class GetBrandListViewModel: ObservableObject {
         }
     }
     
-//    public func getSortedList(_ email: String ) async throws -> [BrandCard] {
-//        let urlString = BaseURL.baseUrl.rawValue
-//        guard let url = URL(string: "\(urlString)/sort/\(email)") else {
-//            throw ErrorType.invalidURL
-//        }
-//        let (data, response) = try await URLSession.shared.data(from: url)
-//        
-//        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
-//            throw ErrorType.invalidResponse
-//        }
-//        
-//        do{
-//            let data = try JSONDecoder().decode([BrandCard].self,from:data)
-//            print("✅ connet server sorted")
-//            return(data)
-//        } catch {
-//            throw ErrorType.networkError
-//        }
-//    }
+    public func getSortedList(_ email: String ) async throws -> [GenreBrandCard] {
+        let urlString = BaseURL.baseUrl.rawValue
+        guard let url = URL(string: "\(urlString)/brands/sort/\(email)") else {
+            print("❌ response server sorted \(urlString)/brands/sort/\(email)")
+            throw ErrorType.invalidURL
+        }
+            
+        let (data, response) = try await URLSession.shared.data(from: url)
+        let responseBody = String(data: data, encoding: .utf8) ?? "본문 없음"
+        
+        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
+            print("📦 서버 응답 본문: \(responseBody)")
+            throw ErrorType.invalidResponse
+        }
+        
+        do{
+            let data = try JSONDecoder().decode([GenreBrandCard].self,from:data)
+            print("✅ connet server sorted")
+            return(data)
+        } catch {
+            throw ErrorType.networkError
+        }
+    }
     
     public func getRecentList(_ email: String) async throws -> [BrandCard] {
         let urlString = BaseURL.baseUrl.rawValue
@@ -89,4 +93,50 @@ final class GetBrandListViewModel: ObservableObject {
             throw ErrorType.networkError
         }
     }
+    
+    public func getBrandInfo(_ email: String, _ brandId: Int) async throws -> BrandInfo {
+        let urlString = BaseURL.baseUrl.rawValue
+        guard let url = URL(string: "\(urlString)/brand/\(email)/\(brandId)") else {
+            throw ErrorType.invalidURL
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
+            print(response)
+            throw ErrorType.invalidResponse
+        }
+        
+        do{
+            let data = try JSONDecoder().decode(BrandInfo.self,from:data)
+            print("✅ connet server BrandInfo")
+            return(data)
+        } catch {
+            throw ErrorType.networkError
+        }
+    }
+    
+    public func getProductInfo(_ brandId: Int) async throws -> [Product] {
+        let urlString = BaseURL.baseUrl.rawValue
+        guard let url = URL(string: "\(urlString)/products/\(brandId)") else {
+            print("\(urlString)/products/\(brandId)")
+            throw ErrorType.invalidURL
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let HTTPresponse = response as? HTTPURLResponse, (200...299).contains(HTTPresponse.statusCode) else {
+            print(response)
+            throw ErrorType.invalidResponse
+        }
+        
+        do{
+            let data = try JSONDecoder().decode([Product].self,from:data)
+            print("✅ connet server ProductInfo\n\(data)")
+            return(data)
+        } catch {
+            print("❌ 디코딩 실패: \(error.localizedDescription)")
+            print("❌ 받은 raw JSON:\n" + (String(data: data, encoding: .utf8) ?? "nil"))
+            throw ErrorType.networkError
+        }
+    }
+    
 }

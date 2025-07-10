@@ -146,40 +146,4 @@ struct SearchBarView: View {
     }
 }
 
-#Preview {
-    SearchBarPreviewContainer()
-}
 
-
-private struct SearchBarPreviewContainer: View {
-    @State private var searchText = "오버사이즈"
-    @State private var isSearch = true
-    @State private var recentSearches = ["오버사이즈 후디", "테크 조거 팬츠", "레더 크로스백"]
-    @State private var isFocused = false
-    @State private var selectedType: SearchType = .product
-    @State private var hasSearched = true   // 여기 추가!
-    
-    var filteredResults: [Any] {
-        switch selectedType {
-            case .brand:
-                return SearchBrand.sampleData.filter { $0.name.contains(searchText) }
-            case .product:
-                return SearchProduct.brandItems.filter { $0.name.contains(searchText) }
-        }
-    }
-    
-    var body: some View {
-        SearchBarView(
-            searchText: $searchText,
-            isSearch: $isSearch,
-            recentSearches: $recentSearches,
-            isFocused: $isFocused,
-            selectedType: $selectedType,
-            filteredResults: filteredResults,
-            hasSearched: $hasSearched,   // 여기도 전달!
-            onCommit: {
-                print("🔍 검색 실행됨: \(searchText)")
-            }
-        )
-    }
-}
