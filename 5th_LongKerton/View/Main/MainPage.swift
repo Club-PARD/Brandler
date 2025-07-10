@@ -81,7 +81,7 @@ struct MainPage: View {
                             HStack(spacing: 16) {
                                 ForEach(top10List, id:\.brandId){ brand in
                                     NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
-                                        BrandCardVIew(brand: brand)
+                                        BrandCardView(brand: brand)
                                     }
                                 }
                             }
@@ -136,11 +136,15 @@ struct MainPage: View {
                                                     .inset(by: 0.5)
                                                     .stroke(Color(red: 0.54, green: 0.54, blue: 0.54), lineWidth: 1)
                                             )
-                                        Image("CloseButton")
-                                            .resizable()
-                                            .frame(width:9,height:9)
-                                            .padding(.vertical,5)
-                                            .padding(.horizontal,6)
+                                        Button(action: {
+                                            togglemesage.toggle()
+                                        }) {
+                                            Image("CloseButton")
+                                                .resizable()
+                                                .frame(width:9,height:9)
+                                                .padding(.vertical,5)
+                                                .padding(.horizontal,6)
+                                        }
                                     }
                                     .padding(.trailing,19)
                                 }

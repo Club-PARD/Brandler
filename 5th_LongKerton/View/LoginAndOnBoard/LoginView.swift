@@ -71,21 +71,7 @@ struct LoginView: View {
                         }
                     }
 
-//                    GoogleSignInView { success, email in
-//                        showGoogleSheet = false
-//                        if success, let email = email {
-//                            // email만 저장, nickname/genre는 빈 값
-//                            session.saveUserData(email: email, nickname: "", genre: "")
-//                            // 온보딩 정보가 있으면 바로 메인, 없으면 온보딩
-//                            if let userData = session.userData,
-//                               !userData.nickname.isEmpty,
-//                               !userData.fashionGenre.isEmpty {
-//                                goToMain()
-//                            } else {
-//                                goToOnboarding()
-//                            }
-//                        }
-//                    }
+
                     
                     
                 }

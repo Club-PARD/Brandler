@@ -98,3 +98,4 @@ struct HistoryPage: View {
         .navigationBarBackButtonHidden(true)
     }
 }
+

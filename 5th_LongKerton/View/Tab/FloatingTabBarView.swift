@@ -5,7 +5,7 @@ struct FloatingTabBarView: View {
     @Binding var selectedTab: String
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 22) {
             Button {
                 selectedTab = "main"
             } label: {

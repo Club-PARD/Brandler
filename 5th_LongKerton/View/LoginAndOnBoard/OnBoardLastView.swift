@@ -1,4 +1,47 @@
+
 import SwiftUI
+
+// 움직이는 배경 뷰: charWithCir와 동일한 크기로 반복 애니메이션
+struct MovingBackgroundView: View {
+    @State private var offset: CGFloat = 0
+    let imageHeight: CGFloat = 208
+    let animationDuration: Double = 10
+
+    var body: some View {
+        GeometryReader { geometry in
+            let imageWidth = geometry.size.width
+            // 충분히 반복되도록 이미지 개수 계산
+            let repeats = Int((imageWidth / imageHeight).rounded(.up)) + 1
+
+            HStack(spacing: 0) {
+                ForEach(0..<repeats, id: \.self) { _ in
+                    Image("backgroundImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 605, height: imageHeight)
+                        .clipped()
+                }
+            }
+            .offset(x: offset)
+            .frame(width: 605, height: imageHeight)
+            .onAppear {
+                animateRight(imageWidth: imageWidth)
+            }
+        }
+        .frame(height: imageHeight)
+        .clipped()
+    }
+
+    func animateRight(imageWidth: CGFloat) {
+        withAnimation(Animation.linear(duration: animationDuration)) {
+            offset = -imageWidth
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            offset = 0
+            animateRight(imageWidth: imageWidth)
+        }
+    }
+}
 
 struct OnBoardLastView: View {
     let finish: () -> Void
@@ -9,6 +52,12 @@ struct OnBoardLastView: View {
     @EnvironmentObject var session: UserSessionManager
     @State private var isUploading = false
     @State private var showError = false
+
+    // 애니메이션 배경 관련 상태 및 상수
+    @State private var offset: CGFloat = 0
+    let imageWidth: CGFloat = 678 // height 240 기준 원본 비율
+    let imageHeight: CGFloat = 240
+    let animationDuration: Double = 10
 
     var body: some View {
         ZStack {
@@ -24,9 +73,9 @@ struct OnBoardLastView: View {
                             .frame(width: 10, height: 10)
                     }
                 }
-                .frame(height: 56)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 35)
+                .padding(.bottom, 62)
+                .padding(.top, 62)
                 
                 // 환영 메시지
                 HStack {
@@ -38,41 +87,69 @@ struct OnBoardLastView: View {
                             .font(.custom("Pretendard-Regular",size: 22))
                             .foregroundColor(.NickWhite)
                     }
+                    .kerning(-0.45)
+                    .lineSpacing(4.8)
                     Spacer()
                 }
                 .padding(.leading, 24)
-                .padding(.bottom, 75)
+                .padding(.bottom, 66)
                 
-                // 캐릭터 이미지
-                Image("charWithCir")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 160, height: 240)
-                    .padding(.leading, 55)
-                    .padding(.bottom, 20)
-
-                Spacer()
+                // 캐릭터 이미지 + 움직이는 배경
+                ZStack {
+                    MovingBackgroundView()
+                    Image("charWithCir")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 147.51, height: 208)
+                        .padding(.leading, 55)
+                }
+                .padding(.bottom, 32)
+                .padding(.top, 0)
                 
                 // 설명 텍스트
                 VStack(alignment: .center, spacing: 8) {
-                    (
-                        Text("좋아하는 브랜드를 발견하고 모으는 사람.\n그걸 우리는 ")
-                        + Text("'디깅러'").font(.custom("Pretendard-Bold",size: 16)).foregroundColor(.white)
-                        + Text("라고 부릅니다.\n - \n이제, 디깅을 시작할 시간이에요. 🌊")
-                    )
-                    .font(.custom("Pretendard-SemiBold",size: 16))
-                    .foregroundColor(.lastTxt)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
+                    Text("좋아하는 브랜드를 발견하고 모으는 사람.")
+                        .font(.custom("Pretendard-SemiBold", size: 16))
+                        .foregroundColor(.lastTxt)
+                    HStack(spacing: 0) {
+                        Text("우리는 그들을  ")
+                            .font(.custom("Pretendard-SemiBold", size: 16))
+                            .foregroundColor(.lastTxt)
+                        Text("'디깅러'")
+                            .font(.custom("Pretendard-Bold", size: 16))
+                            .foregroundColor(.white)
+                        Text("라고 부릅니다.")
+                            .font(.custom("Pretendard-SemiBold", size: 16))
+                            .foregroundColor(.lastTxt)
+                    }
+                    Text("-")
+                        .font(.custom("Pretendard-SemiBold", size: 16))
+                        .foregroundColor(.lastTxt)
+                    HStack(spacing: 0) {
+                        Text("브랜드를 발견할수록 디깅러는  ")
+                            .font(.custom("Pretendard-SemiBold", size: 16))
+                            .foregroundColor(.lastTxt)
+                        Text("'5단계'")
+                            .font(.custom("Pretendard-Bold", size: 16))
+                            .foregroundColor(.white)
+                        Text("로 성장해요.")
+                            .font(.custom("Pretendard-SemiBold", size: 16))
+                            .foregroundColor(.lastTxt)
+                    }
+                    Text("이제, 디깅을 시작할 시간이에요. 🌊")
+                        .font(.custom("Pretendard-SemiBold", size: 16))
+                        .foregroundColor(.lastTxt)
                 }
-
-                Spacer()
-                    .padding(.leading, 24)
-                    .padding(.bottom, 20)
+                
+                .kerning(-0.45)
+                .lineSpacing(4.8)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.top, 0)
+                .padding(.bottom, 80)
                 
                 // 완료 버튼
                 Button(action: {
-                    // email은 구글 로그인 후 세션에만 임시 저장되어 있다고 가정
                     guard let email = session.userData?.email, !nickname.isEmpty, !selectedGenre.isEmpty else {
                         showError = true
                         return
@@ -86,11 +163,9 @@ struct OnBoardLastView: View {
                         DispatchQueue.main.async {
                             isUploading = false
                             if success {
-                                // POST 성공 시에만 세션 저장
                                 session.saveUserData(email: email, nickname: nickname, genre: selectedGenre)
                                 finish()
                             } else {
-                                // 실패 시 세션 저장하지 않음
                                 showError = true
                             }
                         }
@@ -103,7 +178,7 @@ struct OnBoardLastView: View {
                             .cornerRadius(40)
                     } else {
                         Text("디깅 시작하기")
-                            .font(.custom("Pretend-SemiBold",size: 16))
+                            .font(.custom("Pretendard-SemiBold",size: 16))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 80)
                             .background(Color.lastBox)
@@ -111,6 +186,7 @@ struct OnBoardLastView: View {
                     }
                 }
                 .padding(.horizontal, 25)
+                .padding(.bottom, 6)
                 .disabled(isUploading)
                 .alert(isPresented: $showError) {
                     Alert(title: Text("오류"), message: Text("유저 정보 업로드에 실패했습니다.\n네트워크 상태를 확인해주세요."), dismissButton: .default(Text("확인")))
@@ -119,8 +195,20 @@ struct OnBoardLastView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
+
+    // 애니메이션 함수
+    func animateRight(imageWidth: CGFloat) {
+        withAnimation(Animation.linear(duration: animationDuration)) {
+            offset = -imageWidth
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            offset = 0
+            animateRight(imageWidth: imageWidth)
+        }
+    }
 }
 
+// 프리뷰
 #Preview {
     OnBoardLastView(
         finish: {},

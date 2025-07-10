@@ -45,17 +45,12 @@ struct GenreFilterView: View {
                 .transition(.opacity.combined(with: .slide)) // Add a subtle animation
             }
             else {
-                Button(action: {
-                    selectedFilter = "전체"
-                    showMoreFilters = false // Collapse other filters when "All" is selected
-                }) {
-                    Text(selectedFilter)
-                        .font(.custom("Pretendard-SemiBold.ttf",size: 12))
-                        .frame(width: 70, height: 30)
-                        .background(Color("SelectedGenreBackColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+                Text(selectedFilter)
+                    .font(.custom("Pretendard-SemiBold.ttf",size: 12))
+                    .frame(width: 70, height: 30)
+                    .background(Color("SelectedGenreBackColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
             Spacer()
         }

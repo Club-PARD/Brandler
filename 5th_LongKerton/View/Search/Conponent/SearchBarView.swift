@@ -34,7 +34,7 @@ struct SearchBarView: View {
         HStack {
             ZStack(alignment: .leading) {
                 if searchText.isEmpty {
-                    Text("브랜드를 검색해보세요.")
+                    Text(selectedType == .brand ? "브랜드를 검색하세요." : "상품을 검색하세요.")
                         .foregroundColor(Color.nickBoxStroke)
                         .font(.custom("Pretendard-Medium", size: 12))
                         .padding(.leading, 11)
@@ -49,13 +49,13 @@ struct SearchBarView: View {
             }
             
             Button {
-                isSearch = true
+                isSearchFocusedInternal = false // 키보드 내리기
+                onCommit()                      // ✅ 검색 실행
             } label: {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color.nickBoxStroke)
                     .padding(.trailing, 16)
-            }
-        }
+            }        }
         .frame(height: 34)
         .background(Color.nickBox)
         .cornerRadius(15)
@@ -128,15 +128,21 @@ struct SearchBarView: View {
             } else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(filteredResults.indices, id: \.self) { index in
-                            if selectedType == .brand,
-                               let brand = filteredResults[index] as? SearchBrand {
-                                SearchBrandCardView(brand: brand)
-                            } else if selectedType == .product,
-                                      let product = filteredResults[index] as? SearchProduct {
-                                SearchProductCardView(product: product)
+                        
+                            ForEach(filteredResults.indices, id: \.self) { index in
+                                if selectedType == .brand,
+                                   let brand = filteredResults[index] as? SearchBrand {
+                                    NavigationLink(destination: BrandPage(brandId: brand.brandId)){
+                                        SearchBrandCardView(brand: brand)
+                                    }
+                                } else if selectedType == .product,
+                                          let product = filteredResults[index] as? SearchProduct {
+                                    NavigationLink(destination: BrandPage(brandId: product.brandId)){
+                                        SearchProductCardView(product: product)
+                                    }
+                                }
                             }
-                        }
+                        
                     }
                     .padding(.horizontal, 10)
                 }
