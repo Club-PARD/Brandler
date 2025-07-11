@@ -9,13 +9,14 @@ struct BrandScrapePage: View {
     @Binding var currentState: AppState
     @Binding var previousState: AppState
     
-    @State private var selectedBrand: BrandCard? = nil
-    @State private var showBrandPage: Bool = false
     
     @StateObject private var scrapeAPI = ScrapeServerAPI()
     @State private var scrapedBrandList: [BrandCard] = []
     @State private var flippedID: Int? = nil
     @State private var currentPage: Int = 0
+    
+    @State private var selectedBrand: BrandCard? = nil
+    @State private var showBrandPage: Bool = false
     
     private let itemsPerPage = 9
     
@@ -48,41 +49,41 @@ struct BrandScrapePage: View {
             }
         }
     }
-    
-    /// ⭐️ 복잡한 뷰를 함수로 분리하여 타입 추론 오류 방지
-    @ViewBuilder
-    func buildPageView(for brands: [BrandCard?]) -> some View {
-        VStack {
-            ForEach(0..<3, id: \.self) { row in
-                HStack(spacing: 11) {
-                    ForEach(0..<3, id: \.self) { col in
-                        let index = row * 3 + col
-                        if let brand = brands[index] {
-                            BrandFlipCardView(currentState: $currentState, previousState: $previousState,
-                                              brand: brand,
-                                              flippedID: $flippedID,
-                                              onDelete: {
-                                deleteBrandCard(brand)
-                            }
-                            )
-                        } else {
-                            Color.clear
-                        }
-                    }
-                    .frame(width: 99, height: 124)
-                }
-                if row < 2 {
-                    Rectangle()
-                        .fill(Color.white.opacity(0.3))
-                        .frame(height: 1)
-                        .frame(width: 360)
-                        .padding(.vertical, 17)
-                }
-            }
-        }
-        .padding(.vertical, 30)
-        .padding(.top, 30)
-    }
+//    
+//    /// ⭐️ 복잡한 뷰를 함수로 분리하여 타입 추론 오류 방지
+//    @ViewBuilder
+//    func buildPageView(for brands: [BrandCard?]) -> some View {
+//        VStack {
+//            ForEach(0..<3, id: \.self) { row in
+//                HStack(spacing: 11) {
+//                    ForEach(0..<3, id: \.self) { col in
+//                        let index = row * 3 + col
+//                        if let brand = brands[index] {
+//                            BrandFlipCardView(currentState: $currentState, previousState: $previousState,
+//                                              brand: brand,
+//                                              flippedID: $flippedID,
+//                                              onDelete: {
+//                                deleteBrandCard(brand)
+//                            }
+//                            )
+//                        } else {
+//                            Color.clear
+//                        }
+//                    }
+//                    .frame(width: 99, height: 124)
+//                }
+//                if row < 2 {
+//                    Rectangle()
+//                        .fill(Color.white.opacity(0.3))
+//                        .frame(height: 1)
+//                        .frame(width: 360)
+//                        .padding(.vertical, 17)
+//                }
+//            }
+//        }
+//        .padding(.vertical, 30)
+//        .padding(.top, 30)
+//    }
     
     var body: some View {
         NavigationStack {
