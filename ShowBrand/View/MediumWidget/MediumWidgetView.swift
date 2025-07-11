@@ -4,21 +4,24 @@ struct MediumWidgetView: View {
     let brand: BrandRecommendation
 
     var body: some View {
-        // 디버깅용 출력
-        print("bannerImageName: \(brand.bannerImageName), brandLogoImageName: \(brand.brandLogoImageName)")
-        print("Image frame width: 340, height: 160")
-        
-        return ZStack(alignment: .topLeading) {
-            Image(brand.bannerImageName)
-                .resizable()
-                .frame(width: 340, height: 160)
-                .clipped()
+        ZStack(alignment: .topLeading) {
+            GeometryReader { geo in
+                // 배너 이미지 자르기
+                Image(brand.bannerImageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width + 100, height: geo.size.height + 100)
+                    .offset(x: -50, y: +50) // 자를 위치 조정
+                    .clipped()
+            }
+            .frame(width: 340, height: 160)
 
             LinearGradient(
                 gradient: Gradient(colors: [.pageBlue.opacity(0.7), .clear]),
                 startPoint: .leading,
                 endPoint: .trailing
             )
+            .frame(width: 340, height: 160)
 
             VStack(alignment: .leading, spacing: 20) {
                 Text("오늘의 디깅 추천 List")
@@ -58,12 +61,16 @@ struct MediumWidgetView: View {
                 HStack {
                     Image(brand.brandLogoImageName)
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 25, height: 25)
                         .clipShape(Circle())
 
                     Text(brand.brandName)
                         .font(.custom("Pretendard-Medium", size: 20))
                         .foregroundColor(Color.lastTxt)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(width: 130, alignment: .leading) // 너비 제한
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 50)
@@ -80,5 +87,6 @@ struct MediumWidgetView: View {
             }
             .padding()
         }
+        .frame(width: 340, height: 160)
     }
 }

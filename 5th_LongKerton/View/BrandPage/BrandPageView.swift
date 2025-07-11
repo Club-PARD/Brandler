@@ -349,32 +349,32 @@ struct BrandPage: View {
 
     @State private var brandInfo: BrandInfo?
     @State private var productList: [Product] = []
-
+    //    let items: [Product]
+    
     @StateObject private var viewModel = BrandViewModel()
     @StateObject private var getViewModel = GetBrandListViewModel()
     @State private var scrollProxy: ScrollViewProxy? = nil
     @Environment(\.dismiss) var dismiss
-
+    
     @State private var descriptionTextHeight: CGFloat = 0
     @State private var titleTextHeight: CGFloat = 0
-
+    
     @EnvironmentObject var session: UserSessionManager
     @State private var isScraped: Bool = false
     @Environment(\.scenePhase) private var scenePhase
     private let scrapeAPI = ScrapeServerAPI()
-
     var isTitleMultiLine: Bool {
         titleTextHeight > 80
     }
-
+    
     var overlayOffset: CGFloat {
         min(viewModel.scrollOffset, 170)
     }
-
+    
     var tabGroupOffset: CGFloat {
         min(viewModel.scrollOffset, 170)
     }
-
+    
     var tabGroupYOffset: CGFloat {
         if isTitleMultiLine {
             return tabGroupOffset + descriptionTextHeight + titleTextHeight - 45
@@ -382,17 +382,17 @@ struct BrandPage: View {
             return tabGroupOffset + descriptionTextHeight
         }
     }
-
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.BgColor.ignoresSafeArea()
-
+            
             if let brandInfo = brandInfo {
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack(spacing: 0) {
                             Color.clear.frame(height: 0).id("top")
-
+                            
                             GeometryReader { geo in
                                 BrandBannerView(viewModel: viewModel, brand: brandInfo)
                                     .frame(width: UIScreen.main.bounds.width, height: viewModel.bannerHeight)
@@ -407,7 +407,7 @@ struct BrandPage: View {
                             .onPreferenceChange(ScrollOffsetKey.self) { offset in
                                 viewModel.updateScrollOffset(offset)
                             }
-
+                            
                             BrandInfoOverlayView(
                                 scrollOffset: viewModel.scrollOffset,
                                 bannerHeight: viewModel.bannerHeight,
@@ -425,23 +425,18 @@ struct BrandPage: View {
                             .padding(.top, -viewModel.bannerHeight + 40)
                             .animation(.easeInOut(duration: 0.25), value: overlayOffset)
                             .padding(.bottom, 15)
-
+                            
                             VStack(spacing: 0) {
                                 CategoryTabBarView(selected: $viewModel.selectedCategory,items: productList)
                                     .padding(.vertical, 12)
                                     .frame(maxWidth: .infinity)
                                     .background(Color.BgColor)
                                     .padding(.horizontal, 15)
-//
-//                                ItemGridView(items: productList)
-//                                    .padding(.bottom, 50)
-//                                    .padding(.horizontal, 10)
-
                                 Text("Fashions fade, style is eternal. \n – Yves Saint Laurent")
                                     .font(.custom("Pretendard-Regular", size: 12))
                                     .foregroundColor(Color.TabPurple)
                                     .multilineTextAlignment(.center)
-
+                                
                                 Spacer(minLength: 200)
                             }
                             .offset(y: tabGroupYOffset - 38)
@@ -455,7 +450,7 @@ struct BrandPage: View {
                         scrollProxy = proxy
                     }
                 }
-
+                
                 TopTabBarView(
                     tabBarScrollOffset: viewModel.tabBarScrollOffset,
                     brandName: brandInfo.brandName,
@@ -466,7 +461,7 @@ struct BrandPage: View {
                 )
                 .offset(y: -10)
                 .zIndex(1000)
-
+                
                 ScrollToTopButton(
                     proxy: scrollProxy,
                     visible: viewModel.scrollOffset > 200
