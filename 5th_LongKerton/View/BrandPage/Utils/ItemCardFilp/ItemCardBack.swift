@@ -31,16 +31,17 @@ struct ItemCardBack: View {
                 Text(item.productName)
                     .font(.custom("Pretendard-Regular", size: 12))
                     .foregroundColor(.white)
+                    .lineLimit(1) // ✅ 한 줄로 제한
+                    .truncationMode(.tail) // ✅ 넘치면 말줄임표 처리
+                    .frame(width: 81, height: 16) // ✅ 고정된 크기 내에서 줄이기
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.ProductBackGround) // 배경색
-                            .frame(width: 81, height: 16)
+                            .fill(Color.ProductBackGround)
                             .opacity(0.5)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white, lineWidth: 1) // 테두리
-                            .frame(width: 81, height: 16)
+                            .stroke(Color.white, lineWidth: 1)
                             .opacity(0.5)
                     )
 
@@ -54,14 +55,3 @@ struct ItemCardBack: View {
         .shadow(radius: 2)
     }
 }
-//
-//#Preview {
-//    ZStack {
-//        Color.black.ignoresSafeArea() // 어두운 배경 설정
-//        ItemCardBack(item: Product1.brandItems.first!) {
-//            print("🗑️ 삭제 실행됨")
-//        }
-//        .frame(width: 160, height: 240) // 카드 크기
-//        .padding()
-//    }
-//}
