@@ -332,3 +332,288 @@ Widget
 <div align="center" style="color:#1877f2; font-weight: bold; font-size: 1.1em;">
 Brandler, Your Personalized Fashion Brand Explorer for iOS
 </div>
+
+---
+
+# Brandler_BE
+<img width="848" height="719" alt="스웨거" src="https://github.com/user-attachments/assets/8d9323a3-fe09-4033-9f13-bc7cc340032c" />
+
+[Brandler API 명세서 (Notion)](https://sun-armchair-4a6.notion.site/BRANDLER-API-22af93bd044380bfb07dd41bc1eaaad8)
+
+<img width="1470" height="920" alt="SearchProduct_GET" src="https://github.com/user-attachments/assets/a79bd8c2-ad7b-42b9-872a-660a1374e1c8" />
+<img width="1470" height="920" alt="SearchBrand_GET" src="https://github.com/user-attachments/assets/fedcb0a7-3420-4177-85e3-f3c3b0a36eb1" />
+<img width="1470" height="920" alt="Scrap_PATCH" src="https://github.com/user-attachments/assets/f67a4993-349d-4d59-9e7c-ff7337b3c3b4" />
+<img width="1470" height="920" alt="recent_GET" src="https://github.com/user-attachments/assets/932afb4e-1d2f-4de0-acd3-084a26de7b9d" />
+<img width="1470" height="920" alt="BRANDLER_API" src="https://github.com/user-attachments/assets/0e1b730c-ae97-49ba-a506-00ef38aca3c6" />
+<img width="1470" height="920" alt="체크Scrap_GET" src="https://github.com/user-attachments/assets/ca976ef7-466e-4028-974b-509b0bd3af86" />
+<img width="1470" height="920" alt="유저Scrap_GET" src="https://github.com/user-attachments/assets/271adca8-c5e1-41c4-9601-1dd59312b82d" />
+<img width="1470" height="920" alt="유저_PATCH" src="https://github.com/user-attachments/assets/70bdf6a5-322a-48d5-b204-80a7eb3c10c6" />
+<img width="1470" height="920" alt="유저_LOGIN" src="https://github.com/user-attachments/assets/35f32a88-4ac9-47e9-80ae-262f55ba9fcf" />
+<img width="1470" height="920" alt="유저_GET" src="https://github.com/user-attachments/assets/19f339a1-1b6d-421a-b4c2-0ec7160082b9" />
+<img width="1470" height="920" alt="상품GET" src="https://github.com/user-attachments/assets/3ecfab21-17ce-44f4-b38c-978b8affd940" />
+<img width="1470" height="920" alt="브랜드_sort_GET" src="https://github.com/user-attachments/assets/49a5d76a-797a-4da3-8e38-c01dcdc1fb82" />
+<img width="1470" height="920" alt="브랜드_GET" src="https://github.com/user-attachments/assets/732272c7-62a9-48e4-8056-9acbfc1e79ab" />
+<img width="1470" height="920" alt="브랜드_탑텐_GET" src="https://github.com/user-attachments/assets/932928bd-3b9e-4f22-a126-469f24b27587" />
+
+
+You're looking for a README for your Brandlier Shop API, specifically based on the provided Swagger UI screenshots. I'll create a comprehensive README that clearly outlines each endpoint, its purpose, parameters, and example responses, incorporating all the details from the images.
+
+Here's a detailed README for your Brandlier Shop API:
+
+
+# Brandlier Shop API
+
+This API provides a comprehensive set of endpoints for managing users, brands, and products within the Brandlier Shop ecosystem. It allows for user authentication, brand discovery (including top brands, recently viewed, and genre-sorted), product Browse, and brand-scraping functionalities.
+
+## Table of Contents
+
+- [User API](#user-api)
+- [Brand API](#brand-api)
+- [Product API](#product-api)
+- [Search API](#search-api)
+- [Scrap API](#scrap-api)
+
+---
+
+## User API
+
+### 1. Get User Information
+
+* **Endpoint:** `GET /user/{email}`
+* **Description:** Retrieves detailed information about a specific user using their email address.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of user information.
+        ```json
+        {
+          "email": "string",
+          "name": "string",
+          "genre": "string"
+        }
+        ```
+
+### 2. User Login
+
+* **Endpoint:** `POST /user/login`
+* **Description:** Authenticates a user and performs a login.
+* **Request Body (`application/json`):**
+    ```json
+    {
+      "email": "string",
+      "name": "string",
+      "genre": "string"
+    }
+    ```
+    * *Note:* The schema suggests these fields are used for login. Depending on the actual implementation, this might be for user registration/first-time login or might require a password field.
+* **Responses:**
+    * **`200 OK`**: Successful login.
+
+---
+
+## Brand API
+
+### 1. Get Top 10 Brands
+
+* **Endpoint:** `GET /top10`
+* **Description:** Fetches a list of the top 10 brands, likely based on their scrap count or popularity.
+* **Parameters:** None
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of the top 10 brands.
+        ```json
+        [
+          {
+            "brandId": 0,
+            "brandName": "string",
+            "brandLogo": "string",
+            "brandBanner": "string",
+            "slogan": "string"
+          }
+        ]
+        ```
+
+### 2. Get Recently Viewed Brands
+
+* **Endpoint:** `GET /recent/{email}`
+* **Description:** Retrieves a list of brands recently viewed by a specific user.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of recently viewed brands.
+        ```json
+        [
+          {
+            "brandId": 0,
+            "brandName": "string",
+            "brandLogo": "string",
+            "brandBanner": "string",
+            "slogan": "string"
+          }
+        ]
+        ```
+
+### 3. Get Brands Sorted by User Genre
+
+* **Endpoint:** `GET /brands/sort/{email}`
+* **Description:** Retrieves brands sorted according to the genre preference of the specified user. This likely influences the order or selection of brands presented.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of sorted brands.
+        ```json
+        [
+          {
+            "brandId": 0,
+            "brandName": "string",
+            "brandLogo": "string",
+            "brandBanner": "string",
+            "slogan": "string"
+          }
+        ]
+        ```
+
+### 4. Get Brand Information and Record Visit
+
+* **Endpoint:** `GET /brand/{email}/{brandId}`
+* **Description:** Retrieves detailed information about a specific brand by its ID. This endpoint also records that the specified user has viewed this brand.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+    * `brandId` (integer, path, required): The unique identifier of the brand.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of brand information.
+        ```json
+        {
+          "id": 0,
+          "brandName": "string",
+          "brandLogo": "string",
+          "brandBanner": "string",
+          "description": "string",
+          "genre": "string",
+          "scrapCount": 0
+        }
+        ```
+
+---
+
+## Product API
+
+### 1. Get Products by Brand
+
+* **Endpoint:** `GET /products/{brandId}`
+* **Description:** Fetches all products associated with a particular brand.
+* **Parameters:**
+    * `brandId` (integer, path, required): The unique identifier of the brand.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of products for the given brand.
+        ```json
+        [
+          {
+            "productName": "string",
+            "productImage": "string",
+            "productCategory": "string",
+            "price": 0
+          }
+        ]
+        ```
+
+---
+
+## Search API
+
+### 1. Search Products by Keyword
+
+* **Endpoint:** `GET /search/product/{keyword}`
+* **Description:** Searches for products based on a provided keyword.
+* **Parameters:**
+    * `keyword` (string, path, required): The search term for products.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of products matching the keyword.
+        ```json
+        [
+          {
+            "productId": 0,
+            "productName": "string",
+            "productImage": "string"
+          }
+        ]
+        ```
+
+### 2. Search Brands by Keyword
+
+* **Endpoint:** `GET /search/brand/{keyword}`
+* **Description:** Searches for brands based on a provided keyword.
+* **Parameters:**
+    * `keyword` (string, path, required): The search term for brands.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of brands matching the keyword.
+        ```json
+        [
+          {
+            "brandId": 0,
+            "brandName": "string",
+            "brandLogo": "string",
+            "brandBanner": "string",
+            "slogan": "string"
+          }
+        ]
+        ```
+
+---
+
+## Scrap API
+
+### 1. Check Brand Scrap Status
+
+* **Endpoint:** `GET /scrap/{email}/{brandId}`
+* **Description:** Checks if a specific brand has been "scraped" (e.g., liked, favorited, saved) by a particular user.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+    * `brandId` (integer, path, required): The unique identifier of the brand.
+* **Responses:**
+    * **`200 OK`**: Successful check of the scrap status.
+        ```json
+        {
+          "isScraped": true
+        }
+        ```
+
+### 2. Toggle Brand Scrap Status
+
+* **Endpoint:** `PATCH /scrap/{email}/{brandId}`
+* **Description:** Toggles (adds or removes) the scrap status of a brand for a specific user.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+    * `brandId` (integer, path, required): The unique identifier of the brand.
+* **Request Body (`application/json`):**
+    ```json
+    {
+      "isScraped": true
+    }
+    ```
+    * *Note:* The request body `{"isScraped": true}` implies setting the status. A `PATCH` verb typically means partial update, so it might toggle the state if the current state is known, or explicitly set it to `true` or `false` based on the provided boolean.
+* **Responses:**
+    * **`200 OK`**: Successful update of the brand's scrap status.
+
+### 3. Get User's Scraped Brands
+
+* **Endpoint:** `GET /scrap/{email}`
+* **Description:** Retrieves a list of all brands that a specific user has scraped.
+* **Parameters:**
+    * `email` (string, path, required): The email address of the user.
+* **Responses:**
+    * **`200 OK`**: Successful retrieval of the user's scraped brands.
+        ```json
+        [
+          {
+            "brandId": 0,
+            "brandName": "string",
+            "brandLogo": "string",
+            "brandBanner": "string",
+            "slogan": "string"
+          }
+        ]
+        ```
+````
+
+
+
