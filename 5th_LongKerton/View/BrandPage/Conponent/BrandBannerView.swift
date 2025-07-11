@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrandBannerView: View {
-    @EnvironmentObject var viewModel: BrandViewModel
+    @StateObject var viewModel: BrandViewModel
     let brand: BrandInfo
 
     var body: some View {

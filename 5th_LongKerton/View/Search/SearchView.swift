@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct SearchView: View {
+    
+    @Binding var currentState: AppState
+    @Binding var previousState: AppState
+
     @StateObject private var viewModel = SearchViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var isSearching: Bool = false
@@ -14,7 +18,7 @@ struct SearchView: View {
                 // 뒤로가기 + 탭 선택
                 HStack {
                     Button(action: {
-                        dismiss()
+                        currentState = previousState
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.custom("Pretendard-Medium", size: 18))
@@ -28,8 +32,10 @@ struct SearchView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
 
-                // ✅ SearchBarView 안에서 검색 실행 포함
+                // ✅ SearchBarView에 refreshTrigger 바인딩 전달
                 SearchBarView(
+                    currentState: $currentState,
+                    previousState: $previousState,
                     searchText: $viewModel.searchText,
                     isSearch: $isSearching,
                     recentSearches: $viewModel.recentSearches,
@@ -42,7 +48,7 @@ struct SearchView: View {
                             viewModel.addToRecent(viewModel.searchText)
                             viewModel.isFocused = false
                             hasSearched = true
-                            await viewModel.search() // ✅ 검색 실행
+                            await viewModel.search()
                         }
                     }
                 )
@@ -55,7 +61,4 @@ struct SearchView: View {
             .navigationBarBackButtonHidden()
         }
     }
-}
-#Preview {
-    SearchView()
 }

@@ -1,10 +1,3 @@
-
-//MainPage.swift
-//5th_LongKerton
-//
-//Created by Kim Kyengdong on 6/30/25.
-
-
 import SwiftUI
 
 struct MainPage: View {
@@ -15,15 +8,14 @@ struct MainPage: View {
     @State private var top10List: [BrandCard] = []
     @State private var sortedList: [GenreBrandCard] = []
     
-    let email: String = ""
-    ////    @StateObject private var brandModel = BrandViewModel()
-    //@State public var selectedGenre: String = "빈티지"
     @State public var selectedGenre: String = UserSessionManager.shared.userData?.fashionGenre ?? "전체"
     
-    
+    @State private var previousScrapeCount: Int = UserDefaults.standard.integer(forKey: "previousScrapeCount")
+    @State private var currentScrapeCount: Int = 0
+    @State private var scrapeStatusMessage: String? = nil
     
     @State private var togglemesage: Bool = false
-    private var toggleGenre: Bool = false
+    @State private var toggleGenre: Bool = false
     @State public var bannerData = [
         Banner(imageName: "배너1번", titleLine1: "지금 당신이 찾는 프레피룩,", titleLine2: "여기에 다 있다"),
         Banner(imageName: "배너2번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요"),
@@ -38,10 +30,28 @@ struct MainPage: View {
         Banner(imageName: "배너11번", titleLine1: "2025 S/S 스타일 가이드", titleLine2: "취향을 발견해보세요")
     ]
     
+    @Binding var currentState: AppState
+    @Binding var previousState: AppState
     
+    // MARK: - 레벨 변환 함수 (0~4: 1단계, 5~9: 2단계, ... 20+: 5단계)
+    private func scrapeCountToLevel(_ scrapeCount: Int) -> Int {
+        let level = scrapeCount / 5 + 1
+        return min(level, 5)
+    }
+    
+    // MARK: - 레벨 업/다운 메시지 생성 함수
+    private func generateScrapeStatusMessage(oldScrape: Int, newScrape: Int) -> String? {
+        let oldLevel = scrapeCountToLevel(oldScrape)
+        let newLevel = scrapeCountToLevel(newScrape)
+        if newLevel > oldLevel {
+            return "\(newLevel)단계로 레벨 업!✨"
+        } else if newLevel < oldLevel {
+            return "\(newLevel)단계로 레벨 다운💦"
+        } else {
+            return nil
+        }
+    }
     var body: some View {
-        
-        
         ScrollView {
             ZStack(alignment: .top) {
                 HStack {
@@ -50,10 +60,10 @@ struct MainPage: View {
                         .scaledToFill()
                         .frame(width:108,height:38)
                     Spacer()
-                    
-                    NavigationLink(destination: SearchView())
-                    {
-                        
+                    Button(action:{
+                        previousState = currentState
+                        currentState = .search
+                    }) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Color("SearchingIconColor"))
                             .font(.system(size: 20, weight: .medium))
@@ -64,10 +74,12 @@ struct MainPage: View {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading) {
                         // MARK: - Banner Image
-                        BannerCarouselView(banners: bannerData)
-                            .padding(.top, 33)
-                            .padding(.bottom, 29)
-                        
+                        BannerCarouselView(
+                            banners: bannerData,
+                            scrapeStatusMessage: scrapeStatusMessage // 메시지 전달
+                        )
+                        .padding(.top, 33)
+                        .padding(.bottom, 29)
                         
                         // MARK: - Section Title
                         HStack{
@@ -88,7 +100,11 @@ struct MainPage: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 ForEach(top10List, id:\.brandId){ brand in
-                                    NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
+                                    Button(action:{
+                                        viewModel.currentBrandId = brand.brandId
+                                        previousState = currentState
+                                        currentState = .brand
+                                    }) {
                                         BrandCardView(brand: brand)
                                     }
                                 }
@@ -116,7 +132,6 @@ struct MainPage: View {
                         // MARK: - Filter + 전체 버튼
                         VStack {
                             HStack {
-                                
                                 Spacer()
                                 Button(action: {
                                     togglemesage.toggle()
@@ -128,7 +143,7 @@ struct MainPage: View {
                             .padding(.trailing,20)
                             
                             ZStack (alignment: .topTrailing){
-                                BrandFilterView(brands: sortedList, selectedGenre: selectedGenre)
+                                BrandFilterView(viewModel: viewModel, currentState: $currentState, previousState: $previousState, brands: sortedList, selectedGenre: selectedGenre)
                                     .padding(.horizontal, 20)
                                 if togglemesage {
                                     ZStack(alignment:.topTrailing){
@@ -162,24 +177,47 @@ struct MainPage: View {
                     .padding(.bottom, 80)
                 }
             }
-            .task{
-                do{
+            .task {
+                do {
                     top10List = try await getViewModel.getTop10List()
                     if let email = session.userData?.email {
                         sortedList = try await getViewModel.getSortedList(email)
+                        
+                        // 현재 스크랩 수 GET
+                        let scrapeCount = await fetchScrapeCount(email: email)
+                        currentScrapeCount = scrapeCount
+                        
+                        // 메시지 결정 로직 (레벨 시스템 적용)
+                        scrapeStatusMessage = generateScrapeStatusMessage(
+                            oldScrape: previousScrapeCount,
+                            newScrape: currentScrapeCount
+                        )
                     }
                 } catch {
                     print("❌ Get Error: \(error)")
                 }
             }
+            .onDisappear {
+                Task {
+                    if let email = session.userData?.email {
+                        let scrapeCount = await fetchScrapeCount(email: email)
+                        previousScrapeCount = scrapeCount
+                        UserDefaults.standard.set(scrapeCount, forKey: "previousScrapeCount")
+                    }
+                }
+            }
         }
         .background(Color.BgColor.edgesIgnoringSafeArea(.all))
-        
+    }
+    
+    // 서버에서 스크랩 수를 받아오는 함수
+    private func fetchScrapeCount(email: String) async -> Int {
+        do {
+            let scrapedList = try await getViewModel.getScrapList(email)
+            return scrapedList.count
+        } catch {
+            print("❌ 스크랩 수 불러오기 실패: \(error)")
+            return 0
+        }
     }
 }
-
-#Preview {
-    MainPage()
-}
-
-

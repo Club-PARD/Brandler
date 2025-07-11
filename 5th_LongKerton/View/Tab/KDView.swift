@@ -1,28 +1,57 @@
-import SwiftUI
+//import SwiftUI
+//
+//
+//
+//struct KDView: View {
+//    @Binding var currentState: AppState
+//    @State var selectedTab: String = "main"
+////    @State var scrape: Int = 8
+//    
+//    var body: some View {
+//        NavigationStack {
+//            ZStack(alignment: .bottom) {
+//                switch selectedTab {
+//                case "main":
+//                    MainPage()
+//                case "scrap":
+//                    BrandScrapePage()
+//                case "my":
+//                    UserMainView(selectedTab: $selectedTab, currentState: $currentState)
+//                default:
+//                    MainPage()
+//                }
+//                FloatingTabBarView(selectedTab: $selectedTab)
+//                    .padding(.horizontal, 20)
+//            }
+//            .animation(.easeInOut(duration: 0.4), value: selectedTab)
+//        }
+//    }
+//}
+//
+//#Preview {
+//    KDView(currentState: .constant(.main))
+//}
 
-enum Tab {
-    case main
-    case scrap
-    case my
-}
+import SwiftUI
 
 struct KDView: View {
     @Binding var currentState: AppState
-    @State var selectedTab: String = "main"
-    @State var scrape: Int = 8
-    
+    @Binding var previousState: AppState
+    @State private var selectedTab: String = "main"
+    @State private var refreshTrigger: Bool = false // 모든 페이지에서 공유하는 새로고침 트리거
+
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 switch selectedTab {
                 case "main":
-                    MainPage()
+                    MainPage(currentState: $currentState, previousState: $previousState)
                 case "scrap":
-                    BrandScrapePage()
+                    BrandScrapePage(currentState: $currentState,  previousState: $previousState)
                 case "my":
-                    UserMainView(selectedTab: $selectedTab, currentState: $currentState)
+                    UserMainView(selectedTab: $selectedTab, currentState: $currentState, previousState: $previousState)
                 default:
-                    MainPage()
+                    MainPage(currentState: $currentState, previousState: $previousState)
                 }
                 FloatingTabBarView(selectedTab: $selectedTab)
                     .padding(.horizontal, 20)
@@ -30,8 +59,4 @@ struct KDView: View {
             .animation(.easeInOut(duration: 0.4), value: selectedTab)
         }
     }
-}
-
-#Preview {
-    KDView(currentState: .constant(.main))
 }

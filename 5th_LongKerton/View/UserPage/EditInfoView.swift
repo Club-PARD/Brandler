@@ -7,6 +7,7 @@ struct EditInfoView: View {
     @State private var selectedGenre: String = ""
     @Environment(\.dismiss) var dismiss
     @Binding var currentState: AppState
+    @Binding var previousState: AppState
 
     // Genre list
     let genres = [
@@ -179,8 +180,8 @@ struct EditInfoView: View {
         .navigationBarBackButtonHidden(true)
     }
 }
-
-#Preview {
-    EditInfoView(currentState: .constant(.main))
-        .environmentObject(UserSessionManager.shared)
-}
+//
+//#Preview {
+//    EditInfoView(currentState: .constant(.main))
+//        .environmentObject(UserSessionManager.shared)
+//}

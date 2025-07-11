@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct BrandFilterView: View {
+    @StateObject var viewModel: BrandViewModel
+    @Binding var currentState: AppState
+    @Binding var previousState: AppState
     let brands: [GenreBrandCard]
     var selectedGenre: String = "전체"
     
@@ -13,7 +16,11 @@ struct BrandFilterView: View {
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.fixed(173)), count: 2), spacing: 10) {
             ForEach(filteredBrands, id: \.brandId) { brand in
-                NavigationLink(destination: BrandPage(brandId: brand.brandId)) {
+                Button(action:{
+                    viewModel.currentBrandId = brand.brandId
+                    previousState = currentState
+                    currentState = .brand
+                }) {
                     ZStack(alignment: .topTrailing) {
                         // 카드 배경
                         Rectangle()
