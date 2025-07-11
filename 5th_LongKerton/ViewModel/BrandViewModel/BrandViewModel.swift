@@ -12,6 +12,7 @@ enum Category: String, CaseIterable, Identifiable {
 
 @MainActor
 final class BrandViewModel: ObservableObject {
+    @Published public var currentBrandId: Int = 1
     @Published var brandCards: [BrandCard]?
     @Published var brandInfos: [BrandInfo]?
     @Published var brands: [Brand] = Brand.sampleData

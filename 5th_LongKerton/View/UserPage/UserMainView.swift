@@ -80,7 +80,7 @@ struct CircularProgressBar: View {
                 animatedProgress = progress
             }
         }
-        .onChange(of: progressSteps) { _ in
+        .onChange(of: progressSteps) { _,_ in
             animatedProgress = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 animatedProgress = progress
@@ -99,8 +99,10 @@ struct UserMainView: View {
     @State private var recentBrandList: [BrandCard] = []
 
     @Binding var selectedTab: String
+    @EnvironmentObject var viewModel: BrandViewModel
     @Binding var currentState: AppState
-
+    @Binding var previousState: AppState
+    
     @State private var showEditInfo: Bool = false
     @State private var showHistoryPage: Bool = false
     @State private var showScrapePage: Bool = false
@@ -132,6 +134,8 @@ struct UserMainView: View {
     var diggingLevel: DiggingLevel {
         getDiggingLevel(scrape: scrapedCount)
     }
+    
+    var refreshTrigger: Binding<Bool>? = nil
 
     var body: some View {
         ZStack {
@@ -349,17 +353,15 @@ struct UserMainView: View {
                         } else {
                             HStack(spacing: 11) {
                                 ForEach(scrapedBrandList.prefix(3), id: \.brandId) { brandCard in
-                                    NavigationLink(
-                                        destination: BrandPage(brandId: brandCard.brandId),
-                                        tag: brandCard.brandId,
-                                        selection: $selectedBrandId
-                                    ) {
+                                    Button(action:{
+                                        viewModel.currentBrandId = brandCard.brandId
+                                        previousState = currentState
+                                        currentState = .brand
+                                    }) {
                                         BrandCardView(brand: brandCard)
-                                            .onTapGesture {
-                                                selectedBrandId = brandCard.brandId
-                                            }
                                     }
                                     .buttonStyle(PlainButtonStyle())
+                                    
                                 }
                             }
                             .padding(.horizontal, 16)
@@ -391,7 +393,8 @@ struct UserMainView: View {
                             Spacer()
                             if !recentBrandList.isEmpty {
                                 Button {
-                                    showHistoryPage = true
+                                    previousState = currentState
+                                    currentState = .history
                                 } label: {
                                     Text("더보기")
                                         .font(.custom("Pretendard-Medium",size: 10))
@@ -420,15 +423,12 @@ struct UserMainView: View {
                         } else {
                             HStack(spacing: 11) {
                                 ForEach(recentBrandList.prefix(3), id: \.brandId) { brandCard in
-                                    NavigationLink(
-                                        destination: BrandPage(brandId: brandCard.brandId),
-                                        tag: brandCard.brandId,
-                                        selection: $selectedBrandId
-                                    ) {
+                                    Button(action:{
+                                        viewModel.currentBrandId = brandCard.brandId
+                                        previousState = currentState
+                                        currentState = .brand
+                                    }) {
                                         BrandCardView(brand: brandCard)
-                                            .onTapGesture {
-                                                selectedBrandId = brandCard.brandId
-                                            }
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
@@ -477,17 +477,19 @@ struct UserMainView: View {
         }
         .animation(.easeInOut, value: showSecondModal)
         .navigationDestination(isPresented: $showEditInfo) {
-            EditInfoView(currentState: $currentState)
+            EditInfoView(currentState: $currentState, previousState: $previousState)
         }
-        .navigationDestination(isPresented: $showHistoryPage) {
-            HistoryPage()
-        }
+//        .navigationDestination(isPresented: $showHistoryPage) {
+//            HistoryPage(refreshTrigger: refreshTrigger!)
+//        }
         .navigationDestination(isPresented: $showDiggingPage) {
-            BrandScrapePage()
+            BrandScrapePage(
+                currentState: $currentState,
+                previousState: $previousState,)
         }
-        .navigationDestination(isPresented: $showScrapePage) {
-            BrandScrapePage()
-        }
+//        .navigationDestination(isPresented: $showScrapePage) {
+//            BrandScrapePage(refreshTrigger: refreshTrigger!)
+//        }
         .onAppear {
             Task {
                 do {
@@ -501,15 +503,15 @@ struct UserMainView: View {
         }
     }
 }
-
-// MARK: - Preview
-
-#Preview {
-    @Previewable @State var currentState: AppState = .main
-    @Previewable @State var selectedTab: String = "home"
-
-    return NavigationStack {
-        UserMainView(selectedTab: $selectedTab, currentState: $currentState)
-            .environmentObject(UserSessionManager.shared)
-    }
-}
+//
+//// MARK: - Preview
+//
+//#Preview {
+//    @Previewable @State var currentState: AppState = .main
+//    @Previewable @State var selectedTab: String = "home"
+//
+//    return NavigationStack {
+//        UserMainView(selectedTab: $selectedTab, currentState: $currentState)
+//            .environmentObject(UserSessionManager.shared)
+//    }
+//}

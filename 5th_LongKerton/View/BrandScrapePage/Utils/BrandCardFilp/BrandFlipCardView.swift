@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct BrandFlipCardView: View {
+    
+    @Binding var currentState: AppState
+    @Binding var previousState: AppState
+    
     let brand: BrandCard
     @Binding var flippedID: Int?
     let onDelete: () -> Void
-    let onShop: () -> Void
     @State private var rotation: Double = 0
 
     var isFlipped: Bool {
@@ -17,7 +20,7 @@ struct BrandFlipCardView: View {
                 .opacity(isFlipped ? 0 : 1)
                 .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
 
-            BrandCardBack(
+            BrandCardBack(currentState: $currentState, previousState: $previousState,
                 brand: brand,
                 onDelete: {
                     // ✅ 삭제 전 flip 초기화
@@ -30,8 +33,7 @@ struct BrandFlipCardView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                         onDelete()
                     }
-                },
-                onShop: onShop
+                }
             )
             .opacity(isFlipped ? 1 : 0)
             .rotation3DEffect(.degrees(rotation + 180), axis: (x: 0, y: 1, z: 0))

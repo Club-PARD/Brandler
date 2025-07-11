@@ -90,7 +90,7 @@ struct BrandInfoOverlayView: View {
                                 let height = geo.size.height
                                 onTitleHeightChange(height)
                             }
-                            .onChange(of: geo.size.height) { newHeight in
+                            .onChange(of: geo.size.height) { oldHeight, newHeight in
                                 onTitleHeightChange(newHeight)
                             }
                     }

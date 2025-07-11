@@ -22,6 +22,8 @@ struct ItemGridView: View {
         GridItem(.flexible(), spacing:11.5)
     ]
     
+    
+    
     // MARK: - Body
 
     var body: some View {
