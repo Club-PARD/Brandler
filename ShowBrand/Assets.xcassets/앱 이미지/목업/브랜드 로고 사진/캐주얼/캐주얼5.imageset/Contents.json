@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "https___hypebeast_com_2023_7_official-palace-skateboards-fall-2023-lookbook-preview.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,13 +1,5 @@
 
-import Foundation // Foundation 프레임워크를 가져옵니다. 기본적인 데이터 타입과 컬렉션 등을 제공합니다.
-/// `Brand` 구조체는 패션 브랜드의 상세 정보를 나타내는 데이터 모델입니다.
-///
-/// - `Identifiable`: SwiftUI의 `ForEach` 등에서 고유한 식별자로 사용될 수 있도록 합니다.
-///   이를 통해 리스트나 그리드에서 아이템을 효율적으로 업데이트하고 관리할 수 있습니다.
-/// - `Hashable`: 집합(Set)이나 딕셔너리(Dictionary)의 키 등으로 사용될 수 있도록 합니다.
-///   특히, 중복 방지나 빠른 검색에 유용합니다.
-/// - `Codable`: JSON과 같은 외부 데이터 형식으로 인코딩(Codable) 및 디코딩(Decodable)될 수 있도록 합니다.
-///   이는 네트워크 통신이나 로컬 저장소에서 데이터를 쉽게 주고받는 데 필수적입니다.
+import Foundation 
 
 struct BrandInfo: Hashable, Codable {
     let id: Int
